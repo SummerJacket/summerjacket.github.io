@@ -1,0 +1,3 @@
+[submodule "pseudorun"]
+	path = pseudorun
+	url = https://github.com/SummerJacket/pseudorun.git
