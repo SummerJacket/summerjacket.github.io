@@ -1,1 +1,113 @@
-Hello!
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>summerjacket.github.io</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <style type="text/css" media="screen">
+     body {
+       background-image: url('./bg.png');
+       font-family: 'Raleway', sans-serif;
+       margin: 0;
+       color: #404e5c;
+       height: 100%;
+     }
+     .container {
+       background-color: white;
+       box-shadow: 0 0 10px black;
+       margin: 0 auto;
+       width: 80%;
+     }
+     .animate-skew {
+       transform-origin: top left;
+       position: absolute;
+       width: 80%;
+     }
+     ul {
+       list-style-type: '• ';
+     }
+     ul li {
+       padding-right: 1.8em;
+     }
+     .name {
+       font-size: 2em;
+       font-weight: 300;
+     }
+     .animate-letter {
+       opacity: 0;
+       position: relative;
+       top: -100px;
+       margin-right: -0.2em;
+     }
+     .animate-follow {
+       position: relative;
+       opacity: 0;
+       top: -25px;
+     }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="animate-skew" style="background-color: #F23E77; top: -1px"></div>
+      <div class="animate-skew" style="background-color: #7D459E; top: -1px"></div>
+      <div class="animate-skew" style="background-color: #41DBBA"></div>
+      <div class="animate-skew" style="background-color: #F2F2F2; top: -8px"></div>
+      <div style="width: 100%; height: 100vh; display: inline-block">
+        <div style="font-size: 1.5em; margin-left: 10%; margin-top: 8%; position: relative">
+          <span class="animate-letter">Hi!</span>
+          <span style="margin-left: 0.5em"></span>
+          <span class="animate-letter">I'm</span>
+          <span style="margin-left: 0.5em"></span>
+          <span class="name">
+            <span class="animate-letter">J</span>
+            <span class="animate-letter">a</span>
+            <span class="animate-letter">s</span>
+            <span class="animate-letter">o</span>
+            <span class="animate-letter">n</span>
+            <span style="margin-left: 0.3em"></span>
+            <span class="animate-letter">L</span>
+            <span class="animate-letter">i</span>
+            <span class="animate-letter">a</span>
+            <span class="animate-letter" style="margin-right: -0.25em">n</span>
+            <span class="animate-letter">g</span>
+          </span>
+          <ul>
+            <li class="animate-follow">College Student</li>
+            <li class="animate-follow">Passionate Programmer</li>
+          </ul>
+        </div>
+      </div>
+    </div> <!-- container -->
+
+    <script src="anime.min.js"></script>
+    <script>
+     const timeline = anime
+       .timeline()
+       .add({
+         targets: '.animate-skew',
+         height: '70vh',
+         skewY: '-8deg',
+         duration: 1000,
+         easing: 'easeOutExpo',
+         delay: (_, i) => i * 100,
+       })
+       .add({
+         targets: '.animate-letter',
+         top: 0,
+         opacity: 1,
+         duration: 1000,
+         delay: (_, i) => i * 10,
+         offset: '-=800',
+       })
+       .add({
+         targets: '.animate-follow',
+         top: 0,
+         opacity: 1,
+         duration: 1000,
+         easing: 'easeOutExpo',
+         delay: (_, i) => i * 100,
+         offset: '-=800',
+       });
+    </script>
+  </body>
+</html>
