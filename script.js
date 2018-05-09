@@ -4,6 +4,11 @@
 let skewComplete = false;
 let skewExtented = false;
 
+const animate = (props) => {
+  anime.remove(props.targets);
+  return anime(props);
+};
+
 const homepageHoverAnimations = () => {
   // extend and retract skew area
   $('.skew').hover(() => {
@@ -49,13 +54,13 @@ const homepageHoverAnimations = () => {
   });
 
   // nav animation
-  $('.animate-column').hover(e => {
+  $('.animate-column').hover((e) => {
     animate({
       targets: e.currentTarget,
       scale: 1.2,
       elasticity: 600,
     });
-  }, e => {
+  }, (e) => {
     animate({
       targets: e.currentTarget,
       scale: 1,
@@ -66,14 +71,14 @@ const homepageHoverAnimations = () => {
 
 const contactHoverAnimations = () => {
   // extent and retract header
-  $('.header').hover(e => {
+  $('.header').hover((e) => {
     if (!skewComplete || skewExtented) return;
     skewExtented = true;
     animate({
       targets: e.currentTarget,
       top: '-5px',
     });
-  }, e => {
+  }, (e) => {
     if (!skewComplete || !skewExtented) return;
     skewExtented = false;
     animate({
@@ -83,13 +88,13 @@ const contactHoverAnimations = () => {
   });
 
   // back button
-  $('.back-arrow').hover(e => {
+  $('.back-arrow').hover((e) => {
     animate({
       targets: e.currentTarget,
       scale: 1.2,
       elasticity: 600,
     });
-  }, e => {
+  }, (e) => {
     animate({
       targets: e.currentTarget,
       scale: 1,
@@ -111,7 +116,7 @@ const onIndexLoad = () => {
       duration: 1200,
       easing: 'easeOutCirc',
       delay: (_, i) => i * 120,
-      complete: () => skewComplete = true,
+      complete: () => { skewComplete = true; },
     })
     .add({
       targets: '.animate-letter',
@@ -191,7 +196,7 @@ const onContactLoad = () => {
       opacity: 1,
       duration: 1200,
       easing: 'easeOutCirc',
-      complete: () => skewComplete = true,
+      complete: () => { skewComplete = true; },
     })
     .add({
       targets: '.header-unskew',
@@ -253,15 +258,9 @@ const onContactUnload = () => {
     });
 };
 
-const animate = (props) => {
-  anime.remove(props.targets);
-  return anime(props);
-};
-
 $(document).ready(() => {
   const transOutOfHome = Barba.BaseTransition.extend({
-    // not using arrow to bind `this` to the BaseTransition object
-    start: function() {
+    start() {
       Promise
         .all([this.newContainerLoading, onIndexUnload().finished])
         .then(() => {
@@ -272,7 +271,7 @@ $(document).ready(() => {
   });
 
   const transIntoHome = Barba.BaseTransition.extend({
-    start: function() {
+    start() {
       Promise
         .all([this.newContainerLoading, onContactUnload().finished])
         .then(() => {
