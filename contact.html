@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>summerjacket.github.io</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+    <link rel="stylesheet" href="./style.css"/>
+  </head>
+  <body onload="onContactLoad()">
+    <div class="container">
+      <div class="skew">
+        <div class="animate-skew" style="background-color: #F23E77; top: -1px"></div>
+        <div class="animate-skew" style="background-color: #7D459E; top: -1px"></div>
+        <div class="animate-skew" style="background-color: #41DBBA"></div>
+        <div class="animate-skew" style="background-color: #F2F2F2; top: -8px"></div>
+      </div> <!-- end skew -->
+      <div id="barba-wrapper">
+        <div class="barba-container content">
+          <div class="back-arrow">
+            <a href="index.html">
+              <i class="far fa-arrow-alt-circle-left" style="font-size: 48px"></i><br/>
+              Back
+            </a>
+          </div>
+          <div class="header">
+            <div class="header-unskew">
+              <h1>Contact</h1>
+            </div>
+          </div>
+          <div class="main">
+            <div style="width: 100%; display: flex; flex-wrap: wrap">
+              <div style="padding-right: 4em; padding-bottom: 1em">
+                <h2>Direct</h2>
+                <i class="far fa-envelope input-icon"></i>
+                jasonliang512@gmail.com
+              </div>
+              <div>
+                <h2>Form</h2>
+                <form action="https://formspree.io/jasonliang512@gmail.com" method="POST">
+                  <div class="input-container">
+                    <i class="far fa-user input-icon"></i>
+                    <input placeholder="Name" name="name" required><br/>
+                  </div>
+                  <div class="input-container">
+                    <i class="far fa-envelope input-icon"></i>
+                    <input placeholder="Email" name="email" type="email" required><br/>
+                  </div>
+                  <div class="input-container">
+                    <i class="far fa-comment-alt input-icon"></i>
+                    <textarea placeholder="Message" name="message" required></textarea><br/>
+                  </div>
+                  <div style="input-container">
+                    <i class="fas fa-upload input-icon"></i>
+                    <button type="submit" class="skew-btn"><div class="unskew-btn-text">Send</div></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div> <!-- end main -->
+        </div> <!-- end barba-container, content -->
+      </div> <!-- end barba-wrapper -->
+    </div> <!-- end container -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="barba.min.js"></script>
+    <script src="anime.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
