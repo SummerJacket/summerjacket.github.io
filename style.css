@@ -37,12 +37,9 @@ input, textarea {
   background-color: #F8F8F8;
 }
 input:focus, textarea:focus {
-  /* outline: none; */
-  border-color: #41DBBA;
-  /* box-shadow: 0 0 10px rgba(65,219,186, 0.5); */
+  border-color: #F2F2F2;
 }
 input:invalid, textarea:invalid {
-  border-color: #F23E77;
   box-shadow: none;
 }
 button {
@@ -63,7 +60,8 @@ button:hover {
 }
 .header {
   background-color: #F2F2F2;
-  border-bottom: 6px solid #41DBBA;
+  border-bottom: 6px solid;
+  border-bottom-color: #F2F2F2;
   padding: 2em;
   transform-origin: top left;
   position: relative;
@@ -126,7 +124,7 @@ button:hover {
   width: 20%;
 }
 .back-arrow {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0.8em;
   text-align: center;

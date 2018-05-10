@@ -4,6 +4,8 @@
 let skewComplete = false;
 let skewExtented = false;
 
+const choose = arr => arr[Math.floor(Math.random() * arr.length)];
+
 const animate = (props) => {
   anime.remove(props.targets);
   return anime(props);
@@ -187,29 +189,42 @@ const onIndexUnload = () => {
 // eslint-disable-next-line no-unused-vars
 const onContactLoad = () => {
   contactHoverAnimations();
+  const randColor = choose([
+    '#F23E77',
+    '#7D459E',
+    '#41DBBA',
+  ]);
+  $('input, textarea')
+    .focus((e) => {
+      $(e.currentTarget).css('border-color', randColor);
+    })
+    .focusout((e) => {
+      $(e.currentTarget).css('border-color', '#bbb');
+    });
   return anime
     .timeline()
     .add({
       targets: '.header',
       top: '-20px',
       skewY: '-4deg',
+      borderBottomColor: randColor,
       opacity: 1,
-      duration: 1200,
+      duration: 1000,
       easing: 'easeOutCirc',
       complete: () => { skewComplete = true; },
     })
     .add({
       targets: '.header-unskew',
       skewY: '4deg',
-      duration: 1200,
-      offset: '-=1200',
+      duration: 1000,
+      offset: '-=1000',
       easing: 'easeOutCirc',
     })
     .add({
       targets: '.main',
       paddingTop: '1em',
       opacity: 1,
-      duration: 1200,
+      duration: 800,
       offset: '-=600',
       easing: 'easeOutCirc',
     })
@@ -217,8 +232,8 @@ const onContactLoad = () => {
       targets: '.back-arrow',
       left: '1.2em',
       opacity: 1,
-      duration: 1200,
-      offset: '-=600',
+      duration: 800,
+      offset: '-=400',
     });
 };
 
@@ -230,31 +245,31 @@ const onContactUnload = () => {
       targets: '.back-arrow',
       left: 0,
       opacity: 0,
-      duration: 400,
+      duration: 300,
       easing: 'easeInQuad',
     })
     .add({
       targets: '.main',
       paddingTop: 0,
       opacity: 0,
-      duration: 400,
-      offset: '-=200',
+      duration: 300,
+      offset: '-=150',
       easing: 'easeInExpo',
     })
     .add({
       targets: '.header',
       top: '-200px',
       skewY: 0,
-      duration: 800,
+      duration: 600,
       offset: '-=300',
-      easing: 'easeInExpo',
+      easing: 'easeInCirc',
     })
     .add({
       targets: '.header-unskew',
       skewY: 0,
-      duration: 800,
-      offset: '-=800',
-      easing: 'easeInExpo',
+      duration: 600,
+      offset: '-=600',
+      easing: 'easeInCirc',
     });
 };
 
