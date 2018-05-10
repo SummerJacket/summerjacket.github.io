@@ -19,12 +19,13 @@ textarea {
 a {
   text-decoration: none;
   color: inherit;
-}
-.aback {
   transition: background-color 0.5s ease;
 }
-.aback:hover {
+a:hover {
   background-color: #F2F2F2;
+}
+.anchor-noback:hover {
+  background-color: inherit;
 }
 ul {
   list-style-type: none;

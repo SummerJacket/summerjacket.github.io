@@ -71,7 +71,7 @@ const homepageHoverAnimations = () => {
   });
 };
 
-const contactHoverAnimations = () => {
+const defaultHoverAnimations = () => {
   // extent and retract header
   $('.header').hover((e) => {
     if (!skewComplete || skewExtented) return;
@@ -187,8 +187,8 @@ const onIndexUnload = () => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const onContactLoad = () => {
-  contactHoverAnimations();
+const onDefaultLoad = () => {
+  defaultHoverAnimations();
   const randColor = choose([
     '#F23E77',
     '#7D459E',
@@ -237,7 +237,7 @@ const onContactLoad = () => {
     });
 };
 
-const onContactUnload = () => {
+const onDefualtUnload = () => {
   skewComplete = false;
   return anime
     .timeline()
@@ -279,7 +279,7 @@ $(document).ready(() => {
       Promise
         .all([this.newContainerLoading, onIndexUnload().finished])
         .then(() => {
-          onContactLoad();
+          onDefaultLoad();
           this.done();
         });
     },
@@ -288,7 +288,7 @@ $(document).ready(() => {
   const transIntoHome = Barba.BaseTransition.extend({
     start() {
       Promise
-        .all([this.newContainerLoading, onContactUnload().finished])
+        .all([this.newContainerLoading, onDefualtUnload().finished])
         .then(() => {
           onIndexLoad();
           this.done();
