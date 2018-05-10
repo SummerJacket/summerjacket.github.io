@@ -1,73 +1,47 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <title>summerjacket.github.io</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
-    <link rel="stylesheet" href="./style.css"/>
-  </head>
-  <body onload="onIndexLoad()">
-    <div class="container">
-      <div class="skew">
-        <div class="animate-skew" style="background-color: #F23E77; top: -1px"></div>
-        <div class="animate-skew" style="background-color: #7D459E; top: -1px"></div>
-        <div class="animate-skew" style="background-color: #41DBBA"></div>
-        <div class="animate-skew" style="background-color: #F2F2F2; top: -8px"></div>
-      </div> <!-- end skew -->
-      <div id="barba-wrapper">
-        <div class="barba-container content" data-namespace="homepage">
-          <div style="pointer-events: none; width: 100%; height: 65vh; display: inline-block">
-            <div class="top-text" style="margin: 10%; position: relative">
-              <span style="font-size: 2em; font-weight: 300">
-                <span class="animate-letter">J</span>
-                <span class="animate-letter">a</span>
-                <span class="animate-letter">s</span>
-                <span class="animate-letter">o</span>
-                <span class="animate-letter">n</span>
-                <span style="margin-left: 0.3em"></span>
-                <span class="animate-letter">L</span>
-                <span class="animate-letter">i</span>
-                <span class="animate-letter">a</span>
-                <span class="animate-letter">n</span>
-                <span class="animate-letter" style="margin-left: -2px">g</span>
-              </span>
-              <ul>
-                <li class="animate-follow">College student</li>
-                <li class="animate-follow">Passionate programmer</li>
-              </ul>
-            </div>
-          </div> <!-- end top content -->
-          <div class="flex-container" style="height: 35vh">
-            <div class="animate-column">
-              <a href="#">
-                <i class="far fa-user"></i><br/>
-                About me
-              </a>
-            </div>
-            <div class="animate-column">
-              <a href="#">
-                <i class="far fa-keyboard"></i><br/>
-                Projects
-              </a>
-            </div>
-            <div class="animate-column">
-              <a href="contact.html">
-                <i class="far fa-envelope"></i><br/>
-                Contact
-              </a>
-            </div>
-          </div> <!-- end bottom nav -->
-        </div> <!-- end barba-container, content -->
-      </div> <!-- end barba-wrapper -->
-    </div> <!-- end container -->
+---
+layout: wrapper
+onLoadFunc: onIndexLoad()
+namespace: homepage
+---
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
-    <script src="barba.min.js"></script>
-    <script src="anime.min.js"></script>
-    <script src="script.js"></script>
-  </body>
-</html>
+<div style="pointer-events: none; width: 100%; height: 65vh; display: inline-block">
+  <div class="top-text" style="margin: 10%; position: relative">
+    <span style="font-size: 2em; font-weight: 300">
+      <span class="animate-letter">J</span>
+      <span class="animate-letter">a</span>
+      <span class="animate-letter">s</span>
+      <span class="animate-letter">o</span>
+      <span class="animate-letter">n</span>
+      <span style="margin-left: 0.3em"></span>
+      <span class="animate-letter">L</span>
+      <span class="animate-letter">i</span>
+      <span class="animate-letter">a</span>
+      <span class="animate-letter">n</span>
+      <span class="animate-letter" style="margin-left: -2px">g</span>
+    </span>
+    <ul>
+      <li class="animate-follow">College student</li>
+      <li class="animate-follow">Passionate programmer</li>
+    </ul>
+  </div>
+</div> <!-- end top content -->
+<div class="flex-container" style="height: 35vh">
+  <div class="animate-column">
+    <a href="#">
+      <i class="far fa-user"></i><br/>
+      About me
+    </a>
+  </div>
+  <div class="animate-column">
+    <a href="#">
+      <i class="far fa-keyboard"></i><br/>
+      Projects
+    </a>
+  </div>
+  <div class="animate-column">
+    <a href="contact.html">
+      <i class="far fa-envelope"></i><br/>
+      Contact
+    </a>
+  </div>
+</div> <!-- end bottom nav -->
