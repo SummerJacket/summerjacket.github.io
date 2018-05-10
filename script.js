@@ -252,7 +252,7 @@ const onContactUnload = () => {
       targets: '.main',
       paddingTop: 0,
       opacity: 0,
-      duration: 300,
+      duration: 400,
       offset: '-=150',
       easing: 'easeInExpo',
     })
@@ -261,15 +261,15 @@ const onContactUnload = () => {
       top: '-200px',
       skewY: 0,
       duration: 600,
-      offset: '-=300',
-      easing: 'easeInCirc',
+      offset: '-=350',
+      easing: 'easeInExpo',
     })
     .add({
       targets: '.header-unskew',
       skewY: 0,
       duration: 600,
       offset: '-=600',
-      easing: 'easeInCirc',
+      easing: 'easeInExpo',
     });
 };
 
