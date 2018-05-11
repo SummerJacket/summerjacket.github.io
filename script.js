@@ -19,8 +19,8 @@ const homepageHoverAnimations = () => {
     animate({
       targets: '.animate-skew',
       height: [
-        { value: '65%', duration: 0 },
-        { value: '70%', duration: 1200 },
+        { value: '65vh', duration: 0 },
+        { value: '70vh', duration: 1200 },
       ],
       duration: 1200,
       delay: (_, i) => i * 60,
@@ -29,7 +29,7 @@ const homepageHoverAnimations = () => {
       targets: '.animate-follow',
       marginTop: [
         { value: 0, duration: 0 },
-        { value: '0.25em', duration: 1200 },
+        { value: '1vh', duration: 1200 },
       ],
       duration: 1200,
     });
@@ -39,8 +39,8 @@ const homepageHoverAnimations = () => {
     animate({
       targets: '.animate-skew',
       height: [
-        { value: '70%', duration: 0 },
-        { value: '65%', duration: 1200 },
+        { value: '70vh', duration: 0 },
+        { value: '65vh', duration: 1200 },
       ],
       duration: 1200,
       delay: (_, i) => i * -30,
@@ -48,7 +48,7 @@ const homepageHoverAnimations = () => {
     animate({
       targets: '.animate-follow',
       marginTop: [
-        { value: '0.25em', duration: 0 },
+        { value: '1vh', duration: 0 },
         { value: 0, duration: 1200 },
       ],
       duration: 1200,
@@ -112,7 +112,7 @@ const onIndexLoad = () => {
     .timeline()
     .add({
       targets: '.animate-skew',
-      height: '65%',
+      height: '65vh',
       skewY: '-8deg',
       opacity: 1,
       duration: 1200,

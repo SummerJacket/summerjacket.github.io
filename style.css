@@ -17,14 +17,18 @@ textarea {
   font-family: 'Nunito', sans-serif;
 }
 a {
-  text-decoration: none;
   color: inherit;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.3s;
 }
 a:hover {
   background-color: #F2F2F2;
 }
+.anchor-noback {
+  text-decoration: none;
+  font-weight: normal;
+}
 .anchor-noback:hover {
+  border-bottom-color: transparent;
   background-color: inherit;
 }
 ul {
