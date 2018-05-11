@@ -201,6 +201,11 @@ const onDefaultLoad = () => {
     .focusout((e) => {
       $(e.currentTarget).css('border-color', '#bbb');
     });
+  $('button').hover((e) => {
+    $(e.currentTarget).css('border-color', randColor);
+  }, (e) => {
+    $(e.currentTarget).css('border-color', '#bbb');
+  });
   return anime
     .timeline()
     .add({

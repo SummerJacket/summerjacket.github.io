@@ -55,12 +55,12 @@ input:invalid, textarea:invalid {
 }
 button {
   padding: 16px;
-  background-color: #F2F2F2;
-  border: none;
-  transition: background-color 0.5s ease;
+  background-color: transparent;
+  border: 2px solid #bbb;
+  transition: border 0.5s ease;
 }
 button:hover {
-  background-color: #41DBBA;
+  /* background-color: #41DBBA; */
 }
 .container {
   background-color: white;
