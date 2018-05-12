@@ -3,9 +3,9 @@ html {
 }
 body {
   background-image: url('./bg.png');
-  color: #404e5c;
-  font-family: 'Nunito', sans-serif;
-  font-size: 1.5em;
+  color: #333333;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.4em;
   height: 100%;
   margin: 0;
 }
@@ -21,7 +21,7 @@ a {
   transition: background-color 0.3s;
 }
 a:hover {
-  background-color: #F2F2F2;
+  background-color: #DDDDDD;
 }
 .anchor-noback {
   text-decoration: none;
@@ -38,14 +38,15 @@ ul {
 }
 ul li {
   padding-right: 1.8em;
+  color: #555B6E;
 }
 input, textarea {
   border: none;
-  border-bottom: 2px solid #bbb;
+  border-bottom: 2px solid #BBBBBB;
   margin-bottom: 1em;
   padding: 16px;
   transition: 0.3s;
-  background-color: #F8F8F8;
+  background-color: #F2F2F2;
 }
 input:focus, textarea:focus {
   border-color: #F2F2F2;
@@ -54,13 +55,11 @@ input:invalid, textarea:invalid {
   box-shadow: none;
 }
 button {
+  margin-left: -4px;
   padding: 16px;
   background-color: transparent;
-  border: 2px solid #bbb;
+  border: 2px solid #BBBBBB;
   transition: border 0.5s ease;
-}
-button:hover {
-  /* background-color: #41DBBA; */
 }
 .container {
   background-color: white;
@@ -86,12 +85,6 @@ button:hover {
   padding-top: 0;
   opacity: 0;
   display: relative;
-}
-.skew-btn {
-  transform: skewX(-8deg);
-}
-.unskew-btn-text {
-  transform: skewX(8deg);
 }
 .input-container {
   display: flex;
@@ -136,7 +129,7 @@ button:hover {
 .back-arrow {
   position: fixed;
   left: 0;
-  bottom: 0.8em;
+  bottom: 1em;
   text-align: center;
   opacity: 0;
 }

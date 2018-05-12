@@ -6,7 +6,7 @@ onLoadFunc: onDefaultLoad()
 
 <div style="width: 100%; display: flex; flex-wrap: wrap">
   <div style="padding-right: 4em; padding-bottom: 1em">
-    <h2>Find me here</h2>
+    <p><strong>Find me here</strong></p>
     <i class="far fa-envelope input-icon"></i>
     <a href="mailto:jasonliang512@gmail.com">
       jasonliang512@gmail.com
@@ -19,28 +19,26 @@ onLoadFunc: onDefaultLoad()
     <br/>
   </div>
   <div>
-    <h2>Ask a question</h2>
+    <p><strong>Ask a question</strong></p>
     <form action="https://formspree.io/jasonliang512@gmail.com" method="POST">
       <div class="input-container">
         <i class="far fa-user input-icon"></i>
-        <input placeholder="Name" name="name" size="30" required>
+        <input placeholder="Name" name="name" required>
         <br/>
       </div>
       <div class="input-container">
         <i class="far fa-envelope input-icon"></i>
-        <input placeholder="Email" name="email" type="email" size="30" required>
+        <input placeholder="Email" name="email" type="email" required>
         <br/>
       </div>
       <div class="input-container">
         <i class="far fa-comment-alt input-icon"></i>
-        <textarea placeholder="Message" name="message" rows="5" cols="29" required></textarea>
+        <textarea placeholder="Message" name="message" required></textarea>
         <br/>
       </div>
       <div style="input-container">
         <i class="fas fa-upload input-icon"></i>
-        <button type="submit" class="skew-btn">
-          <div class="unskew-btn-text">Send</div>
-        </button>
+        <button type="submit">Send</button>
       </div>
     </form>
   </div>

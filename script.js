@@ -71,7 +71,7 @@ const homepageHoverAnimations = () => {
   });
 };
 
-const defaultHoverAnimations = () => {
+const defaultHoverAnimations = (accentColor) => {
   // extent and retract header
   $('.header').hover((e) => {
     if (!skewComplete || skewExtented) return;
@@ -102,6 +102,22 @@ const defaultHoverAnimations = () => {
       scale: 1,
       elasticity: 400,
     });
+  });
+
+  // input focus color
+  $('input, textarea')
+    .focus((e) => {
+      $(e.currentTarget).css('border-color', accentColor);
+    })
+    .focusout((e) => {
+      $(e.currentTarget).css('border-color', '#bbb');
+    });
+
+  // button hover color
+  $('button').hover((e) => {
+    $(e.currentTarget).css('border-color', accentColor);
+  }, (e) => {
+    $(e.currentTarget).css('border-color', '#bbb');
   });
 };
 
@@ -139,6 +155,7 @@ const onIndexLoad = () => {
       targets: '.animate-column',
       marginBottom: '2em',
       opacity: 1,
+      duration: 800,
       delay: (_, i) => i * 200,
       offset: '-=800',
     });
@@ -188,24 +205,12 @@ const onIndexUnload = () => {
 
 // eslint-disable-next-line no-unused-vars
 const onDefaultLoad = () => {
-  defaultHoverAnimations();
   const randColor = choose([
     '#F23E77',
     '#7D459E',
     '#41DBBA',
   ]);
-  $('input, textarea')
-    .focus((e) => {
-      $(e.currentTarget).css('border-color', randColor);
-    })
-    .focusout((e) => {
-      $(e.currentTarget).css('border-color', '#bbb');
-    });
-  $('button').hover((e) => {
-    $(e.currentTarget).css('border-color', randColor);
-  }, (e) => {
-    $(e.currentTarget).css('border-color', '#bbb');
-  });
+  defaultHoverAnimations(randColor);
   return anime
     .timeline()
     .add({
@@ -295,6 +300,7 @@ $(document).ready(() => {
       Promise
         .all([this.newContainerLoading, onDefualtUnload().finished])
         .then(() => {
+          onDefaultLoad();
           onIndexLoad();
           this.done();
         });
