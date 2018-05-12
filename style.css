@@ -32,7 +32,7 @@ a:hover {
   background-color: inherit;
 }
 ul {
-  list-style-type: none;
+  list-style-type: '- ';
   margin: 0;
   padding: 0;
 }
@@ -45,7 +45,7 @@ input, textarea {
   border-bottom: 2px solid #BBBBBB;
   margin-bottom: 1em;
   padding: 16px;
-  transition: 0.3s;
+  transition: border-color 0.3s ease-in-out;
   background-color: #F2F2F2;
 }
 input:focus, textarea:focus {
@@ -58,8 +58,8 @@ button {
   margin-left: -4px;
   padding: 16px;
   background-color: transparent;
-  border: 2px solid #BBBBBB;
-  transition: border 0.5s ease;
+  border: 1px solid #BBBBBB;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out;
 }
 .container {
   background-color: white;
@@ -70,11 +70,11 @@ button {
 }
 .header {
   background-color: #F2F2F2;
-  border-bottom: 6px solid #F2F2F2;
+  border-bottom: 100px solid #F2F2F2;
   padding: 2em;
   transform-origin: top left;
   position: relative;
-  top: -200px;
+  top: -300px;
   opacity: 0;
 }
 .header-unskew {

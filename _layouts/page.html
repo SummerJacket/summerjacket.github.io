@@ -1,6 +1,5 @@
 ---
 layout: wrapper
-namespace: default
 ---
 
 <a href="index.html" class="anchor-noback">
@@ -11,7 +10,12 @@ namespace: default
 </a>
 <div class="header">
   <div class="header-unskew">
-    <h1>{{ page.title }}</h1>
+    <h1>
+      <a href="#" class="anchor-noback">
+        <span style="margin-right: 0.5em"><i class="fas fa-bars"></i></span>
+      </a>
+      {{ page.title }}
+    </h1>
   </div>
 </div>
 <div class="main">

@@ -79,13 +79,15 @@ const defaultHoverAnimations = (accentColor) => {
     animate({
       targets: e.currentTarget,
       top: '-5px',
+      borderBottomWidth: '12px',
     });
   }, (e) => {
     if (!skewComplete || !skewExtented) return;
     skewExtented = false;
     animate({
       targets: e.currentTarget,
-      top: '-20px',
+      top: '-15px',
+      borderBottomWidth: '6px',
     });
   });
 
@@ -114,11 +116,22 @@ const defaultHoverAnimations = (accentColor) => {
     });
 
   // button hover color
-  $('button').hover((e) => {
-    $(e.currentTarget).css('border-color', accentColor);
-  }, (e) => {
-    $(e.currentTarget).css('border-color', '#bbb');
-  });
+  $('button')
+    .css({
+      'border-color': accentColor,
+      color: accentColor,
+    })
+    .hover((e) => {
+      $(e.currentTarget).css({
+        'background-color': accentColor,
+        color: 'white',
+      });
+    }, (e) => {
+      $(e.currentTarget).css({
+        'background-color': 'transparent',
+        color: accentColor,
+      });
+    });
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -131,7 +144,7 @@ const onIndexLoad = () => {
       height: '65vh',
       skewY: '-8deg',
       opacity: 1,
-      duration: 1200,
+      duration: 1000,
       easing: 'easeOutCirc',
       delay: (_, i) => i * 120,
       complete: () => { skewComplete = true; },
@@ -141,7 +154,7 @@ const onIndexLoad = () => {
       top: 0,
       opacity: 1,
       delay: (_, i) => i * 20,
-      offset: '-=1000',
+      offset: '-=800',
     })
     .add({
       targets: '.animate-follow',
@@ -182,6 +195,7 @@ const onIndexUnload = () => {
       duration: 400,
       easing: 'easeInExpo',
       offset: '-=400',
+      delay: (_, i) => i * -60,
     })
     .add({
       targets: '.animate-letter',
@@ -199,7 +213,7 @@ const onIndexUnload = () => {
       duration: 1000,
       easing: 'easeInExpo',
       offset: '-=400',
-      delay: (_, i) => i * -120,
+      delay: (_, i) => i * -100,
     });
 };
 
@@ -215,19 +229,20 @@ const onDefaultLoad = () => {
     .timeline()
     .add({
       targets: '.header',
-      top: '-20px',
+      top: '-15px',
       skewY: '-4deg',
       borderBottomColor: randColor,
+      borderBottomWidth: '6px',
       opacity: 1,
-      duration: 1000,
+      duration: 800,
       easing: 'easeOutCirc',
       complete: () => { skewComplete = true; },
     })
     .add({
       targets: '.header-unskew',
       skewY: '4deg',
-      duration: 1000,
-      offset: '-=1000',
+      duration: 800,
+      offset: '-=800',
       easing: 'easeOutCirc',
     })
     .add({
@@ -235,7 +250,7 @@ const onDefaultLoad = () => {
       paddingTop: '1em',
       opacity: 1,
       duration: 800,
-      offset: '-=600',
+      offset: '-=400',
       easing: 'easeOutCirc',
     })
     .add({
@@ -269,6 +284,7 @@ const onDefualtUnload = () => {
     .add({
       targets: '.header',
       top: '-200px',
+      borderBottomWidth: '60px',
       skewY: 0,
       duration: 600,
       offset: '-=350',
@@ -288,10 +304,7 @@ $(document).ready(() => {
     start() {
       Promise
         .all([this.newContainerLoading, onIndexUnload().finished])
-        .then(() => {
-          onDefaultLoad();
-          this.done();
-        });
+        .then(() => { this.done(); });
     },
   });
 
@@ -299,24 +312,34 @@ $(document).ready(() => {
     start() {
       Promise
         .all([this.newContainerLoading, onDefualtUnload().finished])
-        .then(() => {
-          onDefaultLoad();
-          onIndexLoad();
-          this.done();
-        });
+        .then(() => { this.done(); });
     },
   });
 
   Barba.Pjax.getTransition = () => {
     const prev = Barba.HistoryManager.prevStatus().namespace;
-    let transition = transIntoHome;
-
-    if (prev === 'homepage') {
-      transition = transOutOfHome;
-    }
-
-    return transition;
+    return prev === 'homepage'
+      ? transOutOfHome
+      : transIntoHome;
   };
+
+  Barba.BaseView
+    .extend({
+      namespace: 'homepage',
+      onEnterCompleted() {
+        onIndexLoad();
+      },
+    })
+    .init();
+
+  Barba.BaseView
+    .extend({
+      namespace: 'default',
+      onEnterCompleted() {
+        onDefaultLoad();
+      },
+    })
+    .init();
 
   Barba.Pjax.start();
 });
