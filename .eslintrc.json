@@ -3,5 +3,9 @@
   "env": {
     "browser": true,
     "jquery": true
+  },
+  "rules": {
+    "arrow-body-style": ["warn", "as-needed"],
+    "import/extensions": "off"
   }
 }

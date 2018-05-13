@@ -2,7 +2,7 @@ html {
   overflow-y: scroll;
 }
 body {
-  background-image: url('./bg.png');
+  background-image: url('../images/bg.png');
   color: #333333;
   font-family: 'Dosis', sans-serif;
   font-size: 1.4em;
