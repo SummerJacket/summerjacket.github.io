@@ -3,6 +3,8 @@
 
 let skewComplete = false;
 let skewExtented = false;
+let menuOpen = false;
+let accentColor;
 
 const choose = arr => arr[Math.floor(Math.random() * arr.length)];
 
@@ -11,26 +13,20 @@ const animate = (props) => {
   return anime(props);
 };
 
-const homepageHoverAnimations = () => {
+const loadEvents = () => {
   // extend and retract skew area
   $('.skew').hover(() => {
     if (!skewComplete || skewExtented) return;
     skewExtented = true;
     animate({
       targets: '.animate-skew',
-      height: [
-        { value: '65vh', duration: 0 },
-        { value: '70vh', duration: 1200 },
-      ],
+      height: ['65vh', '70vh'],
       duration: 1200,
       delay: (_, i) => i * 60,
     });
     animate({
       targets: '.animate-follow',
-      marginTop: [
-        { value: 0, duration: 0 },
-        { value: '1vh', duration: 1200 },
-      ],
+      marginTop: [0, '1vh'],
       duration: 1200,
     });
   }, () => {
@@ -38,19 +34,13 @@ const homepageHoverAnimations = () => {
     skewExtented = false;
     animate({
       targets: '.animate-skew',
-      height: [
-        { value: '70vh', duration: 0 },
-        { value: '65vh', duration: 1200 },
-      ],
+      height: ['70vh', '65vh'],
       duration: 1200,
       delay: (_, i) => i * -30,
     });
     animate({
       targets: '.animate-follow',
-      marginTop: [
-        { value: '1vh', duration: 0 },
-        { value: 0, duration: 1200 },
-      ],
+      marginTop: ['1vh', 0],
       duration: 1200,
     });
   });
@@ -69,25 +59,31 @@ const homepageHoverAnimations = () => {
       elasticity: 400,
     });
   });
-};
 
-const defaultHoverAnimations = (accentColor) => {
   // extent and retract header
-  $('.header').hover((e) => {
+  $('.header-group').hover(() => {
     if (!skewComplete || skewExtented) return;
     skewExtented = true;
     animate({
-      targets: e.currentTarget,
-      top: '-5px',
-      borderBottomWidth: '12px',
+      targets: '.header',
+      height: ['6.7em', '7.2em'],
+      delay: (_, i) => i * 60,
     });
-  }, (e) => {
+    animate({
+      targets: '.header-unskew',
+      marginTop: ['2em', '2.2em'],
+    });
+  }, () => {
     if (!skewComplete || !skewExtented) return;
     skewExtented = false;
     animate({
-      targets: e.currentTarget,
-      top: '-15px',
-      borderBottomWidth: '6px',
+      targets: '.header',
+      height: ['7.2em', '6.7em'],
+      delay: (_, i) => i * -30,
+    });
+    animate({
+      targets: '.header-unskew',
+      marginTop: ['2.2em', '2em'],
     });
   });
 
@@ -116,27 +112,111 @@ const defaultHoverAnimations = (accentColor) => {
     });
 
   // button hover color
-  $('button')
-    .css({
-      'border-color': accentColor,
-      color: accentColor,
-    })
-    .hover((e) => {
-      $(e.currentTarget).css({
-        'background-color': accentColor,
-        color: 'white',
-      });
-    }, (e) => {
-      $(e.currentTarget).css({
-        'background-color': 'transparent',
-        color: accentColor,
-      });
+  $('.form-button').hover((e) => {
+    $(e.currentTarget).css({
+      'background-color': accentColor,
+      color: 'white',
     });
+  }, (e) => {
+    $(e.currentTarget).css({
+      'background-color': 'transparent',
+      color: accentColor,
+    });
+  });
+
+  // menu
+  $('.hamburger').click(() => {
+    $('.hamburger').toggleClass('is-active');
+    anime.remove('.header');
+    if (!menuOpen) {
+      menuOpen = true;
+      $('.header-group').off();
+      anime
+        .timeline()
+        .add({ // header heights change for some reason
+          targets: '.header',
+          height: '6.7em',
+          duration: 1,
+        })
+        .add({
+          targets: '.header-accent',
+          height: ['6.7em', '101vh'],
+          skewY: 0,
+          duration: 1000,
+          easing: 'easeOutCirc',
+        })
+        .add({
+          targets: '.header-background',
+          height: ['6.7em', '101vh'],
+          duration: 1000,
+          easing: 'easeOutCirc',
+          offset: '-=800',
+        })
+        .add({
+          targets: '.header-title',
+          opacity: 0,
+          easing: 'easeInExpo',
+          offset: '-=2000',
+        })
+        .add({
+          targets: '.animate-menu',
+          opacity: 1,
+          offset: '-=500',
+          easing: 'easeOutCirc',
+          begin: () => {
+            $('.animate-menu').css({
+              display: 'block',
+            });
+          },
+        });
+    } else {
+      menuOpen = false;
+      anime
+        .timeline()
+        .add({
+          targets: '.header',
+          height: '101vh',
+          duration: 1,
+          offset: '-=800',
+        })
+        .add({
+          targets: '.header-background',
+          height: ['25vh', '6.7em'],
+          easing: 'easeOutCirc',
+        })
+        .add({
+          targets: '.header-accent',
+          height: ['25vh', '6.7em'],
+          skewY: '-4deg',
+          easing: 'easeOutCirc',
+          offset: '-=800',
+          complete: () => {
+            loadEvents();
+          },
+        })
+        .add({
+          targets: '.animate-menu',
+          opacity: 0,
+          easing: 'easeOutCirc',
+          offset: '-=2000',
+          complete: () => {
+            $('.animate-menu').css({
+              display: 'none',
+            });
+          },
+        })
+        .add({
+          targets: '.header-title',
+          opacity: 1,
+          easing: 'easeOutExpo',
+          offset: '-=800',
+        });
+    }
+  });
 };
 
-// eslint-disable-next-line no-unused-vars
 const onIndexLoad = () => {
-  homepageHoverAnimations();
+  loadEvents();
   return anime
     .timeline()
     .add({
@@ -144,7 +224,7 @@ const onIndexLoad = () => {
       height: '65vh',
       skewY: '-8deg',
       opacity: 1,
-      duration: 1000,
+      duration: 800,
       easing: 'easeOutCirc',
       delay: (_, i) => i * 120,
       complete: () => { skewComplete = true; },
@@ -176,14 +256,12 @@ const onIndexLoad = () => {
 
 const onIndexUnload = () => {
   skewComplete = false;
+  skewExtented = false;
   return anime
     .timeline()
     .add({
       targets: '.animate-column',
-      marginBottom: [
-        { value: '2em', duration: 0 },
-        { value: '4em', duration: 400 },
-      ],
+      marginBottom: ['2em', '4em'],
       opacity: 0,
       duration: 400,
       easing: 'easeInQuad',
@@ -210,47 +288,53 @@ const onIndexUnload = () => {
       targets: '.animate-skew',
       height: 0,
       skewY: 0,
-      duration: 1000,
+      duration: 800,
       easing: 'easeInExpo',
       offset: '-=400',
       delay: (_, i) => i * -100,
     });
 };
 
-// eslint-disable-next-line no-unused-vars
 const onDefaultLoad = () => {
-  const randColor = choose([
+  loadEvents();
+  accentColor = choose([
     '#F23E77',
     '#7D459E',
     '#41DBBA',
   ]);
-  defaultHoverAnimations(randColor);
+  $('.form-button').css({
+    'border-color': accentColor,
+    color: accentColor,
+  });
+  $('.header-accent').css({
+    'background-color': accentColor,
+  });
   return anime
     .timeline()
     .add({
       targets: '.header',
-      top: '-15px',
+      height: '6.7em',
       skewY: '-4deg',
-      borderBottomColor: randColor,
-      borderBottomWidth: '6px',
       opacity: 1,
       duration: 800,
       easing: 'easeOutCirc',
+      delay: (_, i) => i * 120,
       complete: () => { skewComplete = true; },
     })
     .add({
       targets: '.header-unskew',
+      opacity: 1,
+      marginTop: '2em',
       skewY: '4deg',
       duration: 800,
-      offset: '-=800',
-      easing: 'easeOutCirc',
+      offset: '-=600',
     })
     .add({
       targets: '.main',
       paddingTop: '1em',
       opacity: 1,
       duration: 800,
-      offset: '-=400',
+      offset: '-=500',
       easing: 'easeOutCirc',
     })
     .add({
@@ -264,6 +348,8 @@ const onDefaultLoad = () => {
 
 const onDefualtUnload = () => {
   skewComplete = false;
+  skewExtented = false;
+  menuOpen = false;
   return anime
     .timeline()
     .add({
@@ -283,18 +369,20 @@ const onDefualtUnload = () => {
     })
     .add({
       targets: '.header',
-      top: '-200px',
-      borderBottomWidth: '60px',
+      height: 0,
       skewY: 0,
       duration: 600,
       offset: '-=350',
       easing: 'easeInExpo',
+      delay: (_, i) => i * -100,
     })
     .add({
       targets: '.header-unskew',
+      marginTop: 0,
+      opacity: 0,
       skewY: 0,
       duration: 600,
-      offset: '-=600',
+      offset: '-=700',
       easing: 'easeInExpo',
     });
 };
@@ -318,9 +406,7 @@ $(document).ready(() => {
 
   Barba.Pjax.getTransition = () => {
     const prev = Barba.HistoryManager.prevStatus().namespace;
-    return prev === 'homepage'
-      ? transOutOfHome
-      : transIntoHome;
+    return prev === 'homepage' ? transOutOfHome : transIntoHome;
   };
 
   Barba.BaseView
@@ -346,7 +432,7 @@ $(document).ready(() => {
 
 // parallax
 $(document.body).mousemove((e) => {
-  const x = e.pageX * -0.02;
-  const y = e.pageY * -0.02;
+  const x = e.pageX * -0.01;
+  const y = e.pageY * -0.01;
   $(e.currentTarget).css('background-position', `${x}px ${y}px`);
 });

@@ -8,16 +8,28 @@ layout: wrapper
     Home
   </div>
 </a>
-<div class="header">
-  <div class="header-unskew">
-    <h1>
-      <a href="#" class="anchor-noback">
-        <span style="margin-right: 0.5em"><i class="fas fa-bars"></i></span>
-      </a>
-      {{ page.title }}
-    </h1>
+<div class="header-group">
+  <div class="header header-accent"></div>
+  <div class="header header-background" style="top: -6px">
+    <div class="header-unskew">
+      <h1>
+        <button class="hamburger hamburger--spin" type="button" style="margin-top: -1em">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+        <span class="header-title">{{ page.title }}</span>
+      </h1>
+      <div class="animate-menu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
   </div>
 </div>
 <div class="main">
+  <div style="padding-bottom: 6em"></div>
   {{ content }}
 </div>
