@@ -26,14 +26,12 @@ a:hover {
 }
 .anchor-noback {
   text-decoration: none;
-  font-weight: normal;
 }
 .anchor-noback:hover {
   border-bottom-color: transparent;
   background-color: inherit;
 }
 ul {
-  list-style-type: '\2014  ';
   margin: 0;
   padding: 0;
 }
@@ -135,15 +133,24 @@ button {
   margin-bottom: 0.3em;
   width: 20%;
 }
-.animate-menu {
-  opacity: 0;
-  margin: 4em;
+.menu-content {
+  opacity: 1;
+  margin-left: 25%;
+  margin-top: 2.5em;
   display: none;
 }
-.back-arrow {
-  position: fixed;
-  left: 0;
-  bottom: 1em;
-  text-align: center;
+.animate-menu-item {
+  font-size: 1.5em;
+  top: -50px;
+  margin-bottom: 0.5em;
+  position: relative;
   opacity: 0;
+}
+.animate-menu-item i {
+  padding-right: 12px;
+  width: 1.2em;
+  text-align: center;
+}
+.animate-menu-item a {
+  text-decoration: none;
 }

@@ -2,12 +2,6 @@
 layout: wrapper
 ---
 
-<a href="index.html" class="anchor-noback">
-  <div class="back-arrow">
-    <i class="fas fa-home"></i><br/>
-    Home
-  </div>
-</a>
 <div class="header-group">
   <div class="header header-accent"></div>
   <div class="header header-background" style="top: -6px">
@@ -20,11 +14,31 @@ layout: wrapper
         </button>
         <span class="header-title">{{ page.title }}</span>
       </h1>
-      <div class="animate-menu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Me</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
+      <div class="menu-content">
+        <div class="animate-menu-item">
+          <a href="index.html">
+            <i class="fas fa-home"></i>
+            Home
+          </a>
+        </div>
+        <div class="animate-menu-item">
+          <a href="about.html">
+            <i class="far fa-user"></i>
+            About Me
+          </a>
+        </div>
+        <div class="animate-menu-item">
+          <a href="projects.html">
+            <i class="far fa-keyboard"></i>
+            Projects
+          </a>
+        </div>
+        <div class="animate-menu-item">
+          <a href="contact.html">
+            <i class="far fa-envelope"></i>
+            Contact
+          </a>
+        </div>
       </div>
     </div>
   </div>

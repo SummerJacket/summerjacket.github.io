@@ -1,6 +1,6 @@
+import anime from 'animejs';
+import Barba from 'barba.js';
 import animations from './animations.js';
-/* global anime */
-/* global Barba */
 
 let skewComplete = false;
 let skewExtented = false;
@@ -30,30 +30,14 @@ const loadEvents = () => {
 
   // extent and retract header
   $('.header-group').hover(() => {
-    if (!skewComplete || skewExtented) return;
+    if (!skewComplete || skewExtented || menuOpen) return;
     skewExtented = true;
     animations.header().extend();
   }, () => {
-    if (!skewComplete || !skewExtented) return;
+    if (!skewComplete || !skewExtented || menuOpen) return;
     skewExtented = false;
     animations.header().retract();
   });
-
-  // back button
-  $('.back-arrow').hover((e) => {
-    animations.column(e.currentTarget).scaleUp();
-  }, (e) => {
-    animations.column(e.currentTarget).scaleDown();
-  });
-
-  // input focus color
-  $('input, textarea')
-    .focus((e) => {
-      $(e.currentTarget).css('border-color', accentColor);
-    })
-    .focusout((e) => {
-      $(e.currentTarget).css('border-color', '#bbb');
-    });
 
   // button hover color
   $('.form-button').hover((e) => {
@@ -68,36 +52,54 @@ const loadEvents = () => {
     });
   });
 
+  // input focus color
+  $('input, textarea')
+    .focus((e) => {
+      $(e.currentTarget).css('border-color', accentColor);
+    })
+    .focusout((e) => {
+      $(e.currentTarget).css('border-color', '#bbb');
+    });
+
   // menu
   $('.hamburger').click(() => {
     $('.hamburger').toggleClass('is-active');
     anime.remove('.header');
     if (!menuOpen) {
       menuOpen = true;
-      $('.header-group').off();
       animations.menu().open();
     } else {
-      menuOpen = false;
-      animations.menu().close();
+      animations.menu().close().finished.then(() => {
+        menuOpen = false;
+      });
     }
   });
 };
 
-const onIndexLoad = () => {
+const onPageLoad = () => {
   loadEvents();
+};
+
+const onPageUnload = () => {
+  skewComplete = false;
+  skewExtented = false;
+  menuOpen = false;
+};
+
+const onIndexLoad = () => {
+  onPageLoad();
   animations.homepage().enter(() => {
     skewComplete = true;
   });
 };
 
 const onIndexUnload = () => {
-  skewComplete = false;
-  skewExtented = false;
+  onPageUnload();
   return animations.homepage().leave();
 };
 
 const onDefaultLoad = () => {
-  loadEvents();
+  onPageLoad();
   accentColor = choose(['#F23E77', '#7D459E', '#41DBBA']);
   $('.form-button').css({
     'border-color': accentColor,
@@ -110,9 +112,7 @@ const onDefaultLoad = () => {
 };
 
 const onDefualtUnload = () => {
-  skewComplete = false;
-  skewExtented = false;
-  menuOpen = false;
+  onPageUnload();
   return animations.defaultPage().leave();
 };
 

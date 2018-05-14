@@ -1,4 +1,4 @@
-/* global anime */
+import anime from 'animejs';
 
 const animate = (props) => {
   anime.remove(props.targets);
@@ -97,19 +97,19 @@ animations.menu = () => {
     .timeline()
     .add({ // header heights change for some reason
       targets: '.header',
-      height: headerHeight.s,
+      height: headerHeight.l,
       duration: 1,
     })
     .add({
       targets: '.header-accent',
-      height: [headerHeight.s, openHeight],
+      height: [headerHeight.l, openHeight],
       skewY: 0,
       duration: 1000,
       easing: 'easeOutCirc',
     })
     .add({
       targets: '.header-background',
-      height: [headerHeight.s, openHeight],
+      height: [headerHeight.l, openHeight],
       duration: 1000,
       easing: 'easeOutCirc',
       offset: '-=800',
@@ -121,12 +121,13 @@ animations.menu = () => {
       offset: '-=2000',
     })
     .add({
-      targets: '.animate-menu',
+      targets: '.animate-menu-item',
+      top: 0,
       opacity: 1,
-      offset: '-=500',
-      easing: 'easeOutCirc',
+      offset: '-=900',
+      delay: (_, i) => i * 50,
       begin: () => {
-        $('.animate-menu').css({
+        $('.menu-content').css({
           display: 'block',
         });
       },
@@ -137,27 +138,29 @@ animations.menu = () => {
       targets: '.header',
       height: openHeight,
       duration: 1,
-      offset: '-=800',
     })
     .add({
       targets: '.header-background',
-      height: ['25vh', headerHeight.s],
+      height: ['25vh', headerHeight.l],
       easing: 'easeOutCirc',
     })
     .add({
       targets: '.header-accent',
-      height: ['25vh', headerHeight.s],
+      height: ['25vh', headerHeight.l],
       skewY: '-4deg',
       easing: 'easeOutCirc',
       offset: '-=800',
     })
     .add({
-      targets: '.animate-menu',
+      targets: '.animate-menu-item',
+      top: '-50px',
       opacity: 0,
-      easing: 'easeOutCirc',
-      offset: '-=2000',
+      duration: 200,
+      easing: 'easeInExpo',
+      offset: '-=1200',
+      delay: (_, i) => i * -120,
       complete: () => {
-        $('.animate-menu').css({
+        $('.menu-content').css({
           display: 'none',
         });
       },
@@ -280,23 +283,9 @@ animations.defaultPage = () => {
       duration: 800,
       offset: '-=500',
       easing: 'easeOutCirc',
-    })
-    .add({
-      targets: '.back-arrow',
-      left: '1.2em',
-      opacity: 1,
-      duration: 800,
-      offset: '-=400',
     });
   pageAnimations.leave = () => anime
     .timeline()
-    .add({
-      targets: '.back-arrow',
-      left: 0,
-      opacity: 0,
-      duration: 300,
-      easing: 'easeInQuad',
-    })
     .add({
       targets: '.main',
       paddingTop: 0,
