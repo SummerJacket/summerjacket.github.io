@@ -1884,7 +1884,6 @@ animations.menu = function () {
     }).add({
       targets: '.animate-menu-item',
       top: 0,
-      duration: 800,
       opacity: 1,
       offset: '-=900',
       delay: function delay(_, i) {
