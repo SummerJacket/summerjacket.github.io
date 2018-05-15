@@ -5,6 +5,7 @@ import animations from './animations.js';
 let skewComplete = false;
 let skewExtented = false;
 let menuOpen = false;
+let menuComplete = false;
 let accentColor;
 
 const choose = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -63,13 +64,17 @@ const loadEvents = () => {
 
   // menu
   $('.hamburger').click(() => {
+    if (!menuComplete) return;
+    menuComplete = false;
     $('.hamburger').toggleClass('is-active');
-    anime.remove('.header');
     if (!menuOpen) {
       menuOpen = true;
-      animations.menu().open();
+      animations.menu().open().finished.then(() => {
+        menuComplete = true;
+      });
     } else {
       animations.menu().close().finished.then(() => {
+        menuComplete = true;
         menuOpen = false;
       });
     }
@@ -108,6 +113,7 @@ const onDefaultLoad = () => {
   $('.header-accent').css('background-color', accentColor);
   animations.defaultPage().enter(() => {
     skewComplete = true;
+    menuComplete = true;
   });
 };
 

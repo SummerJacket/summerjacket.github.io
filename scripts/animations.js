@@ -96,7 +96,7 @@ animations.menu = () => {
   menuAnimations.open = () => anime
     .timeline()
     .add({ // header heights change for some reason
-      targets: '.header',
+      targets: '.header-background',
       height: headerHeight.l,
       duration: 1,
     })
@@ -123,9 +123,10 @@ animations.menu = () => {
     .add({
       targets: '.animate-menu-item',
       top: 0,
+      duration: 800,
       opacity: 1,
       offset: '-=900',
-      delay: (_, i) => i * 50,
+      delay: (_, i) => i * 60,
       begin: () => {
         $('.menu-content').css({
           display: 'block',
@@ -168,6 +169,7 @@ animations.menu = () => {
     .add({
       targets: '.header-title',
       opacity: 1,
+      duration: 500,
       easing: 'easeOutExpo',
       offset: '-=800',
     });

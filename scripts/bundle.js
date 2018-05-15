@@ -1861,7 +1861,7 @@ animations.menu = function () {
   var menuAnimations = {};
   menuAnimations.open = function () {
     return _animejs2.default.timeline().add({ // header heights change for some reason
-      targets: '.header',
+      targets: '.header-background',
       height: headerHeight.l,
       duration: 1
     }).add({
@@ -1884,10 +1884,11 @@ animations.menu = function () {
     }).add({
       targets: '.animate-menu-item',
       top: 0,
+      duration: 800,
       opacity: 1,
       offset: '-=900',
       delay: function delay(_, i) {
-        return i * 50;
+        return i * 60;
       },
       begin: function begin() {
         $('.menu-content').css({
@@ -1929,6 +1930,7 @@ animations.menu = function () {
     }).add({
       targets: '.header-title',
       opacity: 1,
+      duration: 500,
       easing: 'easeOutExpo',
       offset: '-=800'
     });
@@ -2107,6 +2109,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var skewComplete = false;
 var skewExtented = false;
 var menuOpen = false;
+var menuComplete = false;
 var accentColor = void 0;
 
 var choose = function choose(arr) {
@@ -2165,13 +2168,17 @@ var loadEvents = function loadEvents() {
 
   // menu
   $('.hamburger').click(function () {
+    if (!menuComplete) return;
+    menuComplete = false;
     $('.hamburger').toggleClass('is-active');
-    _animejs2.default.remove('.header');
     if (!menuOpen) {
       menuOpen = true;
-      _animations2.default.menu().open();
+      _animations2.default.menu().open().finished.then(function () {
+        menuComplete = true;
+      });
     } else {
       _animations2.default.menu().close().finished.then(function () {
+        menuComplete = true;
         menuOpen = false;
       });
     }
@@ -2210,6 +2217,7 @@ var onDefaultLoad = function onDefaultLoad() {
   $('.header-accent').css('background-color', accentColor);
   _animations2.default.defaultPage().enter(function () {
     skewComplete = true;
+    menuComplete = true;
   });
 };
 
