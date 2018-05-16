@@ -1,4 +1,3 @@
-import anime from 'animejs';
 import Barba from 'barba.js';
 import animations from './animations.js';
 

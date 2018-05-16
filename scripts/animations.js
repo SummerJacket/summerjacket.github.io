@@ -5,7 +5,7 @@ const animate = (props) => {
   return anime(props);
 };
 
-const headerHeight = { s: '6.7em', l: '7.2em' };
+const headerHeight = { s: '6.7em', l: '7em' };
 
 const animations = { };
 
@@ -67,7 +67,7 @@ animations.header = () => {
   const headerAnimations = { };
   headerAnimations.extend = () => {
     animate({
-      targets: '.header',
+      targets: '.header-accent',
       height: [headerHeight.s, headerHeight.l],
       delay: (_, i) => i * 60,
     });
@@ -78,7 +78,7 @@ animations.header = () => {
   };
   headerAnimations.retract = () => {
     animate({
-      targets: '.header',
+      targets: '.header-accent',
       height: [headerHeight.l, headerHeight.s],
       delay: (_, i) => i * -30,
     });
@@ -93,45 +93,55 @@ animations.header = () => {
 animations.menu = () => {
   const openHeight = '101vh';
   const menuAnimations = { };
-  menuAnimations.open = () => anime
-    .timeline()
-    .add({ // header heights change for some reason
-      targets: '.header-background',
-      height: headerHeight.l,
-      duration: 1,
-    })
-    .add({
-      targets: '.header-accent',
-      height: [headerHeight.l, openHeight],
-      skewY: 0,
-      duration: 1000,
-      easing: 'easeOutCirc',
-    })
-    .add({
-      targets: '.header-background',
-      height: [headerHeight.l, openHeight],
-      duration: 1000,
-      easing: 'easeOutCirc',
-      offset: '-=800',
-    })
-    .add({
-      targets: '.header-title',
-      opacity: 0,
-      easing: 'easeInExpo',
-      offset: '-=2000',
-    })
-    .add({
-      targets: '.animate-menu-item',
-      top: 0,
-      opacity: 1,
-      offset: '-=900',
-      delay: (_, i) => i * 60,
-      begin: () => {
-        $('.menu-content').css({
-          display: 'block',
-        });
+  menuAnimations.open = () => {
+    anime({
+      targets: '.container',
+      backgroundColor: '#000000',
+      easing: 'linear',
+      complete: () => {
+        $('.container').css('background-color', 'white');
       },
     });
+    return anime
+      .timeline()
+      .add({ // header heights change for some reason
+        targets: '.header-background',
+        height: headerHeight.l,
+        duration: 1,
+      })
+      .add({
+        targets: '.header-accent',
+        height: [headerHeight.l, openHeight],
+        skewY: 0,
+        duration: 1000,
+        easing: 'easeOutCirc',
+      })
+      .add({
+        targets: '.header-background',
+        height: [headerHeight.l, openHeight],
+        duration: 1000,
+        easing: 'easeOutCirc',
+        offset: '-=800',
+      })
+      .add({
+        targets: '.header-title',
+        opacity: 0,
+        easing: 'easeInExpo',
+        offset: '-=2000',
+      })
+      .add({
+        targets: '.animate-menu-item',
+        top: 0,
+        opacity: 1,
+        offset: '-=900',
+        delay: (_, i) => i * 60,
+        begin: () => {
+          $('.menu-content').css({
+            display: 'block',
+          });
+        },
+      });
+  };
   menuAnimations.close = () => anime
     .timeline()
     .add({
@@ -141,7 +151,7 @@ animations.menu = () => {
     })
     .add({
       targets: '.header-background',
-      height: ['25vh', headerHeight.l],
+      height: ['25vh', headerHeight.s],
       easing: 'easeOutCirc',
     })
     .add({

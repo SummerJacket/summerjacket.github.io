@@ -1763,7 +1763,7 @@ var animate = function animate(props) {
   return (0, _animejs2.default)(props);
 };
 
-var headerHeight = { s: '6.7em', l: '7.2em' };
+var headerHeight = { s: '6.7em', l: '7em' };
 
 var animations = {};
 
@@ -1829,7 +1829,7 @@ animations.header = function () {
   var headerAnimations = {};
   headerAnimations.extend = function () {
     animate({
-      targets: '.header',
+      targets: '.header-accent',
       height: [headerHeight.s, headerHeight.l],
       delay: function delay(_, i) {
         return i * 60;
@@ -1842,7 +1842,7 @@ animations.header = function () {
   };
   headerAnimations.retract = function () {
     animate({
-      targets: '.header',
+      targets: '.header-accent',
       height: [headerHeight.l, headerHeight.s],
       delay: function delay(_, i) {
         return i * -30;
@@ -1860,6 +1860,14 @@ animations.menu = function () {
   var openHeight = '101vh';
   var menuAnimations = {};
   menuAnimations.open = function () {
+    (0, _animejs2.default)({
+      targets: '.container',
+      backgroundColor: '#000000',
+      easing: 'linear',
+      complete: function complete() {
+        $('.container').css('background-color', 'white');
+      }
+    });
     return _animejs2.default.timeline().add({ // header heights change for some reason
       targets: '.header-background',
       height: headerHeight.l,
@@ -1903,7 +1911,7 @@ animations.menu = function () {
       duration: 1
     }).add({
       targets: '.header-background',
-      height: ['25vh', headerHeight.l],
+      height: ['25vh', headerHeight.s],
       easing: 'easeOutCirc'
     }).add({
       targets: '.header-accent',
@@ -2091,10 +2099,6 @@ exports.default = animations;
 },{"animejs":1}],4:[function(require,module,exports){
 'use strict';
 
-var _animejs = require('animejs');
-
-var _animejs2 = _interopRequireDefault(_animejs);
-
 var _barba = require('barba.js');
 
 var _barba2 = _interopRequireDefault(_barba);
@@ -2275,4 +2279,4 @@ $(document.body).mousemove(function (e) {
   $(e.currentTarget).css('background-position', x + 'px ' + y + 'px');
 });
 
-},{"./animations.js":3,"animejs":1,"barba.js":2}]},{},[4]);
+},{"./animations.js":3,"barba.js":2}]},{},[4]);
