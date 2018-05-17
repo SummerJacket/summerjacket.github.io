@@ -1860,14 +1860,6 @@ animations.menu = function () {
   var openHeight = '101vh';
   var menuAnimations = {};
   menuAnimations.open = function () {
-    (0, _animejs2.default)({
-      targets: '.container',
-      backgroundColor: '#000000',
-      easing: 'linear',
-      complete: function complete() {
-        $('.container').css('background-color', 'white');
-      }
-    });
     return _animejs2.default.timeline().add({ // header heights change for some reason
       targets: '.header-background',
       height: headerHeight.l,
@@ -2094,6 +2086,41 @@ animations.defaultPage = function () {
   return pageAnimations;
 };
 
+animations.projectSkew = function (target) {
+  var image = $(target).find('.project-item')[0];
+  var skew = $(target).find('.project-skew')[0];
+  var itemAnimations = {};
+  // anime.remove(target);
+  itemAnimations.hover = function () {
+    (0, _animejs2.default)({
+      targets: skew,
+      skewY: ['30deg', 0],
+      top: '-100%',
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: image,
+      top: '-20%',
+      easing: 'easeOutExpo',
+      offset: 100
+    });
+  };
+  itemAnimations.hoverOff = function () {
+    (0, _animejs2.default)({
+      targets: skew,
+      skewY: '30deg',
+      top: 0,
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: image,
+      top: 0,
+      easing: 'easeOutExpo'
+    });
+  };
+  return itemAnimations;
+};
+
 exports.default = animations;
 
 },{"animejs":1}],4:[function(require,module,exports){
@@ -2136,6 +2163,13 @@ var loadEvents = function loadEvents() {
     _animations2.default.column(e.currentTarget).scaleUp();
   }, function (e) {
     _animations2.default.column(e.currentTarget).scaleDown();
+  });
+
+  // nav animation
+  $('.project-item-container').hover(function (e) {
+    _animations2.default.projectSkew(e.currentTarget).hover();
+  }, function (e) {
+    _animations2.default.projectSkew(e.currentTarget).hoverOff();
   });
 
   // extent and retract header

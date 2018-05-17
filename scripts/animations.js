@@ -93,55 +93,45 @@ animations.header = () => {
 animations.menu = () => {
   const openHeight = '101vh';
   const menuAnimations = { };
-  menuAnimations.open = () => {
-    anime({
-      targets: '.container',
-      backgroundColor: '#000000',
-      easing: 'linear',
-      complete: () => {
-        $('.container').css('background-color', 'white');
+  menuAnimations.open = () => anime
+    .timeline()
+    .add({ // header heights change for some reason
+      targets: '.header-background',
+      height: headerHeight.l,
+      duration: 1,
+    })
+    .add({
+      targets: '.header-accent',
+      height: [headerHeight.l, openHeight],
+      skewY: 0,
+      duration: 1000,
+      easing: 'easeOutCirc',
+    })
+    .add({
+      targets: '.header-background',
+      height: [headerHeight.l, openHeight],
+      duration: 1000,
+      easing: 'easeOutCirc',
+      offset: '-=800',
+    })
+    .add({
+      targets: '.header-title',
+      opacity: 0,
+      easing: 'easeInExpo',
+      offset: '-=2000',
+    })
+    .add({
+      targets: '.animate-menu-item',
+      top: 0,
+      opacity: 1,
+      offset: '-=900',
+      delay: (_, i) => i * 60,
+      begin: () => {
+        $('.menu-content').css({
+          display: 'block',
+        });
       },
     });
-    return anime
-      .timeline()
-      .add({ // header heights change for some reason
-        targets: '.header-background',
-        height: headerHeight.l,
-        duration: 1,
-      })
-      .add({
-        targets: '.header-accent',
-        height: [headerHeight.l, openHeight],
-        skewY: 0,
-        duration: 1000,
-        easing: 'easeOutCirc',
-      })
-      .add({
-        targets: '.header-background',
-        height: [headerHeight.l, openHeight],
-        duration: 1000,
-        easing: 'easeOutCirc',
-        offset: '-=800',
-      })
-      .add({
-        targets: '.header-title',
-        opacity: 0,
-        easing: 'easeInExpo',
-        offset: '-=2000',
-      })
-      .add({
-        targets: '.animate-menu-item',
-        top: 0,
-        opacity: 1,
-        offset: '-=900',
-        delay: (_, i) => i * 60,
-        begin: () => {
-          $('.menu-content').css({
-            display: 'block',
-          });
-        },
-      });
-  };
   menuAnimations.close = () => anime
     .timeline()
     .add({
@@ -324,6 +314,41 @@ animations.defaultPage = () => {
       easing: 'easeInExpo',
     });
   return pageAnimations;
+};
+
+animations.projectSkew = (target) => {
+  const image = $(target).find('.project-item')[0];
+  const skew = $(target).find('.project-skew')[0];
+  const itemAnimations = { };
+  // anime.remove(target);
+  itemAnimations.hover = () => {
+    anime({
+      targets: skew,
+      skewY: ['30deg', 0],
+      top: '-100%',
+      easing: 'easeOutExpo',
+    });
+    anime({
+      targets: image,
+      top: '-20%',
+      easing: 'easeOutExpo',
+      offset: 100,
+    });
+  };
+  itemAnimations.hoverOff = () => {
+    anime({
+      targets: skew,
+      skewY: '30deg',
+      top: 0,
+      easing: 'easeOutExpo',
+    });
+    anime({
+      targets: image,
+      top: 0,
+      easing: 'easeOutExpo',
+    });
+  };
+  return itemAnimations;
 };
 
 export default animations;

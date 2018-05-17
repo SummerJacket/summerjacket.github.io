@@ -49,7 +49,7 @@ input, textarea {
   transition: border-color 0.3s ease-in-out;
 }
 input:focus, textarea:focus {
-  border-color: #F2F2F2;
+  border-color: red;
 }
 input:invalid, textarea:invalid {
   box-shadow: none;
@@ -62,13 +62,13 @@ button {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   margin: 0 auto;
   min-height: 100vh;
-  width: calc(80% - 1px);
+  width: calc(85% - 1px);
 }
 .header {
   background-color: #F2F2F2;
   transform-origin: top left;
   position: fixed;
-  width: 80%;
+  width: 85%;
   opacity: 0;
   z-index: 999;
   height: 0;
@@ -124,7 +124,7 @@ button {
   opacity: 0;
   position: absolute;
   transform-origin: top left;
-  width: 80%;
+  width: 85%;
 }
 .animate-column {
   display: flex;
@@ -153,4 +153,28 @@ button {
 }
 .animate-menu-item a {
   text-decoration: none;
+}
+.project-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.project-item-container {
+  width: 33.33%;
+  overflow: hidden;
+}
+.project-item {
+  position: relative;
+  background-image: url('../images/stripes.png');
+  background-size: cover;
+  background-position: center center;
+  padding-bottom: 75%;
+  width: 100%;
+}
+.project-skew {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: skewY(30deg);
+  transform-origin: bottom left;
+  background-color: red;
 }

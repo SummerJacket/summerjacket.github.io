@@ -28,6 +28,13 @@ const loadEvents = () => {
     animations.column(e.currentTarget).scaleDown();
   });
 
+  // nav animation
+  $('.project-item-container').hover((e) => {
+    animations.projectSkew(e.currentTarget).hover();
+  }, (e) => {
+    animations.projectSkew(e.currentTarget).hoverOff();
+  });
+
   // extent and retract header
   $('.header-group').hover(() => {
     if (!skewComplete || skewExtented || menuOpen) return;
