@@ -1,8 +1,11 @@
 <div class="project-item-container">
-  <a href="{{ include.link | default: '#' }}">
+  <a href="{{ include.link | default: '#' }}" style="color: {{ include.text-color | default: 'white' }}">
     <div class="project-item" style="background-image: url({{ include.image | default: 'images/stripes.png' }})">
+      <div class="project-text">
+        {{ include.name }}
+      </div>
     </div>
-    <div class="project-skew">
+    <div class="project-skew" style="background-color: {{ include.skew-color | default: 'red' }}">
     </div>
   </a>
 </div>

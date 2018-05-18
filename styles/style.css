@@ -162,13 +162,24 @@ button {
   width: 33.33%;
   overflow: hidden;
 }
+.project-item-container a {
+  text-decoration: none;
+}
 .project-item {
   position: relative;
   background-image: url('../images/stripes.png');
   background-size: cover;
   background-position: center center;
-  padding-bottom: 75%;
   width: 100%;
+  padding-bottom: 75%;
+}
+.project-text {
+  font-weight: bold;
+  position: absolute;
+  bottom: 2em;
+  padding-left: 1em;
+  z-index: 10;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.8);
 }
 .project-skew {
   position: relative;
@@ -176,5 +187,4 @@ button {
   height: 100%;
   transform: skewY(30deg);
   transform-origin: bottom left;
-  background-color: red;
 }
