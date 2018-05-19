@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "browserify ./scripts/main.js -t babelify --outfile ./scripts/bundle.js"
+    "build": "browserify ./js/main.js -t babelify --outfile ./js/bundle.js"
   },
   "babel": {
     "presets": ["env"]

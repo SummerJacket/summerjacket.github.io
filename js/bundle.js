@@ -1,4 +1,583 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _animejs = require('animejs');
+
+var _animejs2 = _interopRequireDefault(_animejs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var animate = function animate(props) {
+  _animejs2.default.remove(props.targets);
+  return (0, _animejs2.default)(props);
+};
+
+var headerHeight = { s: '6.7em', l: '7em' };
+var skewHeight = { s: '60vh', l: '64vh' };
+
+var animations = {};
+
+animations.skew = function () {
+  var followMargin = { s: 0, l: '1vh' };
+  var skewAnimations = {};
+  skewAnimations.expand = function () {
+    animate({
+      targets: '.animate-skew',
+      height: [skewHeight.s, skewHeight.l],
+      duration: 1200,
+      delay: function delay(_, i) {
+        return i * 60;
+      }
+    });
+    animate({
+      targets: '.animate-follow',
+      marginTop: [followMargin.s, followMargin.l],
+      duration: 1200
+    });
+  };
+  skewAnimations.retract = function () {
+    animate({
+      targets: '.animate-skew',
+      height: [skewHeight.l, skewHeight.s],
+      duration: 1200,
+      delay: function delay(_, i) {
+        return i * -30;
+      }
+    });
+    animate({
+      targets: '.animate-follow',
+      marginTop: [followMargin.l, followMargin.s],
+      duration: 1200
+    });
+  };
+  return skewAnimations;
+};
+
+animations.column = function (target) {
+  var columnScale = { s: 1, l: 1.2 };
+  var columnAnimations = {};
+  columnAnimations.scaleUp = function () {
+    animate({
+      targets: target,
+      scale: columnScale.l,
+      elasticity: 600
+    });
+  };
+  columnAnimations.scaleDown = function () {
+    animate({
+      targets: target,
+      scale: columnScale.s,
+      elasticity: 400
+    });
+  };
+  return columnAnimations;
+};
+
+animations.header = function () {
+  var headerContentMargin = { s: '2em', l: '2.2em' };
+  var headerAnimations = {};
+  headerAnimations.extend = function () {
+    animate({
+      targets: '.header-accent',
+      height: [headerHeight.s, headerHeight.l],
+      delay: function delay(_, i) {
+        return i * 60;
+      }
+    });
+    animate({
+      targets: '.header-unskew',
+      marginTop: [headerContentMargin.s, headerContentMargin.l]
+    });
+  };
+  headerAnimations.retract = function () {
+    animate({
+      targets: '.header-accent',
+      height: [headerHeight.l, headerHeight.s],
+      delay: function delay(_, i) {
+        return i * -30;
+      }
+    });
+    animate({
+      targets: '.header-unskew',
+      marginTop: [headerContentMargin.l, headerContentMargin.s]
+    });
+  };
+  return headerAnimations;
+};
+
+animations.menu = function () {
+  var openHeight = '101vh';
+  var menuAnimations = {};
+  menuAnimations.open = function () {
+    return _animejs2.default.timeline().add({ // header heights change for some reason
+      targets: '.header-background',
+      height: headerHeight.l,
+      duration: 1
+    }).add({
+      targets: '.header-accent',
+      height: [headerHeight.l, openHeight],
+      skewY: 0,
+      duration: 1000,
+      easing: 'easeOutCirc'
+    }).add({
+      targets: '.header-background',
+      height: [headerHeight.l, openHeight],
+      duration: 1000,
+      easing: 'easeOutCirc',
+      offset: '-=800'
+    }).add({
+      targets: '.animate-menu-item',
+      top: 0,
+      opacity: 1,
+      offset: '-=900',
+      delay: function delay(_, i) {
+        return i * 60;
+      },
+      begin: function begin() {
+        $('.menu-content').css({
+          display: 'block'
+        });
+      }
+    }).add({
+      targets: '.header-title',
+      duration: 500,
+      opacity: 0,
+      easing: 'easeOutExpo',
+      offset: 0
+    });
+  };
+  menuAnimations.close = function () {
+    return _animejs2.default.timeline().add({
+      targets: '.header',
+      height: openHeight,
+      duration: 1
+    }).add({
+      targets: '.header-background',
+      height: ['25vh', headerHeight.s],
+      easing: 'easeOutCirc'
+    }).add({
+      targets: '.header-accent',
+      height: ['25vh', headerHeight.l],
+      skewY: '-4deg',
+      easing: 'easeOutCirc',
+      offset: '-=800'
+    }).add({
+      targets: '.animate-menu-item',
+      top: '-50px',
+      opacity: 0,
+      duration: 200,
+      easing: 'easeInExpo',
+      offset: '-=1200',
+      delay: function delay(_, i) {
+        return i * -120;
+      },
+      complete: function complete() {
+        $('.menu-content').css({
+          display: 'none'
+        });
+      }
+    }).add({
+      targets: '.header-title',
+      opacity: 1,
+      duration: 500,
+      easing: 'easeOutExpo',
+      offset: '-=800'
+    });
+  };
+  return menuAnimations;
+};
+
+animations.homepage = function () {
+  var homepageAnimations = {};
+  homepageAnimations.enter = function (callback) {
+    return _animejs2.default.timeline().add({
+      targets: '.animate-skew',
+      height: skewHeight.s,
+      skewY: '-8deg',
+      opacity: 1,
+      duration: 800,
+      easing: 'easeOutCirc',
+      delay: function delay(_, i) {
+        return i * 120;
+      },
+      complete: function complete() {
+        callback();
+      }
+    }).add({
+      targets: '.animate-letter',
+      top: 0,
+      opacity: 1,
+      delay: function delay(_, i) {
+        return i * 20;
+      },
+      offset: '-=800'
+    }).add({
+      targets: '.animate-follow',
+      top: 0,
+      opacity: 1,
+      easing: 'easeOutExpo',
+      delay: function delay(_, i) {
+        return i * 200;
+      },
+      offset: '-=800'
+    }).add({
+      targets: '.animate-column',
+      marginBottom: '2em',
+      opacity: 1,
+      duration: 800,
+      delay: function delay(_, i) {
+        return i * 200;
+      },
+      offset: '-=800'
+    });
+  };
+  homepageAnimations.leave = function () {
+    return _animejs2.default.timeline().add({
+      targets: '.animate-column',
+      marginBottom: ['2em', '4em'],
+      opacity: 0,
+      duration: 400,
+      easing: 'easeInQuad'
+    }).add({
+      targets: '.animate-follow',
+      top: '-50px',
+      opacity: 0,
+      duration: 400,
+      easing: 'easeInExpo',
+      offset: '-=400',
+      delay: function delay(_, i) {
+        return i * -60;
+      }
+    }).add({
+      targets: '.animate-letter',
+      top: '-100px',
+      opacity: 0,
+      duration: 400,
+      easing: 'easeInExpo',
+      offset: '-=300',
+      delay: function delay(_, i) {
+        return i * 20;
+      }
+    }).add({
+      targets: '.animate-skew',
+      height: 0,
+      skewY: 0,
+      duration: 800,
+      easing: 'easeInExpo',
+      offset: '-=400',
+      delay: function delay(_, i) {
+        return i * -100;
+      }
+    });
+  };
+  return homepageAnimations;
+};
+
+animations.defaultPage = function () {
+  var pageAnimations = {};
+  pageAnimations.enter = function (callback) {
+    return _animejs2.default.timeline().add({
+      targets: '.header',
+      height: '6.7em',
+      skewY: '-4deg',
+      opacity: 1,
+      duration: 800,
+      easing: 'easeOutCirc',
+      delay: function delay(_, i) {
+        return i * 120;
+      },
+      complete: function complete() {
+        callback();
+      }
+    }).add({
+      targets: '.header-unskew',
+      opacity: 1,
+      marginTop: '2em',
+      skewY: '4deg',
+      duration: 800,
+      offset: '-=600'
+    }).add({
+      targets: '.main',
+      paddingTop: '1em',
+      opacity: 1,
+      duration: 800,
+      offset: '-=500',
+      easing: 'easeOutCirc'
+    });
+  };
+  pageAnimations.leave = function () {
+    return _animejs2.default.timeline().add({
+      targets: '.main',
+      paddingTop: 0,
+      opacity: 0,
+      duration: 400,
+      offset: '-=150',
+      easing: 'easeInExpo'
+    }).add({
+      targets: '.header',
+      height: 0,
+      skewY: 0,
+      duration: 600,
+      offset: '-=350',
+      easing: 'easeInExpo',
+      delay: function delay(_, i) {
+        return i * -100;
+      }
+    }).add({
+      targets: '.header-unskew',
+      marginTop: 0,
+      opacity: 0,
+      skewY: 0,
+      duration: 600,
+      offset: '-=700',
+      easing: 'easeInExpo'
+    });
+  };
+  return pageAnimations;
+};
+
+animations.projectSkew = function (target) {
+  var skew = $(target).find('.project-skew')[0];
+  var text = $(target).find('.project-text')[0];
+  var desc = $(text).find('.project-desc')[0];
+  var itemAnimations = {};
+  _animejs2.default.remove(skew);
+  itemAnimations.hover = function () {
+    (0, _animejs2.default)({
+      targets: skew,
+      skewY: ['30deg', 0],
+      translateY: '-100%',
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: text,
+      translateY: '-100%',
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: desc,
+      opacity: 0.7,
+      easing: 'easeOutExpo'
+    });
+  };
+  itemAnimations.hoverOff = function () {
+    (0, _animejs2.default)({
+      targets: skew,
+      skewY: '30deg',
+      translateY: 0,
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: text,
+      translateY: 0,
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: desc,
+      opacity: 0,
+      easing: 'easeOutExpo'
+    });
+  };
+  return itemAnimations;
+};
+
+exports.default = animations;
+
+},{"animejs":3}],2:[function(require,module,exports){
+'use strict';
+
+var _barba = require('barba.js');
+
+var _barba2 = _interopRequireDefault(_barba);
+
+var _animations = require('./animations');
+
+var _animations2 = _interopRequireDefault(_animations);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var skewComplete = false;
+var skewExtented = false;
+var menuComplete = false;
+var menuOpen = false;
+var accentColor = void 0;
+
+var choose = function choose(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+var loadEvents = function loadEvents() {
+  // extend and retract skew area
+  $('.skew').hover(function () {
+    if (!skewComplete || skewExtented) return;
+    skewExtented = true;
+    _animations2.default.skew().expand();
+  }, function () {
+    if (!skewComplete || !skewExtented) return;
+    skewExtented = false;
+    _animations2.default.skew().retract();
+  });
+
+  // nav animation
+  $('.animate-column').hover(function (e) {
+    _animations2.default.column(e.currentTarget).scaleUp();
+  }, function (e) {
+    _animations2.default.column(e.currentTarget).scaleDown();
+  });
+
+  // nav animation
+  $('.project-item-container').hover(function (e) {
+    _animations2.default.projectSkew(e.currentTarget).hover();
+  }, function (e) {
+    _animations2.default.projectSkew(e.currentTarget).hoverOff();
+  });
+
+  // extent and retract header
+  $('.header-group').hover(function () {
+    if (!skewComplete || skewExtented || menuOpen) return;
+    skewExtented = true;
+    _animations2.default.header().extend();
+  }, function () {
+    if (!skewComplete || !skewExtented || menuOpen) return;
+    skewExtented = false;
+    _animations2.default.header().retract();
+  });
+
+  // button hover color
+  $('.form-button').hover(function (e) {
+    $(e.currentTarget).css({
+      'background-color': accentColor,
+      color: 'white'
+    });
+  }, function (e) {
+    $(e.currentTarget).css({
+      'background-color': 'transparent',
+      color: accentColor
+    });
+  });
+
+  // input focus color
+  $('input, textarea').focus(function (e) {
+    $(e.currentTarget).css('border-color', accentColor);
+  }).focusout(function (e) {
+    $(e.currentTarget).css('border-color', '#bbb');
+  });
+
+  // menu
+  $('.hamburger').click(function () {
+    if (!menuComplete) return;
+    menuComplete = false;
+    $('.hamburger').toggleClass('is-active');
+    if (!menuOpen) {
+      menuOpen = true;
+      _animations2.default.menu().open().finished.then(function () {
+        menuComplete = true;
+      });
+    } else {
+      _animations2.default.menu().close().finished.then(function () {
+        menuComplete = true;
+        menuOpen = false;
+      });
+    }
+  });
+};
+
+var onPageLoad = function onPageLoad() {
+  loadEvents();
+};
+
+var onPageUnload = function onPageUnload() {
+  skewComplete = false;
+  skewExtented = false;
+  menuOpen = false;
+};
+
+var onIndexLoad = function onIndexLoad() {
+  onPageLoad();
+  _animations2.default.homepage().enter(function () {
+    skewComplete = true;
+  });
+};
+
+var onIndexUnload = function onIndexUnload() {
+  onPageUnload();
+  return _animations2.default.homepage().leave();
+};
+
+var onDefaultLoad = function onDefaultLoad() {
+  onPageLoad();
+  accentColor = choose(['#F23E77', '#7D459E', '#41DBBA']);
+  $('.form-button').css({
+    'border-color': accentColor,
+    color: accentColor
+  });
+  $('.header-accent').css('background-color', accentColor);
+  _animations2.default.defaultPage().enter(function () {
+    skewComplete = true;
+    menuComplete = true;
+  });
+};
+
+var onDefualtUnload = function onDefualtUnload() {
+  onPageUnload();
+  return _animations2.default.defaultPage().leave();
+};
+
+$(document).ready(function () {
+  var transOutOfHome = _barba2.default.BaseTransition.extend({
+    start: function start() {
+      var _this = this;
+
+      Promise.all([this.newContainerLoading, onIndexUnload().finished]).then(function () {
+        _this.done();
+      });
+    }
+  });
+
+  var transIntoHome = _barba2.default.BaseTransition.extend({
+    start: function start() {
+      var _this2 = this;
+
+      Promise.all([this.newContainerLoading, onDefualtUnload().finished]).then(function () {
+        _this2.done();
+      });
+    }
+  });
+
+  _barba2.default.Pjax.getTransition = function () {
+    var prev = _barba2.default.HistoryManager.prevStatus().namespace;
+    return prev === 'homepage' ? transOutOfHome : transIntoHome;
+  };
+
+  _barba2.default.BaseView.extend({
+    namespace: 'homepage',
+    onEnterCompleted: function onEnterCompleted() {
+      onIndexLoad();
+    }
+  }).init();
+
+  _barba2.default.BaseView.extend({
+    namespace: 'default',
+    onEnterCompleted: function onEnterCompleted() {
+      onDefaultLoad();
+    }
+  }).init();
+
+  _barba2.default.Pjax.start();
+});
+
+// parallax
+$(document.body).mousemove(function (e) {
+  var x = e.pageX * -0.01;
+  var y = e.pageY * -0.01;
+  $(e.currentTarget).css('background-position', x + 'px ' + y + 'px');
+});
+
+},{"./animations":1,"barba.js":4}],3:[function(require,module,exports){
 (function (global){
 /*
  2017 Julian Garnier
@@ -34,7 +613,7 @@ d:A.apply($jscomp$this,d)}}(f)),f={type:f.type};return b}(),ha={css:function(a,c
 function(a){a=P(a);for(var c=v.length;c--;)for(var d=v[c],b=d.animations,f=b.length;f--;)u(a,b[f].animatable.target)&&(b.splice(f,1),b.length||d.pause())};q.getValue=K;q.path=function(a,c){var d=h.str(a)?e(a)[0]:a,b=c||100;return function(a){return{el:d,property:a,totalLength:N(d)*(b/100)}}};q.setDashoffset=function(a){var c=N(a);a.setAttribute("stroke-dasharray",c);return c};q.bezier=A;q.easings=Q;q.timeline=function(a){var c=q(a);c.pause();c.duration=0;c.add=function(d){c.children.forEach(function(a){a.began=
 !0;a.completed=!0});m(d).forEach(function(b){var d=z(b,D(S,a||{}));d.targets=d.targets||a.targets;b=c.duration;var e=d.offset;d.autoplay=!1;d.direction=c.direction;d.offset=h.und(e)?b:L(e,b);c.began=!0;c.completed=!0;c.seek(d.offset);d=q(d);d.began=!0;d.completed=!0;d.duration>b&&(c.duration=d.duration);c.children.push(d)});c.seek(0);c.reset();c.autoplay&&c.restart();return c};return c};q.random=function(a,c){return Math.floor(Math.random()*(c-a+1))+a};return q});
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],2:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -1745,582 +2324,4 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 
-},{}],3:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _animejs = require('animejs');
-
-var _animejs2 = _interopRequireDefault(_animejs);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var animate = function animate(props) {
-  _animejs2.default.remove(props.targets);
-  return (0, _animejs2.default)(props);
-};
-
-var headerHeight = { s: '6.7em', l: '7em' };
-
-var animations = {};
-
-animations.skew = function () {
-  var skewHeight = { s: '65vh', l: '70vh' };
-  var followMargin = { s: 0, l: '1vh' };
-  var skewAnimations = {};
-  skewAnimations.expand = function () {
-    animate({
-      targets: '.animate-skew',
-      height: [skewHeight.s, skewHeight.l],
-      duration: 1200,
-      delay: function delay(_, i) {
-        return i * 60;
-      }
-    });
-    animate({
-      targets: '.animate-follow',
-      marginTop: [followMargin.s, followMargin.l],
-      duration: 1200
-    });
-  };
-  skewAnimations.retract = function () {
-    animate({
-      targets: '.animate-skew',
-      height: [skewHeight.l, skewHeight.s],
-      duration: 1200,
-      delay: function delay(_, i) {
-        return i * -30;
-      }
-    });
-    animate({
-      targets: '.animate-follow',
-      marginTop: [followMargin.l, followMargin.s],
-      duration: 1200
-    });
-  };
-  return skewAnimations;
-};
-
-animations.column = function (target) {
-  var columnScale = { s: 1, l: 1.2 };
-  var columnAnimations = {};
-  columnAnimations.scaleUp = function () {
-    animate({
-      targets: target,
-      scale: columnScale.l,
-      elasticity: 600
-    });
-  };
-  columnAnimations.scaleDown = function () {
-    animate({
-      targets: target,
-      scale: columnScale.s,
-      elasticity: 400
-    });
-  };
-  return columnAnimations;
-};
-
-animations.header = function () {
-  var headerContentMargin = { s: '2em', l: '2.2em' };
-  var headerAnimations = {};
-  headerAnimations.extend = function () {
-    animate({
-      targets: '.header-accent',
-      height: [headerHeight.s, headerHeight.l],
-      delay: function delay(_, i) {
-        return i * 60;
-      }
-    });
-    animate({
-      targets: '.header-unskew',
-      marginTop: [headerContentMargin.s, headerContentMargin.l]
-    });
-  };
-  headerAnimations.retract = function () {
-    animate({
-      targets: '.header-accent',
-      height: [headerHeight.l, headerHeight.s],
-      delay: function delay(_, i) {
-        return i * -30;
-      }
-    });
-    animate({
-      targets: '.header-unskew',
-      marginTop: [headerContentMargin.l, headerContentMargin.s]
-    });
-  };
-  return headerAnimations;
-};
-
-animations.menu = function () {
-  var openHeight = '101vh';
-  var menuAnimations = {};
-  menuAnimations.open = function () {
-    return _animejs2.default.timeline().add({ // header heights change for some reason
-      targets: '.header-background',
-      height: headerHeight.l,
-      duration: 1
-    }).add({
-      targets: '.header-accent',
-      height: [headerHeight.l, openHeight],
-      skewY: 0,
-      duration: 1000,
-      easing: 'easeOutCirc'
-    }).add({
-      targets: '.header-background',
-      height: [headerHeight.l, openHeight],
-      duration: 1000,
-      easing: 'easeOutCirc',
-      offset: '-=800'
-    }).add({
-      targets: '.header-title',
-      opacity: 0,
-      easing: 'easeInExpo',
-      offset: '-=2000'
-    }).add({
-      targets: '.animate-menu-item',
-      top: 0,
-      opacity: 1,
-      offset: '-=900',
-      delay: function delay(_, i) {
-        return i * 60;
-      },
-      begin: function begin() {
-        $('.menu-content').css({
-          display: 'block'
-        });
-      }
-    });
-  };
-  menuAnimations.close = function () {
-    return _animejs2.default.timeline().add({
-      targets: '.header',
-      height: openHeight,
-      duration: 1
-    }).add({
-      targets: '.header-background',
-      height: ['25vh', headerHeight.s],
-      easing: 'easeOutCirc'
-    }).add({
-      targets: '.header-accent',
-      height: ['25vh', headerHeight.l],
-      skewY: '-4deg',
-      easing: 'easeOutCirc',
-      offset: '-=800'
-    }).add({
-      targets: '.animate-menu-item',
-      top: '-50px',
-      opacity: 0,
-      duration: 200,
-      easing: 'easeInExpo',
-      offset: '-=1200',
-      delay: function delay(_, i) {
-        return i * -120;
-      },
-      complete: function complete() {
-        $('.menu-content').css({
-          display: 'none'
-        });
-      }
-    }).add({
-      targets: '.header-title',
-      opacity: 1,
-      duration: 500,
-      easing: 'easeOutExpo',
-      offset: '-=800'
-    });
-  };
-  return menuAnimations;
-};
-
-animations.homepage = function () {
-  var homepageAnimations = {};
-  homepageAnimations.enter = function (callback) {
-    return _animejs2.default.timeline().add({
-      targets: '.animate-skew',
-      height: '65vh',
-      skewY: '-8deg',
-      opacity: 1,
-      duration: 800,
-      easing: 'easeOutCirc',
-      delay: function delay(_, i) {
-        return i * 120;
-      },
-      complete: function complete() {
-        callback();
-      }
-    }).add({
-      targets: '.animate-letter',
-      top: 0,
-      opacity: 1,
-      delay: function delay(_, i) {
-        return i * 20;
-      },
-      offset: '-=800'
-    }).add({
-      targets: '.animate-follow',
-      top: 0,
-      opacity: 1,
-      easing: 'easeOutExpo',
-      delay: function delay(_, i) {
-        return i * 200;
-      },
-      offset: '-=800'
-    }).add({
-      targets: '.animate-column',
-      marginBottom: '2em',
-      opacity: 1,
-      duration: 800,
-      delay: function delay(_, i) {
-        return i * 200;
-      },
-      offset: '-=800'
-    });
-  };
-  homepageAnimations.leave = function () {
-    return _animejs2.default.timeline().add({
-      targets: '.animate-column',
-      marginBottom: ['2em', '4em'],
-      opacity: 0,
-      duration: 400,
-      easing: 'easeInQuad'
-    }).add({
-      targets: '.animate-follow',
-      top: '-50px',
-      opacity: 0,
-      duration: 400,
-      easing: 'easeInExpo',
-      offset: '-=400',
-      delay: function delay(_, i) {
-        return i * -60;
-      }
-    }).add({
-      targets: '.animate-letter',
-      top: '-100px',
-      opacity: 0,
-      duration: 400,
-      easing: 'easeInExpo',
-      offset: '-=300',
-      delay: function delay(_, i) {
-        return i * 20;
-      }
-    }).add({
-      targets: '.animate-skew',
-      height: 0,
-      skewY: 0,
-      duration: 800,
-      easing: 'easeInExpo',
-      offset: '-=400',
-      delay: function delay(_, i) {
-        return i * -100;
-      }
-    });
-  };
-  return homepageAnimations;
-};
-
-animations.defaultPage = function () {
-  var pageAnimations = {};
-  pageAnimations.enter = function (callback) {
-    return _animejs2.default.timeline().add({
-      targets: '.header',
-      height: '6.7em',
-      skewY: '-4deg',
-      opacity: 1,
-      duration: 800,
-      easing: 'easeOutCirc',
-      delay: function delay(_, i) {
-        return i * 120;
-      },
-      complete: function complete() {
-        callback();
-      }
-    }).add({
-      targets: '.header-unskew',
-      opacity: 1,
-      marginTop: '2em',
-      skewY: '4deg',
-      duration: 800,
-      offset: '-=600'
-    }).add({
-      targets: '.main',
-      paddingTop: '1em',
-      opacity: 1,
-      duration: 800,
-      offset: '-=500',
-      easing: 'easeOutCirc'
-    });
-  };
-  pageAnimations.leave = function () {
-    return _animejs2.default.timeline().add({
-      targets: '.main',
-      paddingTop: 0,
-      opacity: 0,
-      duration: 400,
-      offset: '-=150',
-      easing: 'easeInExpo'
-    }).add({
-      targets: '.header',
-      height: 0,
-      skewY: 0,
-      duration: 600,
-      offset: '-=350',
-      easing: 'easeInExpo',
-      delay: function delay(_, i) {
-        return i * -100;
-      }
-    }).add({
-      targets: '.header-unskew',
-      marginTop: 0,
-      opacity: 0,
-      skewY: 0,
-      duration: 600,
-      offset: '-=700',
-      easing: 'easeInExpo'
-    });
-  };
-  return pageAnimations;
-};
-
-animations.projectSkew = function (target) {
-  var skew = $(target).find('.project-skew')[0];
-  var text = $(target).find('.project-text')[0];
-  var desc = $(text).find('.project-desc')[0];
-  var itemAnimations = {};
-  _animejs2.default.remove(skew);
-  itemAnimations.hover = function () {
-    (0, _animejs2.default)({
-      targets: skew,
-      skewY: ['30deg', 0],
-      translateY: '-100%',
-      easing: 'easeOutExpo'
-    });
-    (0, _animejs2.default)({
-      targets: text,
-      translateY: '-100%',
-      easing: 'easeOutExpo'
-    });
-    (0, _animejs2.default)({
-      targets: desc,
-      opacity: 0.7,
-      easing: 'easeOutExpo'
-    });
-  };
-  itemAnimations.hoverOff = function () {
-    (0, _animejs2.default)({
-      targets: skew,
-      skewY: '30deg',
-      translateY: 0,
-      easing: 'easeOutExpo'
-    });
-    (0, _animejs2.default)({
-      targets: text,
-      translateY: 0,
-      easing: 'easeOutExpo'
-    });
-    (0, _animejs2.default)({
-      targets: desc,
-      opacity: 0,
-      easing: 'easeOutExpo'
-    });
-  };
-  return itemAnimations;
-};
-
-exports.default = animations;
-
-},{"animejs":1}],4:[function(require,module,exports){
-'use strict';
-
-var _barba = require('barba.js');
-
-var _barba2 = _interopRequireDefault(_barba);
-
-var _animations = require('./animations');
-
-var _animations2 = _interopRequireDefault(_animations);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var skewComplete = false;
-var skewExtented = false;
-var menuComplete = false;
-var menuOpen = false;
-var accentColor = void 0;
-
-var choose = function choose(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-};
-
-var loadEvents = function loadEvents() {
-  // extend and retract skew area
-  $('.skew').hover(function () {
-    if (!skewComplete || skewExtented) return;
-    skewExtented = true;
-    _animations2.default.skew().expand();
-  }, function () {
-    if (!skewComplete || !skewExtented) return;
-    skewExtented = false;
-    _animations2.default.skew().retract();
-  });
-
-  // nav animation
-  $('.animate-column').hover(function (e) {
-    _animations2.default.column(e.currentTarget).scaleUp();
-  }, function (e) {
-    _animations2.default.column(e.currentTarget).scaleDown();
-  });
-
-  // nav animation
-  $('.project-item-container').hover(function (e) {
-    _animations2.default.projectSkew(e.currentTarget).hover();
-  }, function (e) {
-    _animations2.default.projectSkew(e.currentTarget).hoverOff();
-  });
-
-  // extent and retract header
-  $('.header-group').hover(function () {
-    if (!skewComplete || skewExtented || menuOpen) return;
-    skewExtented = true;
-    _animations2.default.header().extend();
-  }, function () {
-    if (!skewComplete || !skewExtented || menuOpen) return;
-    skewExtented = false;
-    _animations2.default.header().retract();
-  });
-
-  // button hover color
-  $('.form-button').hover(function (e) {
-    $(e.currentTarget).css({
-      'background-color': accentColor,
-      color: 'white'
-    });
-  }, function (e) {
-    $(e.currentTarget).css({
-      'background-color': 'transparent',
-      color: accentColor
-    });
-  });
-
-  // input focus color
-  $('input, textarea').focus(function (e) {
-    $(e.currentTarget).css('border-color', accentColor);
-  }).focusout(function (e) {
-    $(e.currentTarget).css('border-color', '#bbb');
-  });
-
-  // menu
-  $('.hamburger').click(function () {
-    if (!menuComplete) return;
-    menuComplete = false;
-    $('.hamburger').toggleClass('is-active');
-    if (!menuOpen) {
-      menuOpen = true;
-      _animations2.default.menu().open().finished.then(function () {
-        menuComplete = true;
-      });
-    } else {
-      _animations2.default.menu().close().finished.then(function () {
-        menuComplete = true;
-        menuOpen = false;
-      });
-    }
-  });
-};
-
-var onPageLoad = function onPageLoad() {
-  loadEvents();
-};
-
-var onPageUnload = function onPageUnload() {
-  skewComplete = false;
-  skewExtented = false;
-  menuOpen = false;
-};
-
-var onIndexLoad = function onIndexLoad() {
-  onPageLoad();
-  _animations2.default.homepage().enter(function () {
-    skewComplete = true;
-  });
-};
-
-var onIndexUnload = function onIndexUnload() {
-  onPageUnload();
-  return _animations2.default.homepage().leave();
-};
-
-var onDefaultLoad = function onDefaultLoad() {
-  onPageLoad();
-  accentColor = choose(['#F23E77', '#7D459E', '#41DBBA']);
-  $('.form-button').css({
-    'border-color': accentColor,
-    color: accentColor
-  });
-  $('.header-accent').css('background-color', accentColor);
-  _animations2.default.defaultPage().enter(function () {
-    skewComplete = true;
-    menuComplete = true;
-  });
-};
-
-var onDefualtUnload = function onDefualtUnload() {
-  onPageUnload();
-  return _animations2.default.defaultPage().leave();
-};
-
-$(document).ready(function () {
-  var transOutOfHome = _barba2.default.BaseTransition.extend({
-    start: function start() {
-      var _this = this;
-
-      Promise.all([this.newContainerLoading, onIndexUnload().finished]).then(function () {
-        _this.done();
-      });
-    }
-  });
-
-  var transIntoHome = _barba2.default.BaseTransition.extend({
-    start: function start() {
-      var _this2 = this;
-
-      Promise.all([this.newContainerLoading, onDefualtUnload().finished]).then(function () {
-        _this2.done();
-      });
-    }
-  });
-
-  _barba2.default.Pjax.getTransition = function () {
-    var prev = _barba2.default.HistoryManager.prevStatus().namespace;
-    return prev === 'homepage' ? transOutOfHome : transIntoHome;
-  };
-
-  _barba2.default.BaseView.extend({
-    namespace: 'homepage',
-    onEnterCompleted: function onEnterCompleted() {
-      onIndexLoad();
-    }
-  }).init();
-
-  _barba2.default.BaseView.extend({
-    namespace: 'default',
-    onEnterCompleted: function onEnterCompleted() {
-      onDefaultLoad();
-    }
-  }).init();
-
-  _barba2.default.Pjax.start();
-});
-
-// parallax
-$(document.body).mousemove(function (e) {
-  var x = e.pageX * -0.01;
-  var y = e.pageY * -0.01;
-  $(e.currentTarget).css('background-position', x + 'px ' + y + 'px');
-});
-
-},{"./animations":3,"barba.js":2}]},{},[4]);
+},{}]},{},[2]);

@@ -6,11 +6,11 @@ const animate = (props) => {
 };
 
 const headerHeight = { s: '6.7em', l: '7em' };
+const skewHeight = { s: '60vh', l: '64vh' };
 
 const animations = { };
 
 animations.skew = () => {
-  const skewHeight = { s: '65vh', l: '70vh' };
   const followMargin = { s: 0, l: '1vh' };
   const skewAnimations = { };
   skewAnimations.expand = () => {
@@ -115,12 +115,6 @@ animations.menu = () => {
       offset: '-=800',
     })
     .add({
-      targets: '.header-title',
-      opacity: 0,
-      easing: 'easeInExpo',
-      offset: '-=2000',
-    })
-    .add({
       targets: '.animate-menu-item',
       top: 0,
       opacity: 1,
@@ -131,6 +125,13 @@ animations.menu = () => {
           display: 'block',
         });
       },
+    })
+    .add({
+      targets: '.header-title',
+      duration: 500,
+      opacity: 0,
+      easing: 'easeOutExpo',
+      offset: 0,
     });
   menuAnimations.close = () => anime
     .timeline()
@@ -181,7 +182,7 @@ animations.homepage = () => {
     .timeline()
     .add({
       targets: '.animate-skew',
-      height: '65vh',
+      height: skewHeight.s,
       skewY: '-8deg',
       opacity: 1,
       duration: 800,
