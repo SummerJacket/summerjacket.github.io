@@ -2087,34 +2087,44 @@ animations.defaultPage = function () {
 };
 
 animations.projectSkew = function (target) {
-  var image = $(target).find('.project-item')[0];
   var skew = $(target).find('.project-skew')[0];
+  var text = $(target).find('.project-text')[0];
+  var desc = $(text).find('.project-desc')[0];
   var itemAnimations = {};
-  // anime.remove(target);
+  _animejs2.default.remove(skew);
   itemAnimations.hover = function () {
     (0, _animejs2.default)({
       targets: skew,
       skewY: ['30deg', 0],
-      top: '-100%',
+      translateY: '-100%',
       easing: 'easeOutExpo'
     });
     (0, _animejs2.default)({
-      targets: image,
-      top: '-20%',
-      easing: 'easeOutExpo',
-      offset: 100
+      targets: text,
+      translateY: '-100%',
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: desc,
+      opacity: 0.7,
+      easing: 'easeOutExpo'
     });
   };
   itemAnimations.hoverOff = function () {
     (0, _animejs2.default)({
       targets: skew,
       skewY: '30deg',
-      top: 0,
+      translateY: 0,
       easing: 'easeOutExpo'
     });
     (0, _animejs2.default)({
-      targets: image,
-      top: 0,
+      targets: text,
+      translateY: 0,
+      easing: 'easeOutExpo'
+    });
+    (0, _animejs2.default)({
+      targets: desc,
+      opacity: 0,
       easing: 'easeOutExpo'
     });
   };
@@ -2138,8 +2148,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var skewComplete = false;
 var skewExtented = false;
-var menuOpen = false;
 var menuComplete = false;
+var menuOpen = false;
 var accentColor = void 0;
 
 var choose = function choose(arr) {

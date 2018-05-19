@@ -3,8 +3,8 @@ import animations from './animations.js';
 
 let skewComplete = false;
 let skewExtented = false;
-let menuOpen = false;
 let menuComplete = false;
+let menuOpen = false;
 let accentColor;
 
 const choose = arr => arr[Math.floor(Math.random() * arr.length)];

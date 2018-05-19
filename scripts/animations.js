@@ -317,34 +317,44 @@ animations.defaultPage = () => {
 };
 
 animations.projectSkew = (target) => {
-  const image = $(target).find('.project-item')[0];
   const skew = $(target).find('.project-skew')[0];
+  const text = $(target).find('.project-text')[0];
+  const desc = $(text).find('.project-desc')[0];
   const itemAnimations = { };
-  // anime.remove(target);
+  anime.remove(skew);
   itemAnimations.hover = () => {
     anime({
       targets: skew,
       skewY: ['30deg', 0],
-      top: '-100%',
+      translateY: '-100%',
       easing: 'easeOutExpo',
     });
     anime({
-      targets: image,
-      top: '-20%',
+      targets: text,
+      translateY: '-100%',
       easing: 'easeOutExpo',
-      offset: 100,
+    });
+    anime({
+      targets: desc,
+      opacity: 0.7,
+      easing: 'easeOutExpo',
     });
   };
   itemAnimations.hoverOff = () => {
     anime({
       targets: skew,
       skewY: '30deg',
-      top: 0,
+      translateY: 0,
       easing: 'easeOutExpo',
     });
     anime({
-      targets: image,
-      top: 0,
+      targets: text,
+      translateY: 0,
+      easing: 'easeOutExpo',
+    });
+    anime({
+      targets: desc,
+      opacity: 0,
       easing: 'easeOutExpo',
     });
   };

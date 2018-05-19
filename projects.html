@@ -4,24 +4,39 @@ layout: page
 namespace: default
 ---
 
-<p>
-  <strong>I make things.</strong>
-  Here they are:
-</p>
+<p></p>
 
 <div class="project-container">
   {%
-    include project-item.html
-    name="STARSPEED SHOOTER 2000"
-    link="https://github.com/SummerJacket/space-shooter"
-    image="images/pro0.png"
-    skew-color="#54457F"
+  include project-item.html
+  name="My website"
+  desc="Yeah, the one you're viewing"
+  link="https://github.com/SummerJacket/summerjacket.github.io"
+  image="images/pro-website.png"
+  skew-color="#F23E77"
   %}
   {%
-    include project-item.html
-    name="Pseudorun"
-    link="https://github.com/SummerJacket/pseudorun"
-    image="images/pro1.png"
-    skew-color="#987284"
+  include project-item.html
+  name="Pseudorun"
+  desc="Run pseudocode in the browser"
+  link="https://github.com/SummerJacket/pseudorun"
+  image="images/pro-pseudorun.png"
+  skew-color="#987284"
+  %}
+  {%
+  include project-item.html
+  name="STARSPEED SHOOTER 2000"
+  desc="2D shooter made in GameMaker Studio"
+  link="https://github.com/SummerJacket/space-shooter"
+  image="images/pro-spaceshooter.png"
+  skew-color="#54457F"
+  %}
+  {%
+  include project-item.html
+  name="Three-Four"
+  desc="Western shootout minigame using Wiimotes"
+  link="https://github.com/SummerJacket/threefour"
+  image="images/pro-threefour.png"
+  skew-color="#60D394"
   %}
 </div>
