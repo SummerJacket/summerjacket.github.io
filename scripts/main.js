@@ -1,5 +1,5 @@
 import Barba from 'barba.js';
-import animations from './animations.js';
+import animations from './animations';
 
 let skewComplete = false;
 let skewExtented = false;

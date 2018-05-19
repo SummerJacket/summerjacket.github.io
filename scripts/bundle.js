@@ -2140,7 +2140,7 @@ var _barba = require('barba.js');
 
 var _barba2 = _interopRequireDefault(_barba);
 
-var _animations = require('./animations.js');
+var _animations = require('./animations');
 
 var _animations2 = _interopRequireDefault(_animations);
 
@@ -2323,4 +2323,4 @@ $(document.body).mousemove(function (e) {
   $(e.currentTarget).css('background-position', x + 'px ' + y + 'px');
 });
 
-},{"./animations.js":3,"barba.js":2}]},{},[4]);
+},{"./animations":3,"barba.js":2}]},{},[4]);

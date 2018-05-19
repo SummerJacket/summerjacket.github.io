@@ -1,10 +1,19 @@
+---
+---
+
+$font-stack: Dosis, sans-serif;
+$primary-color: #333;
+$off-white: #F2F2F2;
+$override: #F00;
+$container-width: 85%;
+
 html {
   overflow-y: scroll;
 }
 body {
   background-image: url('../images/bg.png');
-  color: #333333;
-  font-family: 'Dosis', sans-serif;
+  color: $primary-color;
+  font-family: $font-stack;
   font-size: 1.4em;
   height: 100%;
   margin: 0;
@@ -13,62 +22,58 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: normal;
 }
-textarea {
-  font-family: 'Nunito', sans-serif;
-}
 a {
   color: inherit;
-  transition: background-color 0.3s;
   outline: none;
-}
-a:hover {
-  background-color: #DDDDDD;
+  &:hover {
+    background-color: #DDDDDD;
+  }
 }
 .anchor-noback {
   text-decoration: none;
-}
-.anchor-noback:hover {
-  border-bottom-color: transparent;
-  background-color: inherit;
+  &:hover {
+    border-bottom-color: transparent;
+    background-color: inherit;
+  }
 }
 ul {
   margin: 0;
   padding: 0;
-}
-ul li {
-  padding-right: 1.8em;
-  color: #555B6E;
+  li {
+    color: #555B6E;
+  }
 }
 input, textarea {
-  background-color: #F2F2F2;
+  background-color: $off-white;
   border: none;
   border-bottom: 2px solid #BBBBBB;
   font-family: inherit;
   margin-bottom: 1em;
   padding: 16px;
   transition: border-color 0.3s ease-in-out;
-}
-input:focus, textarea:focus {
-  border-color: red;
-}
-input:invalid, textarea:invalid {
-  box-shadow: none;
+  &:focus {
+    border-color: $override;
+  }
+  &:invalid {
+    box-shadow: none;
+  }
 }
 button {
   outline: none;
 }
-.container {
+.page-container {
   background-color: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   margin: 0 auto;
   min-height: 100vh;
-  width: calc(85% - 1px);
+  width: $container-width;
+  padding: 0;
 }
 .header {
-  background-color: #F2F2F2;
+  background-color: $off-white;
   transform-origin: top left;
   position: fixed;
-  width: 85%;
+  width: $container-width;
   opacity: 0;
   z-index: 999;
   height: 0;
@@ -90,7 +95,7 @@ button {
   margin-left: -4px;
   padding: 16px;
   background-color: transparent;
-  border: 1px solid #BBBBBB;
+  border: 1px solid $override;
   transition: color .15s ease-in-out, background-color .15s ease-in-out;
 }
 .input-container {
@@ -124,7 +129,7 @@ button {
   opacity: 0;
   position: absolute;
   transform-origin: top left;
-  width: 85%;
+  width: $container-width;
 }
 .animate-column {
   display: flex;
@@ -169,7 +174,6 @@ button {
 }
 .project-item {
   position: relative;
-  /* background-image: url('../images/stripes.png'); */
   width: 100%;
   padding-bottom: 75%;
 }
@@ -191,5 +195,5 @@ button {
 .project-desc {
   color: black;
   opacity: 0;
-  font-size: 0.8em;
+  font-size: 1rem;
 }
