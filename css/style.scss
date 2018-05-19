@@ -5,11 +5,7 @@ $font-stack: Dosis, sans-serif;
 $primary-color: #333;
 $off-white: #F2F2F2;
 $override: #F00;
-$container-width: 85%;
 
-html {
-  overflow-y: scroll;
-}
 body {
   background-image: url('../images/bg.png');
   color: $primary-color;
@@ -17,23 +13,17 @@ body {
   font-size: 1.4em;
   height: 100%;
   margin: 0;
+  overflow-y: scroll;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: normal;
 }
-a {
-  color: inherit;
-  outline: none;
-  &:hover {
-    background-color: #DDDDDD;
-  }
-}
 .anchor-noback {
-  text-decoration: none;
+  color: inherit;
   &:hover {
-    border-bottom-color: transparent;
-    background-color: inherit;
+    color: inherit;
+    text-decoration: none;
   }
 }
 ul {
@@ -47,7 +37,6 @@ input, textarea {
   background-color: $off-white;
   border: none;
   border-bottom: 2px solid #BBBBBB;
-  font-family: inherit;
   margin-bottom: 1em;
   padding: 16px;
   transition: border-color 0.3s ease-in-out;
@@ -61,19 +50,20 @@ input, textarea {
 button {
   outline: none;
 }
-.page-container {
+.container {
   background-color: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  margin: 0 auto;
-  min-height: 100vh;
-  width: $container-width;
   padding: 0;
+  min-height: 100vh;
+}
+.header-group {
+  position: relative;
 }
 .header {
   background-color: $off-white;
   transform-origin: top left;
-  position: fixed;
-  width: $container-width;
+  position: absolute;
+  width: 100%;
   opacity: 0;
   z-index: 999;
   height: 0;
@@ -92,7 +82,6 @@ button {
 }
 .form-button {
   font-family: inherit;
-  margin-left: -4px;
   padding: 16px;
   background-color: transparent;
   border: 1px solid $override;
@@ -103,8 +92,7 @@ button {
   width: 100%;
 }
 .input-icon {
-  padding: 12px;
-  padding-bottom: 0;
+  padding-right: 1.2em;
   width: 1.2em;
   text-align: center;
 }
@@ -125,11 +113,14 @@ button {
   position: relative;
   top: -100px;
 }
+.skew {
+  position: relative;
+}
 .animate-skew {
   opacity: 0;
   position: absolute;
   transform-origin: top left;
-  width: $container-width;
+  width: 100%;
 }
 .animate-column {
   display: flex;

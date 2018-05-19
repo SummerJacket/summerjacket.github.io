@@ -18,9 +18,10 @@
   "stylelint": {
     "extends": "stylelint-config-recommended-scss",
     "rules": {
-      "selector-type-no-unknown": [true, {
-        "ignoreTypes": ["---"]
-      }]
+      "selector-type-no-unknown": [
+        true,
+        { "ignoreTypes": ["---"] }
+      ]
     }
   },
   "devDependencies": {
