@@ -10,6 +10,17 @@ let accentColor;
 const choose = arr => arr[Math.floor(Math.random() * arr.length)];
 
 const loadEvents = () => {
+  // header width
+  const headerAdjust = () => {
+    const containerWidth = $('.container').width();
+    $('.header').width(containerWidth);
+  };
+  headerAdjust();
+
+  $(window).resize(() => {
+    headerAdjust();
+  });
+
   // extend and retract skew area
   $('.skew').hover(() => {
     if (!skewComplete || skewExtented) return;

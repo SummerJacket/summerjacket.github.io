@@ -411,6 +411,17 @@ var choose = function choose(arr) {
 };
 
 var loadEvents = function loadEvents() {
+  // header width
+  var headerAdjust = function headerAdjust() {
+    var containerWidth = $('.container').width();
+    $('.header').width(containerWidth);
+  };
+  headerAdjust();
+
+  $(window).resize(function () {
+    headerAdjust();
+  });
+
   // extend and retract skew area
   $('.skew').hover(function () {
     if (!skewComplete || skewExtented) return;

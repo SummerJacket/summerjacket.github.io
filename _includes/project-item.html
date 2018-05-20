@@ -1,16 +1,12 @@
-<div class="project-item-container"
+<div class="col-lg-4 col-md-6 project-item-container p-0"
      style="background-image: url({{ include.image | default: 'images/stripes.png' }})">
   <a href="{{ include.link | default: '#' }}"
      style="color: {{ include.text-color | default: 'white' }}">
     <div class="project-item">
-      <div style="position: absolute;
-                  width: 100%;
-                  height: 100%;
-                  background-color: rgba(0, 0, 0, 0.25)">
-      </div>
       <div class="project-text">
         {{ include.name }}
-        <div class="project-desc">
+        <div class="project-desc"
+             style="color: {{ include.desc-color | default: 'black' }}">
           {{ include.desc }}
         </div>
       </div>

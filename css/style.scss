@@ -16,10 +16,6 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  font-weight: normal;
-}
 .anchor-noback {
   color: inherit;
   &:hover {
@@ -34,28 +30,14 @@ ul {
     color: #555B6E;
   }
 }
-input, textarea {
-  background-color: $off-white;
-  border: none;
-  border-bottom: 2px solid #BBBBBB;
-  margin-bottom: 1em;
-  padding: 16px;
-  transition: border-color 0.3s ease-in-out;
-  &:focus {
-    border-color: $override;
-  }
-  &:invalid {
-    box-shadow: none;
-  }
-}
-button {
-  outline: none;
-}
 .container {
   background-color: white;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   padding: 0;
   min-height: 100vh;
+}
+.form-control, .input-group-text, .btn {
+  border-radius: 0;
 }
 .header-group {
   position: relative;
@@ -63,7 +45,7 @@ button {
 .header {
   background-color: $off-white;
   transform-origin: top left;
-  position: absolute;
+  position: fixed;
   width: 100%;
   opacity: 0;
   z-index: 999;
@@ -76,26 +58,10 @@ button {
   transform-origin: top left;
 }
 .main {
-  padding: 4em;
+  padding: 2.7em;
   padding-top: 0;
   opacity: 0;
   display: relative;
-}
-.form-button {
-  font-family: inherit;
-  padding: 16px;
-  background-color: transparent;
-  border: 1px solid $override;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out;
-}
-.input-container {
-  display: flex;
-  width: 100%;
-}
-.input-icon {
-  padding-right: 1.2em;
-  width: 1.2em;
-  text-align: center;
 }
 .animate-follow {
   opacity: 0;
@@ -148,18 +114,17 @@ button {
   flex-wrap: wrap;
 }
 .project-item-container {
-  width: 33.33%;
   overflow: hidden;
   background-size: cover;
   background-position: center center;
-}
-.project-item-container a {
-  text-decoration: none;
-}
-.project-item {
-  position: relative;
-  width: 100%;
-  padding-bottom: 75%;
+  a {
+    text-decoration: none;
+  }
+  .project-item {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%;
+  }
 }
 .project-text {
   font-weight: bold;
@@ -175,9 +140,9 @@ button {
   height: 100%;
   transform-origin: bottom left;
   opacity: 0.8;
+  z-index: 9;
 }
 .project-desc {
-  color: black;
   opacity: 0;
   font-size: 1rem;
 }
