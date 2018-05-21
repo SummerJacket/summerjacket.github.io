@@ -1,4 +1,5 @@
 import Barba from 'barba.js';
+import Konami from 'konami';
 import animations from './animations';
 
 let skewComplete = false;
@@ -8,17 +9,17 @@ let menuOpen = false;
 
 const choose = arr => arr[Math.floor(Math.random() * arr.length)];
 
-const loadEvents = () => {
-  // header width
-  const headerAdjust = () => {
-    const containerWidth = $('.container').width();
-    $('.header').width(containerWidth);
-  };
-  headerAdjust();
+const onPageLoad = () => {};
 
-  $(window).resize(() => {
-    headerAdjust();
-  });
+const onPageUnload = () => {
+  skewComplete = false;
+  skewExtented = false;
+  menuComplete = false;
+  menuOpen = false;
+};
+
+const onIndexLoad = () => {
+  onPageLoad();
 
   // extend and retract skew area
   $('.skew').hover(() => {
@@ -38,7 +39,62 @@ const loadEvents = () => {
     animations.column(e.currentTarget).scaleDown();
   });
 
-  // nav animation
+  animations.homepage().enter(() => {
+    skewComplete = true;
+  });
+};
+
+const onIndexUnload = () => {
+  onPageUnload();
+  return animations.homepage().leave();
+};
+
+const onDefaultLoad = () => {
+  onPageLoad();
+
+  // header width
+  const headerAdjust = () => {
+    const containerWidth = $('.container').width();
+    $('.header').width(containerWidth);
+  };
+  headerAdjust();
+
+  $(window).resize(() => {
+    headerAdjust();
+  });
+
+  const accentColor = choose(['#F23E77', '#7D459E', '#009FB7']);
+
+  // link color
+  $('a').css('color', accentColor);
+
+  // button color
+  $('.form-button')
+    .css({
+      'border-color': accentColor,
+      color: accentColor,
+    })
+    .hover((e) => {
+      $(e.currentTarget).css({
+        'background-color': accentColor,
+        color: 'white',
+      });
+    }, (e) => {
+      $(e.currentTarget).css({
+        'background-color': 'transparent',
+        color: accentColor,
+      });
+    });
+
+  // input focus color
+  $('input, textarea')
+    .focus((e) => {
+      $(e.currentTarget).css('border-color', accentColor);
+    })
+    .focusout((e) => {
+      $(e.currentTarget).css('border-color', '#bbb');
+    });
+
   $('.project-item-container').hover((e) => {
     animations.projectSkew(e.currentTarget).hover();
   }, (e) => {
@@ -73,62 +129,6 @@ const loadEvents = () => {
       });
     }
   });
-};
-
-const onPageLoad = () => {
-  loadEvents();
-};
-
-const onPageUnload = () => {
-  skewComplete = false;
-  skewExtented = false;
-  menuOpen = false;
-};
-
-const onIndexLoad = () => {
-  onPageLoad();
-  animations.homepage().enter(() => {
-    skewComplete = true;
-  });
-};
-
-const onIndexUnload = () => {
-  onPageUnload();
-  return animations.homepage().leave();
-};
-
-const onDefaultLoad = () => {
-  onPageLoad();
-  const accentColor = choose(['#F23E77', '#7D459E', '#009FB7']);
-  // link color
-  $('a').css('color', accentColor);
-
-  // button color
-  $('.form-button')
-    .css({
-      'border-color': accentColor,
-      color: accentColor,
-    })
-    .hover((e) => {
-      $(e.currentTarget).css({
-        'background-color': accentColor,
-        color: 'white',
-      });
-    }, (e) => {
-      $(e.currentTarget).css({
-        'background-color': 'transparent',
-        color: accentColor,
-      });
-    });
-
-  // input focus color
-  $('input, textarea')
-    .focus((e) => {
-      $(e.currentTarget).css('border-color', accentColor);
-    })
-    .focusout((e) => {
-      $(e.currentTarget).css('border-color', '#bbb');
-    });
 
   // header color and height
   $('.header-accent').css('background-color', accentColor);
@@ -187,6 +187,16 @@ $(document).ready(() => {
     })
     .init();
 
+  Barba.BaseView
+    .extend({
+      namespace: 'secret',
+      onEnterCompleted() {
+        $(document.body).css('background-image', 'url(../images/blobsweat.gif)');
+        onDefaultLoad();
+      },
+    })
+    .init();
+
   Barba.Pjax.start();
 });
 
@@ -195,4 +205,9 @@ $(document.body).mousemove((e) => {
   const x = e.pageX * -0.01;
   const y = e.pageY * -0.01;
   $(e.currentTarget).css('background-position', `${x}px ${y}px`);
+});
+
+// secret page
+const easterEgg = new Konami(() => { // eslint-disable-line no-unused-vars
+  window.location.href = './shop.html';
 });

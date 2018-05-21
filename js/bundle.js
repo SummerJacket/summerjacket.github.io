@@ -395,6 +395,10 @@ var _barba = require('barba.js');
 
 var _barba2 = _interopRequireDefault(_barba);
 
+var _konami = require('konami');
+
+var _konami2 = _interopRequireDefault(_konami);
+
 var _animations = require('./animations');
 
 var _animations2 = _interopRequireDefault(_animations);
@@ -410,17 +414,17 @@ var choose = function choose(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-var loadEvents = function loadEvents() {
-  // header width
-  var headerAdjust = function headerAdjust() {
-    var containerWidth = $('.container').width();
-    $('.header').width(containerWidth);
-  };
-  headerAdjust();
+var onPageLoad = function onPageLoad() {};
 
-  $(window).resize(function () {
-    headerAdjust();
-  });
+var onPageUnload = function onPageUnload() {
+  skewComplete = false;
+  skewExtented = false;
+  menuComplete = false;
+  menuOpen = false;
+};
+
+var onIndexLoad = function onIndexLoad() {
+  onPageLoad();
 
   // extend and retract skew area
   $('.skew').hover(function () {
@@ -440,7 +444,58 @@ var loadEvents = function loadEvents() {
     _animations2.default.column(e.currentTarget).scaleDown();
   });
 
-  // nav animation
+  _animations2.default.homepage().enter(function () {
+    skewComplete = true;
+  });
+};
+
+var onIndexUnload = function onIndexUnload() {
+  onPageUnload();
+  return _animations2.default.homepage().leave();
+};
+
+var onDefaultLoad = function onDefaultLoad() {
+  onPageLoad();
+
+  // header width
+  var headerAdjust = function headerAdjust() {
+    var containerWidth = $('.container').width();
+    $('.header').width(containerWidth);
+  };
+  headerAdjust();
+
+  $(window).resize(function () {
+    headerAdjust();
+  });
+
+  var accentColor = choose(['#F23E77', '#7D459E', '#009FB7']);
+
+  // link color
+  $('a').css('color', accentColor);
+
+  // button color
+  $('.form-button').css({
+    'border-color': accentColor,
+    color: accentColor
+  }).hover(function (e) {
+    $(e.currentTarget).css({
+      'background-color': accentColor,
+      color: 'white'
+    });
+  }, function (e) {
+    $(e.currentTarget).css({
+      'background-color': 'transparent',
+      color: accentColor
+    });
+  });
+
+  // input focus color
+  $('input, textarea').focus(function (e) {
+    $(e.currentTarget).css('border-color', accentColor);
+  }).focusout(function (e) {
+    $(e.currentTarget).css('border-color', '#bbb');
+  });
+
   $('.project-item-container').hover(function (e) {
     _animations2.default.projectSkew(e.currentTarget).hover();
   }, function (e) {
@@ -474,58 +529,6 @@ var loadEvents = function loadEvents() {
         menuOpen = false;
       });
     }
-  });
-};
-
-var onPageLoad = function onPageLoad() {
-  loadEvents();
-};
-
-var onPageUnload = function onPageUnload() {
-  skewComplete = false;
-  skewExtented = false;
-  menuOpen = false;
-};
-
-var onIndexLoad = function onIndexLoad() {
-  onPageLoad();
-  _animations2.default.homepage().enter(function () {
-    skewComplete = true;
-  });
-};
-
-var onIndexUnload = function onIndexUnload() {
-  onPageUnload();
-  return _animations2.default.homepage().leave();
-};
-
-var onDefaultLoad = function onDefaultLoad() {
-  onPageLoad();
-  var accentColor = choose(['#F23E77', '#7D459E', '#009FB7']);
-  // link color
-  $('a').css('color', accentColor);
-
-  // button color
-  $('.form-button').css({
-    'border-color': accentColor,
-    color: accentColor
-  }).hover(function (e) {
-    $(e.currentTarget).css({
-      'background-color': accentColor,
-      color: 'white'
-    });
-  }, function (e) {
-    $(e.currentTarget).css({
-      'background-color': 'transparent',
-      color: accentColor
-    });
-  });
-
-  // input focus color
-  $('input, textarea').focus(function (e) {
-    $(e.currentTarget).css('border-color', accentColor);
-  }).focusout(function (e) {
-    $(e.currentTarget).css('border-color', '#bbb');
   });
 
   // header color and height
@@ -585,6 +588,14 @@ $(document).ready(function () {
     }
   }).init();
 
+  _barba2.default.BaseView.extend({
+    namespace: 'secret',
+    onEnterCompleted: function onEnterCompleted() {
+      $(document.body).css('background-image', 'url(../images/blobsweat.gif)');
+      onDefaultLoad();
+    }
+  }).init();
+
   _barba2.default.Pjax.start();
 });
 
@@ -595,7 +606,13 @@ $(document.body).mousemove(function (e) {
   $(e.currentTarget).css('background-position', x + 'px ' + y + 'px');
 });
 
-},{"./animations":1,"barba.js":4}],3:[function(require,module,exports){
+// secret page
+var easterEgg = new _konami2.default(function () {
+  // eslint-disable-line no-unused-vars
+  window.location.href = './shop.html';
+});
+
+},{"./animations":1,"barba.js":4,"konami":5}],3:[function(require,module,exports){
 (function (global){
 /*
  2017 Julian Garnier
@@ -2341,5 +2358,157 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+
+},{}],5:[function(require,module,exports){
+/*
+ * Konami-JS ~
+ * :: Now with support for touch events and multiple instances for
+ * :: those situations that call for multiple easter eggs!
+ * Code: https://github.com/snaptortoise/konami-js
+ * Copyright (c) 2009 George Mandis (georgemandis.com, snaptortoise.com)
+ * Version: 1.6.0 (1/3/2018)
+ * Licensed under the MIT License (http://opensource.org/licenses/MIT)
+ * Tested in: Safari 4+, Google Chrome 4+, Firefox 3+, IE7+, Mobile Safari 2.2.1+ and Android
+ */
+
+var Konami = function (callback) {
+    var konami = {
+        addEvent: function (obj, type, fn, ref_obj) {
+            if (obj.addEventListener)
+                obj.addEventListener(type, fn, false);
+            else if (obj.attachEvent) {
+                // IE
+                obj["e" + type + fn] = fn;
+                obj[type + fn] = function () {
+                    obj["e" + type + fn](window.event, ref_obj);
+                }
+                obj.attachEvent("on" + type, obj[type + fn]);
+            }
+        },
+        removeEvent: function (obj, eventName, eventCallback) {
+            if (obj.removeEventListener) {
+                obj.removeEventListener(eventName, eventCallback);
+            } else if (obj.attachEvent) {
+                obj.detachEvent(eventName);
+            }
+        },
+        input: "",
+        pattern: "38384040373937396665",
+        keydownHandler: function (e, ref_obj) {
+            if (ref_obj) {
+                konami = ref_obj;
+            } // IE
+            konami.input += e ? e.keyCode : event.keyCode;
+            if (konami.input.length > konami.pattern.length) {
+                konami.input = konami.input.substr((konami.input.length - konami.pattern.length));
+            }
+            if (konami.input === konami.pattern) {
+                konami.code(this._currentLink);
+                konami.input = '';
+                e.preventDefault();
+                return false;
+            }
+        },
+        load: function (link) {
+            this.addEvent(document, "keydown", this.keydownHandler, this);
+            this.iphone.load(link);
+        },
+        unload: function () {
+            this.removeEvent(document, 'keydown', this.keydownHandler);
+            this.iphone.unload();
+        },
+        code: function (link) {
+            window.location = link
+        },
+        iphone: {
+            start_x: 0,
+            start_y: 0,
+            stop_x: 0,
+            stop_y: 0,
+            tap: false,
+            capture: false,
+            orig_keys: "",
+            keys: ["UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "TAP", "TAP"],
+            input: [],
+            code: function (link) {
+                konami.code(link);
+            },
+            touchmoveHandler: function (e) {
+                if (e.touches.length === 1 && konami.iphone.capture === true) {
+                    var touch = e.touches[0];
+                    konami.iphone.stop_x = touch.pageX;
+                    konami.iphone.stop_y = touch.pageY;
+                    konami.iphone.tap = false;
+                    konami.iphone.capture = false;
+                    konami.iphone.check_direction();
+                }
+            },
+            touchendHandler: function () {
+                konami.iphone.input.push(konami.iphone.check_direction());
+                
+                if (konami.iphone.input.length > konami.iphone.keys.length) konami.iphone.input.shift();
+                
+                if (konami.iphone.input.length === konami.iphone.keys.length) {
+                    var match = true;
+                    for (var i = 0; i < konami.iphone.keys.length; i++) {
+                        if (konami.iphone.input[i] !== konami.iphone.keys[i]) {
+                            match = false;
+                        }
+                    }
+                    if (match) {
+                        konami.iphone.code(this._currentLink);
+                    }
+                }
+            },
+            touchstartHandler: function (e) {
+                konami.iphone.start_x = e.changedTouches[0].pageX;
+                konami.iphone.start_y = e.changedTouches[0].pageY;
+                konami.iphone.tap = true;
+                konami.iphone.capture = true;
+            },
+            load: function (link) {
+                this.orig_keys = this.keys;
+                konami.addEvent(document, "touchmove", this.touchmoveHandler);
+                konami.addEvent(document, "touchend", this.touchendHandler, false);
+                konami.addEvent(document, "touchstart", this.touchstartHandler);
+            },
+            unload: function () {
+                konami.removeEvent(document, 'touchmove', this.touchmoveHandler);
+                konami.removeEvent(document, 'touchend', this.touchendHandler);
+                konami.removeEvent(document, 'touchstart', this.touchstartHandler);
+            },
+            check_direction: function () {
+                x_magnitude = Math.abs(this.start_x - this.stop_x);
+                y_magnitude = Math.abs(this.start_y - this.stop_y);
+                x = ((this.start_x - this.stop_x) < 0) ? "RIGHT" : "LEFT";
+                y = ((this.start_y - this.stop_y) < 0) ? "DOWN" : "UP";
+                result = (x_magnitude > y_magnitude) ? x : y;
+                result = (this.tap === true) ? "TAP" : result;
+                return result;
+            }
+        }
+    }
+
+    typeof callback === "string" && konami.load(callback);
+    if (typeof callback === "function") {
+        konami.code = callback;
+        konami.load();
+    }
+
+    return konami;
+};
+
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+        module.exports = Konami;
+} else {
+        if (typeof define === 'function' && define.amd) {
+                define([], function() {
+                        return Konami;
+                });
+        } else {
+                window.Konami = Konami;
+        }
+}
 
 },{}]},{},[2]);
