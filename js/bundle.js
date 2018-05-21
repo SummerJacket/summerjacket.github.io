@@ -18,6 +18,7 @@ var animate = function animate(props) {
 
 var headerHeight = { s: '6.7em', l: '7em' };
 var skewHeight = { s: '60vh', l: '64vh' };
+var headerSkewDeg = '3deg';
 
 var animations = {};
 
@@ -78,32 +79,32 @@ animations.column = function (target) {
 };
 
 animations.header = function () {
-  var headerContentMargin = { s: '2em', l: '2.2em' };
+  // const headerContentMargin = { s: '2em', l: '2.2em' };
   var headerAnimations = {};
   headerAnimations.extend = function () {
     animate({
       targets: '.header-accent',
-      height: [headerHeight.s, headerHeight.l],
+      // height: [headerHeight.s, headerHeight.l],
       delay: function delay(_, i) {
         return i * 60;
       }
     });
     animate({
-      targets: '.header-unskew',
-      marginTop: [headerContentMargin.s, headerContentMargin.l]
+      targets: '.header-unskew'
+      // marginTop: [headerContentMargin.s, headerContentMargin.l],
     });
   };
   headerAnimations.retract = function () {
     animate({
       targets: '.header-accent',
-      height: [headerHeight.l, headerHeight.s],
+      // height: [headerHeight.l, headerHeight.s],
       delay: function delay(_, i) {
         return i * -30;
       }
     });
     animate({
-      targets: '.header-unskew',
-      marginTop: [headerContentMargin.l, headerContentMargin.s]
+      targets: '.header-unskew'
+      // marginTop: [headerContentMargin.l, headerContentMargin.s],
     });
   };
   return headerAnimations;
@@ -162,7 +163,7 @@ animations.menu = function () {
     }).add({
       targets: '.header-accent',
       height: ['25vh', headerHeight.l],
-      skewY: '-4deg',
+      skewY: '-' + headerSkewDeg,
       easing: 'easeOutCirc',
       offset: '-=800'
     }).add({
@@ -282,8 +283,8 @@ animations.defaultPage = function () {
   pageAnimations.enter = function (callback) {
     return _animejs2.default.timeline().add({
       targets: '.header',
-      height: '6.7em',
-      skewY: '-4deg',
+      skewY: '-' + headerSkewDeg,
+      translateY: ['-100%', 0],
       opacity: 1,
       duration: 800,
       easing: 'easeOutCirc',
@@ -297,7 +298,7 @@ animations.defaultPage = function () {
       targets: '.header-unskew',
       opacity: 1,
       marginTop: '2em',
-      skewY: '4deg',
+      skewY: headerSkewDeg,
       duration: 800,
       offset: '-=600'
     }).add({
@@ -404,7 +405,6 @@ var skewComplete = false;
 var skewExtented = false;
 var menuComplete = false;
 var menuOpen = false;
-var accentColor = void 0;
 
 var choose = function choose(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -458,26 +458,6 @@ var loadEvents = function loadEvents() {
     _animations2.default.header().retract();
   });
 
-  // button hover color
-  $('.form-button').hover(function (e) {
-    $(e.currentTarget).css({
-      'background-color': accentColor,
-      color: 'white'
-    });
-  }, function (e) {
-    $(e.currentTarget).css({
-      'background-color': 'transparent',
-      color: accentColor
-    });
-  });
-
-  // input focus color
-  $('input, textarea').focus(function (e) {
-    $(e.currentTarget).css('border-color', accentColor);
-  }).focusout(function (e) {
-    $(e.currentTarget).css('border-color', '#bbb');
-  });
-
   // menu
   $('.hamburger').click(function () {
     if (!menuComplete) return;
@@ -521,16 +501,43 @@ var onIndexUnload = function onIndexUnload() {
 
 var onDefaultLoad = function onDefaultLoad() {
   onPageLoad();
-  accentColor = choose(['#F23E77', '#7D459E', '#41DBBA']);
+  var accentColor = choose(['#F23E77', '#7D459E', '#009FB7']);
+  // link color
+  $('a').css('color', accentColor);
+
+  // button color
   $('.form-button').css({
     'border-color': accentColor,
     color: accentColor
+  }).hover(function (e) {
+    $(e.currentTarget).css({
+      'background-color': accentColor,
+      color: 'white'
+    });
+  }, function (e) {
+    $(e.currentTarget).css({
+      'background-color': 'transparent',
+      color: accentColor
+    });
   });
+
+  // input focus color
+  $('input, textarea').focus(function (e) {
+    $(e.currentTarget).css('border-color', accentColor);
+  }).focusout(function (e) {
+    $(e.currentTarget).css('border-color', '#bbb');
+  });
+
+  // header color and height
   $('.header-accent').css('background-color', accentColor);
-  _animations2.default.defaultPage().enter(function () {
+
+  var animationCallback = _animations2.default.defaultPage().enter(function () {
     skewComplete = true;
     menuComplete = true;
   });
+  animationCallback.update = function () {
+    $('.header-accent').height($('.header-background').height());
+  };
 };
 
 var onDefualtUnload = function onDefualtUnload() {

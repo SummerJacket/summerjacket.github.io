@@ -10,15 +10,19 @@ body {
   background-image: url('../images/bg.png');
   color: $primary-color;
   font-family: $font-stack;
-  font-size: 1.4em;
+  font-size: 1.2em;
   height: 100%;
   margin: 0;
   overflow-x: hidden;
   overflow-y: scroll;
 }
+a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .anchor-noback {
   color: inherit;
   &:hover {
+    background-color: transparent;
     color: inherit;
     text-decoration: none;
   }
@@ -47,15 +51,17 @@ ul {
   transform-origin: top left;
   position: fixed;
   width: 100%;
-  opacity: 0;
+  opacity: 1;
   z-index: 999;
-  height: 0;
 }
 .header-unskew {
   margin: 2em;
   margin-top: 0;
   opacity: 0;
   transform-origin: top left;
+}
+.header-title {
+  display: inline;
 }
 .main {
   padding: 2.7em;

@@ -7,6 +7,7 @@ const animate = (props) => {
 
 const headerHeight = { s: '6.7em', l: '7em' };
 const skewHeight = { s: '60vh', l: '64vh' };
+const headerSkewDeg = '3deg';
 
 const animations = { };
 
@@ -63,28 +64,28 @@ animations.column = (target) => {
 };
 
 animations.header = () => {
-  const headerContentMargin = { s: '2em', l: '2.2em' };
+  // const headerContentMargin = { s: '2em', l: '2.2em' };
   const headerAnimations = { };
   headerAnimations.extend = () => {
     animate({
       targets: '.header-accent',
-      height: [headerHeight.s, headerHeight.l],
+      // height: [headerHeight.s, headerHeight.l],
       delay: (_, i) => i * 60,
     });
     animate({
       targets: '.header-unskew',
-      marginTop: [headerContentMargin.s, headerContentMargin.l],
+      // marginTop: [headerContentMargin.s, headerContentMargin.l],
     });
   };
   headerAnimations.retract = () => {
     animate({
       targets: '.header-accent',
-      height: [headerHeight.l, headerHeight.s],
+      // height: [headerHeight.l, headerHeight.s],
       delay: (_, i) => i * -30,
     });
     animate({
       targets: '.header-unskew',
-      marginTop: [headerContentMargin.l, headerContentMargin.s],
+      // marginTop: [headerContentMargin.l, headerContentMargin.s],
     });
   };
   return headerAnimations;
@@ -148,7 +149,7 @@ animations.menu = () => {
     .add({
       targets: '.header-accent',
       height: ['25vh', headerHeight.l],
-      skewY: '-4deg',
+      skewY: `-${headerSkewDeg}`,
       easing: 'easeOutCirc',
       offset: '-=800',
     })
@@ -260,8 +261,8 @@ animations.defaultPage = () => {
     .timeline()
     .add({
       targets: '.header',
-      height: '6.7em',
-      skewY: '-4deg',
+      skewY: `-${headerSkewDeg}`,
+      translateY: ['-100%', 0],
       opacity: 1,
       duration: 800,
       easing: 'easeOutCirc',
@@ -274,7 +275,7 @@ animations.defaultPage = () => {
       targets: '.header-unskew',
       opacity: 1,
       marginTop: '2em',
-      skewY: '4deg',
+      skewY: headerSkewDeg,
       duration: 800,
       offset: '-=600',
     })

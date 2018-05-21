@@ -5,7 +5,6 @@ let skewComplete = false;
 let skewExtented = false;
 let menuComplete = false;
 let menuOpen = false;
-let accentColor;
 
 const choose = arr => arr[Math.floor(Math.random() * arr.length)];
 
@@ -57,28 +56,6 @@ const loadEvents = () => {
     animations.header().retract();
   });
 
-  // button hover color
-  $('.form-button').hover((e) => {
-    $(e.currentTarget).css({
-      'background-color': accentColor,
-      color: 'white',
-    });
-  }, (e) => {
-    $(e.currentTarget).css({
-      'background-color': 'transparent',
-      color: accentColor,
-    });
-  });
-
-  // input focus color
-  $('input, textarea')
-    .focus((e) => {
-      $(e.currentTarget).css('border-color', accentColor);
-    })
-    .focusout((e) => {
-      $(e.currentTarget).css('border-color', '#bbb');
-    });
-
   // menu
   $('.hamburger').click(() => {
     if (!menuComplete) return;
@@ -122,16 +99,47 @@ const onIndexUnload = () => {
 
 const onDefaultLoad = () => {
   onPageLoad();
-  accentColor = choose(['#F23E77', '#7D459E', '#41DBBA']);
-  $('.form-button').css({
-    'border-color': accentColor,
-    color: accentColor,
-  });
+  const accentColor = choose(['#F23E77', '#7D459E', '#009FB7']);
+  // link color
+  $('a').css('color', accentColor);
+
+  // button color
+  $('.form-button')
+    .css({
+      'border-color': accentColor,
+      color: accentColor,
+    })
+    .hover((e) => {
+      $(e.currentTarget).css({
+        'background-color': accentColor,
+        color: 'white',
+      });
+    }, (e) => {
+      $(e.currentTarget).css({
+        'background-color': 'transparent',
+        color: accentColor,
+      });
+    });
+
+  // input focus color
+  $('input, textarea')
+    .focus((e) => {
+      $(e.currentTarget).css('border-color', accentColor);
+    })
+    .focusout((e) => {
+      $(e.currentTarget).css('border-color', '#bbb');
+    });
+
+  // header color and height
   $('.header-accent').css('background-color', accentColor);
-  animations.defaultPage().enter(() => {
+
+  const animationCallback = animations.defaultPage().enter(() => {
     skewComplete = true;
     menuComplete = true;
   });
+  animationCallback.update = () => {
+    $('.header-accent').height($('.header-background').height());
+  };
 };
 
 const onDefualtUnload = () => {
