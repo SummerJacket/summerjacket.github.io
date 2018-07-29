@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from '../components/App';
+import Wipe from '../components/Wipe';
 
-describe('<App />', () => {
+describe('<Wipe />', () => {
   it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<Wipe />);
   });
 });

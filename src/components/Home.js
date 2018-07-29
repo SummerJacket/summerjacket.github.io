@@ -1,4 +1,5 @@
 import React from 'react';
+import Square from './Square';
 
 const Home = () => (
   <div>
@@ -17,6 +18,10 @@ const Home = () => (
     <p>
        Aliquam ac ultricies elit, a accumsan sapien.
     </p>
+    <Square color="red" />
+    <Square color="green" />
+    <Square color="blue" />
+    <Square color="yellow" />
   </div>
 );
 
