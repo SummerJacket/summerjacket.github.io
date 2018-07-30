@@ -2,8 +2,9 @@ import React from 'react';
 
 const utils = {};
 
-utils.firstChildComponent = ({ Children }) => {
-  const arr = React.Children.toArray(Children);
+utils.firstChildComponent = (component) => {
+  const { children } = component.props;
+  const arr = React.Children.toArray(children);
   return arr[0] || null;
 };
 
