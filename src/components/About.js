@@ -1,11 +1,9 @@
 import React from 'react';
 
 const About = () => (
-  <div>
-    <h2>
-      About
-    </h2>
-  </div>
+  <h1>
+    About
+  </h1>
 );
 
 export default About;

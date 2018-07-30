@@ -1,31 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {
+  Route,
+  Link,
+  Switch,
+  withRouter,
+} from 'react-router-dom';
 import styled from 'styled-components';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Home from './Home';
 import About from './About';
 import Wipe from './Wipe';
 
 const Container = styled.div`
-  padding: 6em;
 `;
 
-const App = () => (
-  <Router>
-    <div className="App">
-      <Wipe />
-      <Container>
-        <Link to="/">
-          Home
-        </Link>
-        <Link to="/about">
-          About
-        </Link>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-      </Container>
-    </div>
-  </Router>
-);
+const App = withRouter(({ location }) => (
+  <Container>
+    <Wipe />
+    <Link to="/">
+      Home
+    </Link>
+    <Link to="/about">
+      About
+    </Link>
+    <TransitionGroup>
+      <CSSTransition
+        key={location.key}
+        classNames="fade"
+        timeout={1000}
+      >
+        <Switch location={location}>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+        </Switch>
+      </CSSTransition>
+    </TransitionGroup>
+  </Container>
+));
 
 export default App;
