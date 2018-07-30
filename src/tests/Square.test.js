@@ -1,4 +1,5 @@
 import React from 'react';
+import sinon from 'sinon';
 import { shallow } from 'enzyme';
 
 import Square from '../components/Square';
@@ -8,6 +9,14 @@ const renderComponent = () => shallow(<Square color="red" />);
 describe('<Square />', () => {
   it('renders without crashing', () => {
     renderComponent();
+  });
+
+  it('requires a color prop', () => {
+    const stub = sinon.stub(console, 'error');
+    shallow(<Square />);
+    expect(stub.calledOnce).toEqual(true);
+
+    console.error.restore();
   });
 
   it('the default hover state should be false', () => {
