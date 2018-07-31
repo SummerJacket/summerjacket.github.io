@@ -6,29 +6,29 @@ import { PoseGroup } from 'react-pose';
 import Home from './Home';
 import About from './About';
 import Sidebar from './Sidebar';
+import Row from './Row';
+import Column from './Column';
 // import Wipe from './Wipe';
 
 const Container = styled.div`
-  color: rgba(255, 255, 255, 0.95);
-  background: #15303d;
+  /* color: rgba(255, 255, 255, 0.95); */
+  color: rgba(0, 0, 0, 0.95);
+  /* background: #15303d; */
   min-height: 100vh;
 `;
 
-const Row = styled.div`
-  display: flex;
-`;
-
-const Column = styled.div``;
+const sideSize = 100;
 
 const App = () => (
   <Container>
     {/* <Wipe /> */}
     <Row>
-      <Column style={{ width: 100 }}>
-        <Sidebar />
+      <Column style={{ width: sideSize }}>
+        <Sidebar left={sideSize}/>
       </Column>
       <Column style={{ padding: '8em' }}>
         <Link to="/">Home</Link>
+        <span style={{ marginLeft: 20 }} />
         <Link to="/about">About</Link>
         <PoseGroup animateOnMount preEnterPose="before">
           <Route exact path="/" component={Home} key={1} />

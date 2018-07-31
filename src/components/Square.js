@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
-const Hover = posed.div({
+import BoxShadow from './BoxShadow';
+
+const Hover = posed(BoxShadow)({
   idle: { scale: 1 },
   hover: { scale: 1.5 },
 });
