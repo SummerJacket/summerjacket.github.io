@@ -8,8 +8,6 @@ const Wrapper = styled.div`
   background: white;
 `;
 
-const Sidebar = () => (
-  <Wrapper />
-);
+const Sidebar = () => <Wrapper />;
 
 export default Sidebar;

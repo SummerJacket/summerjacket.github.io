@@ -18,8 +18,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Column = styled.div`
-`;
+const Column = styled.div``;
 
 const App = () => (
   <Container>
