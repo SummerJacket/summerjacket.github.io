@@ -27,7 +27,17 @@ describe('utils', () => {
       expect(shallow(child).type()).toEqual('span');
     });
 
-    it("returns null when there's no child", () => {
+    it('returns null when child does not exist', () => {
+      const component = (
+        <div>
+          <span />
+        </div>
+      );
+      const child = utils.getNthChild(component, 1);
+      expect(child).toBeNull();
+    });
+
+    it("returns null when there's no children", () => {
       const child = utils.getNthChild(<div />, 0);
       expect(child).toBeNull();
     });
