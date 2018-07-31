@@ -1,42 +1,24 @@
 import React from 'react';
-import {
-  Route,
-  Link,
-  Switch,
-  withRouter,
-} from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { PoseGroup } from 'react-pose';
 
 import Home from './Home';
 import About from './About';
-import Wipe from './Wipe';
+// import Wipe from './Wipe';
 
-const Container = styled.div`
-`;
+const Container = styled.div``;
 
-const App = withRouter(({ location }) => (
+const App = () => (
   <Container>
-    <Wipe />
-    <Link to="/">
-      Home
-    </Link>
-    <Link to="/about">
-      About
-    </Link>
-    <TransitionGroup>
-      <CSSTransition
-        key={location.key}
-        classNames="fade"
-        timeout={1000}
-      >
-        <Switch location={location}>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-        </Switch>
-      </CSSTransition>
-    </TransitionGroup>
+    {/* <Wipe /> */}
+    <Link to="/">Home</Link>
+    <Link to="/about">About</Link>
+    <PoseGroup animateOnMount preEnterPose="before">
+      <Route exact path="/" component={Home} key={1} />
+      <Route path="/about" component={About} key={2} />
+    </PoseGroup>
   </Container>
-));
+);
 
 export default App;

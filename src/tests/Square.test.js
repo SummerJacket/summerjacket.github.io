@@ -16,6 +16,7 @@ describe('<Square />', () => {
     shallow(<Square />);
     expect(stub.calledOnce).toEqual(true);
 
+    // eslint-disable-next-line no-console
     console.error.restore();
   });
 

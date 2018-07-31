@@ -19,8 +19,6 @@ const StyledRevel = styled(PosedRevel)`
   background: #dddddd;
 `;
 
-const Revel = () => (
-  <StyledRevel pose="end" initialPose="start" />
-);
+const Revel = () => <StyledRevel pose="end" initialPose="start" />;
 
 export default Revel;

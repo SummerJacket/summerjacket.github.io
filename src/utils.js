@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const utils = {};
 
-utils.firstChildComponent = (component) => {
+utils.getNthChild = (component, n) => {
   const { children } = component.props;
   const arr = React.Children.toArray(children);
-  return arr[0] || null;
+  return arr[n] || null;
 };
 
 export default utils;
