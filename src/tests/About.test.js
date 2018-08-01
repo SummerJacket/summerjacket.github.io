@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Home from '../components/Pages/Home';
+import About from '../components/Pages/About';
 
-describe('<Home />', () => {
+describe('<About />', () => {
   it('renders without crashing', () => {
-    shallow(<Home />);
+    shallow(<About />);
   });
 });

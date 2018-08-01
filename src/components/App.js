@@ -3,8 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { PoseGroup } from 'react-pose';
 
-import Home from './Home';
-import About from './About';
+import Home from './Pages/Home';
+import About from './Pages/About';
 import Sidebar from './Sidebar';
 import Row from './Row';
 import Column from './Column';
