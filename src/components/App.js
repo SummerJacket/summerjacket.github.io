@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { PoseGroup } from 'react-pose';
+// import { Container } from 'reactstrap';
 
 import Home from './Pages/Home';
 import About from './Pages/About';
