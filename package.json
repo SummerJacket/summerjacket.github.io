@@ -1,41 +1,29 @@
 {
   "name": "summerjacket.github.io",
-  "homepage": "http://summerjacket.github.io",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.1",
-    "prop-types": "^15.6.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-pose": "^2.2.0",
-    "react-responsive": "^5.0.0",
+    "bootstrap": "^4.1.3",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "react-transition-group": "^2.4.0",
     "reactstrap": "^6.3.1",
-    "styled-components": "^3.3.3"
+    "styled-components": "^3.4.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "format": "prettier --write src/**/*.js"
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
-    "gh-pages": "^1.2.0",
-    "prettier": "1.14.0",
-    "sinon": "^6.1.4"
+    "prettier": "1.14.0"
   }
 }
