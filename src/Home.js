@@ -6,8 +6,11 @@ import styled from 'styled-components';
 const Link = styled(UnstyledLink)`
   font-family: 'Iosevka', sans-serif;
   color: #000;
+  transition: 0.3s;
   &:hover {
-    color: #000;
+    color: #fff;
+    background-color: #000;
+    text-decoration: none;
   }
 `;
 
@@ -15,14 +18,13 @@ const Heading = () => (
   <div>
     <h1>Hey!</h1>
     <h1>
-      I&apos;m
-      <span className="accent"> Jason Liang</span>
+      I&apos;m <span className="accent">Jason Liang</span>
     </h1>
     <h1 className="secondary">I code things</h1>
   </div>
 );
 
-const Links = () => (
+const HomeNav = () => (
   <div style={{ fontSize: '1.8em' }}>
     <Link to="/projects">Projects</Link>
     <span
@@ -40,7 +42,8 @@ const Home = () => (
     <div className="align-self-center">
       <Heading />
       <div style={{ marginTop: '4em' }} />
-      <Links />
+      <HomeNav />
+      <div style={{ height: '10vh' }} />
     </div>
   </Row>
 );

@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-
 @font-face {
   font-family: 'Iosevka';
-  src: url(./fonts/iosevka-light.woff);
+  src: url(./fonts/iosevka-light.ttf);
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url(./fonts/Montserrat-Regular.ttf);
 }
 
 body {
