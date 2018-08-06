@@ -1,10 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 import Menu from './Menu';
 import Home from './Home';
 import Contact from './Contact';
+import NotFound from './NotFound';
 import './dist/hamburgers.min.css';
 
 class App extends React.Component {
@@ -26,8 +27,11 @@ class App extends React.Component {
       <div>
         <Menu isActive={menuOpen} onClick={this.handleMenuClick} />
         <Container>
-          <Route exact path="/" component={Home} />
-          <Route path="/contact" component={Contact} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/contact" component={Contact} />
+            <Route component={NotFound} />
+          </Switch>
         </Container>
       </div>
     );

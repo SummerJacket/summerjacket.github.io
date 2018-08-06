@@ -21,7 +21,7 @@ class Menu extends React.Component {
             isActive ? 'is-active' : null
           }`}
           onClick={this.handleButtonClick}
-          style={{ outline: 'none' }}
+          style={{ outline: 'none' } /* removes blue outline when clicked */}
           type="button"
         >
           <span className="hamburger-box">
