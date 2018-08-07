@@ -43,7 +43,6 @@ const Home = () => (
       <Heading />
       <div style={{ marginTop: '4em' }} />
       <HomeNav />
-      <div style={{ height: '10vh' }} />
     </div>
   </Row>
 );
