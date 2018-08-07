@@ -4,7 +4,8 @@ import posed from 'react-pose';
 import MenuButton from './MenuButton';
 
 const transition = {
-  default: { ease: 'backOut', duration: 500 },
+  ease: 'backOut',
+  duration: 500,
 };
 
 const MenuBackground = posed.div({
