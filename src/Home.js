@@ -18,9 +18,9 @@ const Heading = () => (
   <div>
     <h1>Hey!</h1>
     <h1>
-      I&apos;m <span className="accent">Jason Liang</span>
+      I&apos;m <span style={{ color: 'var(--accent-color)' }}>Jason Liang</span>
     </h1>
-    <h1 className="secondary">I code things</h1>
+    <h1 style={{ color: 'var(--secondary-color)' }}>I code things</h1>
   </div>
 );
 
