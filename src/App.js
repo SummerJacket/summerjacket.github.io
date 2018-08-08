@@ -2,14 +2,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import Menu from './Menu';
+import MenuContainer from './MenuContainer';
 import Home from './Home';
 import Contact from './Contact';
 import NotFound from './NotFound';
 
 const App = () => (
   <div>
-    <Menu />
+    <MenuContainer />
     <Container>
       <Switch>
         <Route exact path="/" component={Home} />

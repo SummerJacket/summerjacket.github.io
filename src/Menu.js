@@ -1,58 +1,49 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
-import MenuButton from './MenuButton';
+const MenuWrapper = posed.div({
+  open: { staggerChildren: 200 },
+  closed: { staggerChildren: 100, staggerDirection: -1 },
+});
 
-const transition = {
-  ease: 'backOut',
-  duration: 500,
+const backgroundTransition = {
+  type: 'spring',
 };
 
 const MenuBackground = styled(
   posed.div({
-    open: { height: 400, transition },
-    closed: { height: 4, transition },
+    open: {
+      height: ({ startingHeight }) => 400 + startingHeight,
+      transition: backgroundTransition,
+    },
+    closed: {
+      height: ({ startingHeight }) => startingHeight,
+      transition: backgroundTransition,
+    },
+    props: { startingHeight: 0 },
   })
 )`
+  position: fixed;
   width: inherit;
 `;
 
-class Menu extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      menuOpen: false,
-    };
-    this.handleMenuButtonClick = this.handleMenuButtonClick.bind(this);
-  }
+const Menu = ({ isActive }) => (
+  <MenuWrapper
+    pose={isActive ? 'open' : 'closed'}
+    style={{ width: '100%', zIndex: 900 }}
+  >
+    <MenuBackground
+      style={{ backgroundColor: 'var(--accent-color)' }}
+      startingHeight={4}
+    />
+    <MenuBackground style={{ backgroundColor: '#FFF' }} startingHeight={0} />
+  </MenuWrapper>
+);
 
-  handleMenuButtonClick() {
-    this.setState(prev => ({ menuOpen: !prev.menuOpen }));
-  }
-
-  render() {
-    const { menuOpen } = this.state;
-    return (
-      <div>
-        <MenuButton
-          isActive={menuOpen}
-          onClick={this.handleMenuButtonClick}
-          style={{ zIndex: 1000 }}
-        />
-        <div style={{ position: 'fixed', width: '100%', zIndex: 900 }}>
-          <MenuBackground
-            pose={menuOpen ? 'open' : 'closed'}
-            style={{ backgroundColor: '#FFF' }}
-          />
-          <MenuBackground
-            pose={menuOpen ? 'open' : 'closed'}
-            style={{ backgroundColor: 'var(--accent-color)' }}
-          />
-        </div>
-      </div>
-    );
-  }
-}
+Menu.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+};
 
 export default Menu;
