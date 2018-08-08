@@ -1,7 +1,18 @@
 import React from 'react';
+import posed from 'react-pose';
+import styled from 'styled-components';
 
 import MenuButton from './MenuButton';
 import Menu from './Menu';
+
+const Overlay = styled(
+  posed.div({ default: { opacity: 0 }, open: { opacity: 0.3 } })
+)`
+  position: fixed;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+`;
 
 class MenuContainer extends React.Component {
   constructor() {
@@ -24,6 +35,10 @@ class MenuContainer extends React.Component {
           isActive={menuOpen}
           onClick={this.handleMenuButtonClick}
           style={{ zIndex: 1000 }}
+        />
+        <Overlay
+          pose={menuOpen ? 'open' : 'default'}
+          style={{ pointerEvents: menuOpen ? 'auto' : 'none' }}
         />
         <Menu isActive={menuOpen} />
       </div>

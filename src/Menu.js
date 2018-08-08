@@ -15,7 +15,7 @@ const backgroundTransition = {
 const MenuBackground = styled(
   posed.div({
     open: {
-      height: ({ startingHeight }) => 400 + startingHeight,
+      height: ({ startingHeight }) => 500 + startingHeight,
       transition: backgroundTransition,
     },
     closed: {
