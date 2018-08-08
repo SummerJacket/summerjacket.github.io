@@ -41,7 +41,7 @@ const HomeNav = () => (
 );
 
 const Home = () => (
-  <Row style={{ minHeight: '100vh' }}>
+  <Row style={{ minHeight: '100vh', marginLeft: 'auto', marginRight: 'auto' }}>
     <div className="align-self-center">
       <Heading />
       <div style={{ marginTop: '4em' }} />
