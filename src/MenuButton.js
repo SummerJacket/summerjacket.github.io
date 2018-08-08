@@ -15,15 +15,19 @@ class MenuButton extends React.Component {
   }
 
   render() {
-    const { isActive } = this.props;
+    const { isActive, onClick, style, ...rest } = this.props;
     return (
       <div
         style={{
-          position: 'fixed',
-          marginTop: '2em',
-          marginLeft: '2em',
-          transform: 'scale(0.8)',
+          ...{
+            position: 'fixed',
+            marginTop: '2em',
+            marginLeft: '2em',
+            transform: 'scale(0.8)',
+          },
+          ...style,
         }}
+        {...rest}
       >
         <button
           className={`hamburger hamburger--spin ${
@@ -45,6 +49,11 @@ class MenuButton extends React.Component {
 MenuButton.propTypes = {
   isActive: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  style: PropTypes.shape({}), // haha
+};
+
+MenuButton.defaultProps = {
+  style: {},
 };
 
 export default MenuButton;

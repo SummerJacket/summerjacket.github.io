@@ -1,5 +1,6 @@
 import React from 'react';
 import posed from 'react-pose';
+import styled from 'styled-components';
 
 import MenuButton from './MenuButton';
 
@@ -8,10 +9,14 @@ const transition = {
   duration: 500,
 };
 
-const MenuBackground = posed.div({
-  open: { height: 400, transition },
-  closed: { height: 4, transition },
-});
+const MenuBackground = styled(
+  posed.div({
+    open: { height: 400, transition },
+    closed: { height: 4, transition },
+  })
+)`
+  width: inherit;
+`;
 
 class Menu extends React.Component {
   constructor() {
@@ -35,14 +40,14 @@ class Menu extends React.Component {
           onClick={this.handleMenuButtonClick}
           style={{ zIndex: 1000 }}
         />
-        <div style={{ position: 'fixed', width: '100%', zIndex: 500 }}>
-          <div style={{ backgroundColor: '#FFF', width: 'inherit' }} />
+        <div style={{ position: 'fixed', width: '100%', zIndex: 900 }}>
           <MenuBackground
             pose={menuOpen ? 'open' : 'closed'}
-            style={{
-              backgroundColor: 'var(--accent-color)',
-              width: 'inherit',
-            }}
+            style={{ backgroundColor: '#FFF' }}
+          />
+          <MenuBackground
+            pose={menuOpen ? 'open' : 'closed'}
+            style={{ backgroundColor: 'var(--accent-color)' }}
           />
         </div>
       </div>

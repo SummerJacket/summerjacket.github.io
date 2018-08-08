@@ -28,8 +28,11 @@ const HomeNav = () => (
   <div style={{ fontSize: '1.8em' }}>
     <Link to="/projects">Projects</Link>
     <span
-      className="accent"
-      style={{ paddingLeft: '1em', paddingRight: '1em' }}
+      style={{
+        paddingLeft: '1em',
+        paddingRight: '1em',
+        color: 'var(--accent-color)',
+      }}
     >
       /
     </span>
