@@ -21,10 +21,18 @@ class MenuContainer extends React.Component {
       menuOpen: false,
     };
     this.handleMenuButtonClick = this.handleMenuButtonClick.bind(this);
+    this.handleOverlayClick = this.handleOverlayClick.bind(this);
   }
 
   handleMenuButtonClick() {
     this.setState(prev => ({ menuOpen: !prev.menuOpen }));
+  }
+
+  handleOverlayClick() {
+    const { menuOpen } = this.state;
+    if (menuOpen) {
+      this.setState(() => ({ menuOpen: false }));
+    }
   }
 
   render() {
@@ -38,6 +46,7 @@ class MenuContainer extends React.Component {
         />
         <Overlay
           pose={menuOpen ? 'open' : 'default'}
+          onClick={this.handleOverlayClick}
           style={{ pointerEvents: menuOpen ? 'auto' : 'none' }}
         />
         <Menu isActive={menuOpen} />

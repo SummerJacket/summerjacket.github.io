@@ -4,12 +4,13 @@ import posed from 'react-pose';
 import styled from 'styled-components';
 
 const MenuWrapper = posed.div({
-  open: { staggerChildren: 200 },
-  closed: { staggerChildren: 100, staggerDirection: -1 },
+  open: { staggerChildren: 80 },
+  closed: { staggerChildren: 80, staggerDirection: -1 },
 });
 
 const backgroundTransition = {
-  type: 'spring',
+  ease: 'anticipate',
+  duration: 700,
 };
 
 const MenuBackground = styled(
