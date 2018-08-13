@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Row } from 'reactstrap';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
@@ -41,7 +42,7 @@ const NavContainer = styled(
 `;
 
 const NavLink = styled(Link)`
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   display: block;
   font-size: 36px;
   color: var(--primary-color);
@@ -62,12 +63,14 @@ const Menu = ({ isActive }) => (
       startingheight={3}
     />
     <MenuBackground style={{ backgroundColor: '#FFFF' }} startingheight={0}>
-      <NavContainer>
-        <div style={{ marginTop: 120 }} />
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/projects">Projects</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-      </NavContainer>
+      <Row>
+        <NavContainer>
+          <div style={{ marginTop: 120 }} />
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/projects">Projects</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
+        </NavContainer>
+      </Row>
     </MenuBackground>
   </MenuWrapper>
 );
