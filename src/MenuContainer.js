@@ -29,10 +29,7 @@ class MenuContainer extends React.Component {
   }
 
   handleOverlayClick() {
-    const { menuOpen } = this.state;
-    if (menuOpen) {
-      this.setState(() => ({ menuOpen: false }));
-    }
+    this.setState(() => ({ menuOpen: false }));
   }
 
   render() {

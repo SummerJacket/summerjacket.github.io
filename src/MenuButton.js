@@ -23,16 +23,14 @@ class MenuButton extends React.Component {
             position: 'fixed',
             marginTop: '2em',
             marginLeft: '2em',
-            transform: 'scale(0.8)',
+            transform: 'scale(0.75)',
           },
           ...style,
         }}
         {...rest}
       >
         <button
-          className={`hamburger hamburger--spin ${
-            isActive ? 'is-active' : null
-          }`}
+          className={`hamburger hamburger--spin ${isActive ? 'is-active' : ''}`}
           onClick={this.handleButtonClick}
           style={{ outline: 'none' }}
           type="button"

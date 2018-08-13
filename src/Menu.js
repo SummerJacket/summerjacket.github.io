@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
@@ -16,18 +17,39 @@ const backgroundTransition = {
 const MenuBackground = styled(
   posed.div({
     open: {
-      height: ({ startingHeight }) => 500 + startingHeight,
+      height: ({ startingheight }) => 500 + startingheight,
       transition: backgroundTransition,
     },
     closed: {
-      height: ({ startingHeight }) => startingHeight,
+      height: ({ startingheight }) => startingheight,
       transition: backgroundTransition,
     },
-    props: { startingHeight: 0 },
+    props: { startingheight: 0 },
   })
 )`
   position: fixed;
   width: inherit;
+`;
+
+const NavContainer = styled(
+  posed.div({
+    open: { opacity: 1 },
+    closed: { opacity: 1 },
+  })
+)`
+  margin-left: 150px;
+`;
+
+const NavLink = styled(Link)`
+  margin-bottom: 50px;
+  display: block;
+  font-size: 36px;
+  color: var(--primary-color);
+  &:hover {
+    color: var(--primary-color);
+    background-color: var(--tertiary-color);
+    text-decoration: none;
+  }
 `;
 
 const Menu = ({ isActive }) => (
@@ -37,9 +59,16 @@ const Menu = ({ isActive }) => (
   >
     <MenuBackground
       style={{ backgroundColor: 'var(--accent-color)' }}
-      startingHeight={4}
+      startingheight={3}
     />
-    <MenuBackground style={{ backgroundColor: '#FFF' }} startingHeight={0} />
+    <MenuBackground style={{ backgroundColor: '#FFFF' }} startingheight={0}>
+      <NavContainer>
+        <div style={{ marginTop: 120 }} />
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/projects">Projects</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
+      </NavContainer>
+    </MenuBackground>
   </MenuWrapper>
 );
 

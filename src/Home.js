@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link as UnstyledLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Row } from 'reactstrap';
 import styled from 'styled-components';
 
-const Link = styled(UnstyledLink)`
-  font-family: 'Iosevka', sans-serif;
-  color: #000;
+const StyledLink = styled(Link)`
+  font-family: var(--secondary-font);
+  color: var(--primary-color);
   transition: 0.3s;
+  letter-spacing: 3px;
   &:hover {
     color: #fff;
-    background-color: #000;
+    background-color: var(--primary-color);
     text-decoration: none;
   }
 `;
@@ -25,8 +26,8 @@ const Heading = () => (
 );
 
 const HomeNav = () => (
-  <div style={{ fontSize: '1.8em' }}>
-    <Link to="/projects">Projects</Link>
+  <div style={{ fontSize: '1.5em' }}>
+    <StyledLink to="/projects">PROJECTS</StyledLink>
     <span
       style={{
         paddingLeft: '1em',
@@ -36,7 +37,7 @@ const HomeNav = () => (
     >
       /
     </span>
-    <Link to="/contact">Contact</Link>
+    <StyledLink to="/contact">CONTACT</StyledLink>
   </div>
 );
 
