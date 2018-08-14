@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Row } from 'reactstrap';
 import posed from 'react-pose';
 import styled from 'styled-components';
+
+import MenuItem from './MenuItem';
+
+const menuHeight = 600;
 
 const MenuWrapper = posed.div({
   open: { staggerChildren: 80 },
   closed: { staggerChildren: 80, staggerDirection: -1 },
 });
 
-const backgroundTransition = {
-  ease: 'anticipate',
-  duration: 700,
-};
+const backgroundTransition = { ease: 'anticipate', duration: 700 };
 
 const MenuBackground = styled(
   posed.div({
     open: {
-      height: ({ startingheight }) => 500 + startingheight,
+      height: ({ startingheight }) => menuHeight + startingheight,
       transition: backgroundTransition,
     },
     closed: {
@@ -34,23 +34,12 @@ const MenuBackground = styled(
 
 const NavContainer = styled(
   posed.div({
-    open: { opacity: 1 },
-    closed: { opacity: 1 },
+    open: { staggerChildren: 100, delayChildren: 400 },
+    closed: { staggerChildren: 80, staggerDirection: -1 },
   })
 )`
-  margin-left: 150px;
-`;
-
-const NavLink = styled(Link)`
-  margin-bottom: 30px;
   display: block;
-  font-size: 36px;
-  color: var(--primary-color);
-  &:hover {
-    color: var(--primary-color);
-    background-color: var(--tertiary-color);
-    text-decoration: none;
-  }
+  margin-left: 100px;
 `;
 
 const Menu = ({ isActive }) => (
@@ -62,16 +51,21 @@ const Menu = ({ isActive }) => (
       style={{ backgroundColor: 'var(--accent-color)' }}
       startingheight={3}
     />
-    <MenuBackground style={{ backgroundColor: '#FFFF' }} startingheight={0}>
-      <Row>
-        <NavContainer>
-          <div style={{ marginTop: 120 }} />
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/projects">Projects</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-        </NavContainer>
-      </Row>
-    </MenuBackground>
+    <MenuBackground style={{ backgroundColor: '#FFFF' }} startingheight={0} />
+    <Row
+      style={{
+        position: 'fixed',
+        width: '100%',
+        height: menuHeight,
+        pointerEvents: isActive ? 'auto' : 'none',
+      }}
+    >
+      <NavContainer className="align-self-center">
+        <MenuItem to="/">Home</MenuItem>
+        <MenuItem to="/projects">Projects</MenuItem>
+        <MenuItem to="/contact">Contact</MenuItem>
+      </NavContainer>
+    </Row>
   </MenuWrapper>
 );
 

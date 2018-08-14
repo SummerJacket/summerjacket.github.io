@@ -10,7 +10,7 @@
 
 :root {
   --accent-color: #e71d36;
-  --primary-color: rgba(0, 0, 0, 0.9);
+  --primary-color: rgba(0, 0, 0, 0.85);
   --secondary-color: rgba(0, 0, 0, 0.5);
   --tertiary-color: rgba(0, 0, 0, 0.1);
   --primary-font: 'Montserrat', sans-serif;
