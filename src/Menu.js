@@ -6,14 +6,14 @@ import styled from 'styled-components';
 
 import MenuItem from './MenuItem';
 
-const menuHeight = 600;
+const menuHeight = 500;
 
 const MenuWrapper = posed.div({
   open: { staggerChildren: 80 },
   closed: { staggerChildren: 80, staggerDirection: -1 },
 });
 
-const backgroundTransition = { ease: 'anticipate', duration: 700 };
+const backgroundTransition = { ease: 'anticipate', duration: 600 };
 
 const MenuBackground = styled(
   posed.div({
@@ -34,7 +34,7 @@ const MenuBackground = styled(
 
 const NavContainer = styled(
   posed.div({
-    open: { staggerChildren: 100, delayChildren: 400 },
+    open: { staggerChildren: 100, delayChildren: 280 },
     closed: { staggerChildren: 80, staggerDirection: -1 },
   })
 )`
