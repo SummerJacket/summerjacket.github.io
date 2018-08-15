@@ -13,17 +13,15 @@ const MenuWrapper = posed.div({
   closed: { staggerChildren: 80, staggerDirection: -1 },
 });
 
-const backgroundTransition = { ease: 'anticipate', duration: 600 };
-
 const MenuBackground = styled(
   posed.div({
     open: {
       height: ({ startingheight }) => menuHeight + startingheight,
-      transition: backgroundTransition,
+      transition: { ease: 'anticipate', duration: 700 },
     },
     closed: {
       height: ({ startingheight }) => startingheight,
-      transition: backgroundTransition,
+      transition: { ease: 'anticipate', duration: 600 },
     },
     props: { startingheight: 0 },
   })
@@ -34,7 +32,7 @@ const MenuBackground = styled(
 
 const NavContainer = styled(
   posed.div({
-    open: { staggerChildren: 100, delayChildren: 280 },
+    open: { staggerChildren: 100, delayChildren: 300 },
     closed: { staggerChildren: 80, staggerDirection: -1 },
   })
 )`

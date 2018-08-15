@@ -1,19 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Row } from 'reactstrap';
-import styled from 'styled-components';
 
-const StyledLink = styled(Link)`
-  font-family: var(--secondary-font);
-  color: var(--primary-color);
-  transition: 0.3s;
-  letter-spacing: 3px;
-  &:hover {
-    color: #fff;
-    background-color: var(--primary-color);
-    text-decoration: none;
-  }
-`;
+import FancyLink from './FancyLink';
 
 const Heading = () => (
   <div>
@@ -21,13 +9,14 @@ const Heading = () => (
     <h1>
       I&apos;m <span style={{ color: 'var(--accent-color)' }}>Jason Liang</span>
     </h1>
+    <div style={{ marginTop: '1.5em' }} />
     <h1 style={{ color: 'var(--secondary-color)' }}>I code things</h1>
   </div>
 );
 
 const HomeNav = () => (
   <div style={{ fontSize: '1.5em' }}>
-    <StyledLink to="/projects">PROJECTS</StyledLink>
+    <FancyLink to="/projects">PROJECTS</FancyLink>
     <span
       style={{
         paddingLeft: '1em',
@@ -37,7 +26,7 @@ const HomeNav = () => (
     >
       /
     </span>
-    <StyledLink to="/contact">CONTACT</StyledLink>
+    <FancyLink to="/contact">CONTACT</FancyLink>
   </div>
 );
 
