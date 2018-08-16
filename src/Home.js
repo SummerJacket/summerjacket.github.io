@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import VerticalAligner from './VerticalAligner';
 import FancyLink from './FancyLink';
@@ -14,18 +15,16 @@ const Heading = () => (
   </div>
 );
 
+const LinkSeparator = styled.span`
+  padding-left: 1em;
+  padding-right: 1em;
+  color: var(--accent-color);
+`;
+
 const HomeNav = () => (
   <div style={{ fontSize: '1.3em' }}>
     <FancyLink to="/projects">PROJECTS</FancyLink>
-    <span
-      style={{
-        paddingLeft: '1em',
-        paddingRight: '1em',
-        color: 'var(--accent-color)',
-      }}
-    >
-      /
-    </span>
+    <LinkSeparator>/</LinkSeparator>
     <FancyLink to="/contact">CONTACT</FancyLink>
   </div>
 );

@@ -1,37 +1,51 @@
 import React from 'react';
 import { Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
+import styled from 'styled-components';
 
 import VerticalAligner from './VerticalAligner';
 
+const StyledInput = styled(Input)`
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--secondary-color);
+  &:focus {
+    border-color: var(--accent-color);
+    box-shadow: none;
+  }
+`;
+
+const StyledButton = styled(Button)`
+  border-radius: 0;
+`;
+
 const ContactForm = () => (
-  <Form action="">
+  <Form action="https://formspree.io/jasonliang512@gmail.com" method="POST">
     <Row>
       <Col>
         <FormGroup>
-          <Input type="text" name="name" placeholder="Your Name" />
+          <StyledInput type="text" name="name" placeholder="Your Name" />
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
-          <Input type="email" name="email" placeholder="Email" />
+          <StyledInput type="email" name="email" placeholder="Email" />
         </FormGroup>
       </Col>
     </Row>
     <Row>
       <Col>
         <FormGroup>
-          <Input
+          <StyledInput
             type="textarea"
             name="message"
             placeholder="Your message..."
-            rows="8"
           />
         </FormGroup>
       </Col>
     </Row>
-    <Button outline color="primary">
+    <StyledButton outline color="primary" type="submit">
       Submit
-    </Button>
+    </StyledButton>
   </Form>
 );
 
