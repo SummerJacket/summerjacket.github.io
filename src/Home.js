@@ -1,6 +1,6 @@
 import React from 'react';
-import { Row } from 'reactstrap';
 
+import VerticalAligner from './VerticalAligner';
 import FancyLink from './FancyLink';
 
 const Heading = () => (
@@ -31,13 +31,11 @@ const HomeNav = () => (
 );
 
 const Home = () => (
-  <Row style={{ minHeight: '100vh', marginLeft: 'auto', marginRight: 'auto' }}>
-    <div className="align-self-center">
-      <Heading />
-      <div style={{ marginTop: '4em' }} />
-      <HomeNav />
-    </div>
-  </Row>
+  <VerticalAligner align="center">
+    <Heading />
+    <div style={{ marginTop: '4em' }} />
+    <HomeNav />
+  </VerticalAligner>
 );
 
 export default Home;

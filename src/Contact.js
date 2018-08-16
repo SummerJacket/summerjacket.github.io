@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Contact = () => <h1>Contact</h1>;
+import VerticalAligner from './VerticalAligner';
+
+const Contact = () => (
+  <VerticalAligner align="end">
+    <h1>Hello World!</h1>
+  </VerticalAligner>
+);
 
 export default Contact;
