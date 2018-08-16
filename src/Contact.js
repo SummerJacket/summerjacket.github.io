@@ -39,6 +39,7 @@ const ContactForm = () => (
             type="textarea"
             name="message"
             placeholder="Your message..."
+            rows="5"
           />
         </FormGroup>
       </Col>
