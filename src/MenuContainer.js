@@ -6,7 +6,7 @@ import MenuButton from './MenuButton';
 import Menu from './Menu';
 
 const Overlay = styled(
-  posed.div({ default: { opacity: 0 }, open: { opacity: 0.3 } })
+  posed.div({ default: { opacity: 0 }, open: { opacity: 0.5 } })
 )`
   position: fixed;
   background-color: #000;
@@ -29,7 +29,7 @@ class MenuContainer extends React.Component {
   }
 
   handleOverlayClick() {
-    this.setState(() => ({ menuOpen: false }));
+    this.setState({ menuOpen: false });
   }
 
   render() {

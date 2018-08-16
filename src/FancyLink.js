@@ -64,7 +64,7 @@ class FancyLink extends React.Component {
         onMouseLeave={this.handleMouseLeave}
         {...rest}
       >
-        <span style={{ position: 'relative' }}>
+        <span style={{ position: 'relative', zIndex: -1 }}>
           <Fill className="helloworld" pose={hovering ? 'hover' : 'idle'} />
           {children}
         </span>

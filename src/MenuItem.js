@@ -6,14 +6,13 @@ import styled from 'styled-components';
 
 const MenuItemWrapper = posed.div({
   open: { y: 0, opacity: 1, transition: { ease: 'backOut' } },
-  closed: { y: -50, opacity: 0, transition: { ease: 'backOut' } },
+  closed: { y: -40, opacity: 0, transition: { ease: 'backOut' } },
 });
 
 const StyledLink = styled(Link)`
   padding-top: 15px;
   padding-bottom: 15px;
   display: block;
-  font-size: 42px;
   color: var(--primary-color);
   &:hover {
     color: var(--primary-color);

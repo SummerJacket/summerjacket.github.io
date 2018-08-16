@@ -15,7 +15,7 @@ const Heading = () => (
 );
 
 const HomeNav = () => (
-  <div style={{ fontSize: '1.5em' }}>
+  <div style={{ fontSize: '1.3em' }}>
     <FancyLink to="/projects">PROJECTS</FancyLink>
     <span
       style={{

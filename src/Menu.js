@@ -58,7 +58,7 @@ const Menu = ({ isActive }) => (
         pointerEvents: isActive ? 'auto' : 'none',
       }}
     >
-      <NavContainer className="align-self-center">
+      <NavContainer className="align-self-center" style={{ fontSize: '40px' }}>
         <MenuItem to="/">Home</MenuItem>
         <MenuItem to="/projects">Projects</MenuItem>
         <MenuItem to="/contact">Contact</MenuItem>
