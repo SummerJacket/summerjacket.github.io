@@ -1,5 +1,6 @@
 {
   "name": "summerjacket.github.io",
+  "homepage": "https://summerjacket.github.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +15,8 @@
     "styled-components": "^3.4.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "I'm sorry",
@@ -26,6 +29,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
+    "gh-pages": "^1.2.0",
     "prettier": "1.14.0"
   }
 }
