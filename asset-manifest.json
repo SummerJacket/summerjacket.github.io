@@ -1,4 +1,8 @@
 {
-  "main.js": "static/js/main.93a7e2d4.js",
-  "main.js.map": "static/js/main.93a7e2d4.js.map"
+  "main.css": "static/css/main.5b23a922.css",
+  "main.css.map": "static/css/main.5b23a922.css.map",
+  "main.js": "static/js/main.a806028f.js",
+  "main.js.map": "static/js/main.a806028f.js.map",
+  "static\\media\\BebasNeue-Regular.otf": "static/media/BebasNeue-Regular.c5bd97a4.otf",
+  "static\\media\\Montserrat-Regular.ttf": "static/media/Montserrat-Regular.9c460951.ttf"
 }
