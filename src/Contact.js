@@ -39,7 +39,7 @@ const ContactForm = () => (
             type="textarea"
             name="message"
             placeholder="Your message..."
-            rows="5"
+            rows="4"
           />
         </FormGroup>
       </Col>
@@ -53,6 +53,7 @@ const ContactForm = () => (
 const Contact = () => (
   <VerticalAligner align="center">
     <h1>Let&apos;s talk</h1>
+    <div style={{ marginTop: '2.5em' }} />
     <ContactForm />
   </VerticalAligner>
 );
