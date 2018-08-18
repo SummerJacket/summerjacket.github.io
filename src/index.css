@@ -18,6 +18,16 @@
   --secondary-font: 'Bebas Neue', sans-serif;
 }
 
+::selection {
+  background: var(--accent-color);
+  color: var(--primary-background-color);
+}
+
+::-moz-selection {
+  background: var(--accent-color);
+  color: var(--primary-background-color);
+}
+
 body {
   color: var(--primary-color);
   background-color: var(--primary-background-color);
