@@ -15,6 +15,15 @@ const StyledInput = styled(Input)`
 
 const StyledButton = styled(Button)`
   border-radius: 0;
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--primary-background-color);
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
 `;
 
 const ColInput = ({ colProps, ...props }) => (
@@ -49,7 +58,7 @@ const ContactForm = () => (
         rows="4"
       />
     </Row>
-    <StyledButton outline color="primary" type="submit">
+    <StyledButton outline type="submit">
       Submit
     </StyledButton>
   </Form>
