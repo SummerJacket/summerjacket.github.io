@@ -12,7 +12,15 @@ const VerticalAligner = ({ align, children, ...rest }) => (
 
 VerticalAligner.propTypes = {
   align: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+};
+
+VerticalAligner.defaultProps = {
+  children: '',
 };
 
 export default VerticalAligner;
