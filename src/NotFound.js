@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import VerticalAligner from './VerticalAligner';
 
 const NotFound = () => (
-  <div>
-    <h1>Page Not Found</h1>
-    <Link to="/">Go to homepage</Link>
-  </div>
+  <VerticalAligner align="center">
+    <h1>Page not found</h1>
+  </VerticalAligner>
 );
 
 export default NotFound;
