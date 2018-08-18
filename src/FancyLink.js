@@ -10,7 +10,7 @@ const StyledLink = styled(Link)`
   transition: 0.3s;
   letter-spacing: 3px;
   &:hover {
-    color: #fff;
+    color: var(--primary-background-color);
     text-decoration: none;
   }
 `;

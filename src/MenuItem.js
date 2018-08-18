@@ -16,7 +16,7 @@ const StyledLink = styled(Link)`
   color: var(--primary-color);
   &:hover {
     color: var(--primary-color);
-    background-color: var(--tertiary-color);
+    background-color: var(--secondary-background-color);
     text-decoration: none;
   }
 `;

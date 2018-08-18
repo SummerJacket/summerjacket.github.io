@@ -12,13 +12,15 @@
   --accent-color: #e71d36;
   --primary-color: rgba(0, 0, 0, 0.85);
   --secondary-color: rgba(0, 0, 0, 0.5);
-  --tertiary-color: rgba(0, 0, 0, 0.1);
+  --primary-background-color: #fff;
+  --secondary-background-color: rgba(0, 0, 0, 0.04);
   --primary-font: 'Montserrat', sans-serif;
   --secondary-font: 'Bebas Neue', sans-serif;
 }
 
 body {
   color: var(--primary-color);
+  background-color: var(--primary-background-color);
   margin: 0;
   padding: 0;
   font-family: var(--primary-font);
