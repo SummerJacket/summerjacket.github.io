@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import './dist/hamburgers.min.css';
+
+const ButtonWrapper = styled.div`
+  position: fixed;
+  margin-top: 2em;
+  margin-left: 2em;
+  transform: scale(0.75);
+`;
 
 class MenuButton extends React.Component {
   constructor(props) {
@@ -17,18 +25,7 @@ class MenuButton extends React.Component {
   render() {
     const { isActive, onClick, style, ...rest } = this.props;
     return (
-      <div
-        style={{
-          ...{
-            position: 'fixed',
-            marginTop: '2em',
-            marginLeft: '2em',
-            transform: 'scale(0.75)',
-          },
-          ...style,
-        }}
-        {...rest}
-      >
+      <ButtonWrapper style={style} {...rest}>
         <button
           className={`hamburger hamburger--spin ${isActive ? 'is-active' : ''}`}
           onClick={this.handleButtonClick}
@@ -39,7 +36,7 @@ class MenuButton extends React.Component {
             <span className="hamburger-inner" />
           </span>
         </button>
-      </div>
+      </ButtonWrapper>
     );
   }
 }
@@ -47,7 +44,7 @@ class MenuButton extends React.Component {
 MenuButton.propTypes = {
   isActive: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  style: PropTypes.shape({}), // haha
+  style: PropTypes.shape({}),
 };
 
 MenuButton.defaultProps = {

@@ -8,10 +8,14 @@ import MenuItem from './MenuItem';
 
 const menuHeight = 500;
 
-const MenuWrapper = posed.div({
-  open: { staggerChildren: 80 },
-  closed: { staggerChildren: 80, staggerDirection: -1 },
-});
+const MenuWrapper = styled(
+  posed.div({
+    open: { staggerChildren: 80 },
+    closed: { staggerChildren: 80, staggerDirection: -1 },
+  })
+)`
+  width: 100%;
+`;
 
 const MenuBackground = styled(
   posed.div({
@@ -36,39 +40,49 @@ const NavContainer = styled(
     closed: { staggerChildren: 80, staggerDirection: -1 },
   })
 )`
+  font-size: 40px;
   display: block;
   margin-left: 100px;
 `;
 
-const Menu = ({ isActive }) => (
-  <MenuWrapper
-    pose={isActive ? 'open' : 'closed'}
-    style={{ width: '100%', zIndex: 900 }}
-  >
-    <MenuBackground
-      style={{ backgroundColor: 'var(--accent-color)' }}
-      startingheight={3}
-    />
-    <MenuBackground style={{ backgroundColor: '#FFFF' }} startingheight={0} />
-    <Row
-      style={{
-        position: 'fixed',
-        width: '100%',
-        height: menuHeight,
-        pointerEvents: isActive ? 'auto' : 'none',
-      }}
-    >
-      <NavContainer className="align-self-center" style={{ fontSize: '40px' }}>
-        <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/projects">Projects</MenuItem>
-        <MenuItem to="/contact">Contact</MenuItem>
-      </NavContainer>
-    </Row>
-  </MenuWrapper>
-);
+const Menu = ({ isActive, style, ...rest }) => {
+  const { zIndex = 'inherit' } = style;
+  return (
+    <MenuWrapper pose={isActive ? 'open' : 'closed'} style={style} {...rest}>
+      <MenuBackground
+        style={{ backgroundColor: 'var(--accent-color)', zIndex }}
+        startingheight={3}
+      />
+      <MenuBackground
+        style={{ backgroundColor: '#FFFF', zIndex }}
+        startingheight={0}
+      />
+      <Row
+        style={{
+          position: 'fixed',
+          width: '100%',
+          height: menuHeight,
+          pointerEvents: isActive ? 'auto' : 'none',
+          zIndex,
+        }}
+      >
+        <NavContainer className="align-self-center">
+          <MenuItem to="/">Home</MenuItem>
+          <MenuItem to="/projects">Projects</MenuItem>
+          <MenuItem to="/contact">Contact</MenuItem>
+        </NavContainer>
+      </Row>
+    </MenuWrapper>
+  );
+};
 
 Menu.propTypes = {
   isActive: PropTypes.bool.isRequired,
+  style: PropTypes.shape({}),
+};
+
+Menu.defaultProps = {
+  style: {},
 };
 
 export default Menu;

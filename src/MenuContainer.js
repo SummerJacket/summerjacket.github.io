@@ -39,14 +39,14 @@ class MenuContainer extends React.Component {
         <MenuButton
           isActive={menuOpen}
           onClick={this.handleMenuButtonClick}
-          style={{ zIndex: 1000 }}
+          style={{ zIndex: 10 }}
         />
         <Overlay
           pose={menuOpen ? 'open' : 'default'}
           onClick={this.handleOverlayClick}
-          style={{ pointerEvents: menuOpen ? 'auto' : 'none' }}
+          style={{ pointerEvents: menuOpen ? 'auto' : 'none', zIndex: 1 }}
         />
-        <Menu isActive={menuOpen} />
+        <Menu isActive={menuOpen} style={{ zIndex: 9 }} />
       </div>
     );
   }
