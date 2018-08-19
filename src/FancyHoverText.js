@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
+import Hoverable from './Hoverable';
+
 const spacing = '2.5px';
 
 const Wrapper = styled.span`
@@ -36,41 +38,16 @@ const Fill = styled(
   z-index: -1;
 `;
 
-class FancyHoverText extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hovering: false,
-    };
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-  }
-
-  handleMouseEnter() {
-    this.setState({ hovering: true });
-  }
-
-  handleMouseLeave() {
-    this.setState({ hovering: false });
-  }
-
-  render() {
-    const { hovering } = this.state;
-    const { children, ...rest } = this.props;
-    return (
-      <Wrapper
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        {...rest}
-      >
-        <span style={{ position: 'relative', zIndex: -1 }}>
-          <Fill className="helloworld" pose={hovering ? 'hover' : 'idle'} />
-          {children}
-        </span>
-      </Wrapper>
-    );
-  }
-}
+const FancyHoverText = ({ children, ...rest }) => (
+  <Hoverable style={{ display: 'inline-block' }} {...rest}>
+    <Wrapper>
+      <span style={{ position: 'relative', zIndex: -1 }}>
+        <Fill className="helloworld" />
+        {children}
+      </span>
+    </Wrapper>
+  </Hoverable>
+);
 
 FancyHoverText.propTypes = {
   children: PropTypes.string,

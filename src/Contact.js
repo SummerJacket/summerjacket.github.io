@@ -4,6 +4,7 @@ import { Row, Col } from 'reactstrap';
 import { IoMdMail, IoLogoGithub } from 'react-icons/io';
 
 import childrenPropTypes from './childrenPropTypes';
+import { Mobile, Default } from './mediaDevices';
 import ContactForm from './ContactForm';
 import FancyHoverText from './FancyHoverText';
 import VerticalAligner from './VerticalAligner';
@@ -12,9 +13,12 @@ const iconStyle = {
   verticalAlign: -4,
 };
 
-const CenteredCol = ({ children, ...rest }) => (
-  <Col {...rest}>
-    <VerticalAligner align="center">{children}</VerticalAligner>
+const CustomCol = ({ children, ...rest }) => (
+  <Col sm={12} md={6} {...rest}>
+    <Default>
+      <VerticalAligner align="center">{children}</VerticalAligner>
+    </Default>
+    <Mobile style={{ marginTop: 100 }}>{children}</Mobile>
   </Col>
 );
 
@@ -30,12 +34,12 @@ const SocialLink = ({ icon, href, children, ...rest }) => (
 
 const Contact = () => (
   <Row>
-    <CenteredCol sm="12" md="6">
+    <CustomCol>
       <h1>Let&apos;s talk</h1>
       <div style={{ marginTop: '2.5em' }} />
       <ContactForm />
-    </CenteredCol>
-    <CenteredCol sm="12" md="6" style={{ fontSize: '1.3em' }}>
+    </CustomCol>
+    <CustomCol style={{ fontSize: '1.3em' }}>
       <SocialLink
         icon={<IoMdMail style={iconStyle} />}
         href="mailto:jasonliang512@gmail.com"
@@ -48,7 +52,7 @@ const Contact = () => (
       >
         SummerJacket
       </SocialLink>
-    </CenteredCol>
+    </CustomCol>
   </Row>
 );
 
@@ -63,11 +67,11 @@ SocialLink.defaultProps = {
   children: '',
 };
 
-CenteredCol.propTypes = {
+CustomCol.propTypes = {
   children: childrenPropTypes,
 };
 
-CenteredCol.defaultProps = {
+CustomCol.defaultProps = {
   children: '',
 };
 

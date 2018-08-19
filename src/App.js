@@ -5,6 +5,7 @@ import { Container } from 'reactstrap';
 import MenuContainer from './MenuContainer';
 import Home from './Home';
 import Contact from './Contact';
+import Projects from './Projects';
 import NotFound from './NotFound';
 
 const App = () => (
@@ -15,6 +16,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/contact" component={Contact} />
+          <Route path="/projects" component={Projects} />
           <Route component={NotFound} />
         </Switch>
       </Container>
