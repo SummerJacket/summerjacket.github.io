@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
+const spacing = '2.5px';
+
 const Wrapper = styled.span`
   font-family: var(--secondary-font);
   color: var(--primary-color);
   transition: 0.3s;
-  letter-spacing: 3px;
+  letter-spacing: ${spacing};
   &:hover {
     color: var(--primary-background-color);
   }
@@ -26,7 +28,7 @@ const Fill = styled(
   })
 )`
   background-color: var(--primary-color);
-  width: 100%;
+  width: calc(100% - ${spacing});
   height: 100%;
   top: 0px;
   position: absolute;

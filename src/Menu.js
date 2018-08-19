@@ -21,7 +21,7 @@ const MenuBackground = styled(
   posed.div({
     open: {
       height: ({ startingheight }) => menuHeight + startingheight,
-      transition: { type: 'spring', mass: 0.8 },
+      transition: { type: 'spring', mass: 0.7 },
     },
     closed: {
       height: ({ startingheight }) => startingheight,

@@ -19,12 +19,12 @@
 }
 
 ::selection {
-  background: var(--accent-color);
+  background: var(--primary-color);
   color: var(--primary-background-color);
 }
 
 ::-moz-selection {
-  background: var(--accent-color);
+  background: var(--primary-color);
   color: var(--primary-background-color);
 }
 
