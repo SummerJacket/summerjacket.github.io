@@ -42,7 +42,7 @@ const FancyHoverText = ({ children, ...rest }) => (
   <Hoverable style={{ display: 'inline-block' }} {...rest}>
     <Wrapper>
       <span style={{ position: 'relative', zIndex: -1 }}>
-        <Fill className="helloworld" />
+        <Fill />
         {children}
       </span>
     </Wrapper>
