@@ -45,7 +45,7 @@ const NavContainer = styled(
   margin-left: 100px;
 `;
 
-const Menu = ({ isActive, style, ...rest }) => {
+const MenuNav = ({ isActive, style, ...rest }) => {
   const { zIndex = 'inherit' } = style;
   return (
     <MenuWrapper pose={isActive ? 'open' : 'closed'} style={style} {...rest}>
@@ -76,13 +76,13 @@ const Menu = ({ isActive, style, ...rest }) => {
   );
 };
 
-Menu.propTypes = {
+MenuNav.propTypes = {
   isActive: PropTypes.bool.isRequired,
   style: PropTypes.shape({}),
 };
 
-Menu.defaultProps = {
+MenuNav.defaultProps = {
   style: {},
 };
 
-export default Menu;
+export default MenuNav;

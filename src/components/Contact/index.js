@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import { IoMdMail, IoLogoGithub } from 'react-icons/io';
 
-import childrenPropTypes from './childrenPropTypes';
-import { Mobile, Default } from './mediaDevices';
+import childrenPropTypes from '../../childrenPropTypes';
+import { Mobile, Default } from '../../mediaDevices';
+import FancyHoverText from '../FancyHoverText';
+import VerticalAligner from '../VerticalAligner';
 import ContactForm from './ContactForm';
-import FancyHoverText from './FancyHoverText';
-import VerticalAligner from './VerticalAligner';
 
 const iconStyle = {
   verticalAlign: -4,

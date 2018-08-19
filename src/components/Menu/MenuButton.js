@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import './lib/hamburgers.min.css';
+import '../../lib/hamburgers.min.css';
 
 const ButtonWrapper = styled.div`
   position: fixed;

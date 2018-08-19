@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import VerticalAligner from './VerticalAligner';
-import FancyHoverText from './FancyHoverText';
+import VerticalAligner from '../VerticalAligner';
+import FancyHoverText from '../FancyHoverText';
 
 const Heading = () => (
   <div>

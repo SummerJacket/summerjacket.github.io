@@ -1,7 +1,7 @@
 import React from 'react';
 import posed from 'react-pose';
 
-import childrenPropTypes from './childrenPropTypes';
+import childrenPropTypes from '../childrenPropTypes';
 
 const Wrapper = posed.div({});
 
