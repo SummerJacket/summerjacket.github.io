@@ -21,7 +21,7 @@ const MenuBackground = styled(
   posed.div({
     open: {
       height: ({ startingheight }) => menuHeight + startingheight,
-      transition: { type: 'spring' },
+      transition: { type: 'spring', mass: 0.8 },
     },
     closed: {
       height: ({ startingheight }) => startingheight,
@@ -36,7 +36,7 @@ const MenuBackground = styled(
 
 const NavContainer = styled(
   posed.div({
-    open: { staggerChildren: 80, delayChildren: 300 },
+    open: { staggerChildren: 80, delayChildren: 200 },
     closed: { staggerChildren: 80, staggerDirection: -1 },
   })
 )`

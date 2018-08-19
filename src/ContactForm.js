@@ -65,7 +65,7 @@ const ContactForm = () => (
 );
 
 ColInput.propTypes = {
-  colProps: PropTypes.shape(Col.PropTypes),
+  colProps: PropTypes.shape({}),
 };
 
 ColInput.defaultProps = {

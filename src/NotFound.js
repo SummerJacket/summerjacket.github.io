@@ -6,7 +6,7 @@ import VerticalAligner from './VerticalAligner';
 const NotFound = () => (
   <VerticalAligner align="center">
     <h1 style={{ display: 'inline-block' }}>
-      <IoIosWarning style={{ verticalAlign: '-7px' }} />
+      <IoIosWarning style={{ verticalAlign: -7 }} />
       <span style={{ marginLeft: '16px' }} />
       Page not found
     </h1>

@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
-const StyledLink = styled(Link)`
+const Wrapper = styled.span`
   font-family: var(--secondary-font);
   color: var(--primary-color);
   transition: 0.3s;
   letter-spacing: 3px;
   &:hover {
     color: var(--primary-background-color);
-    text-decoration: none;
   }
 `;
 
@@ -36,7 +34,7 @@ const Fill = styled(
   z-index: -1;
 `;
 
-class FancyLink extends React.Component {
+class FancyHoverText extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,10 +54,9 @@ class FancyLink extends React.Component {
 
   render() {
     const { hovering } = this.state;
-    const { to, children, ...rest } = this.props;
+    const { children, ...rest } = this.props;
     return (
-      <StyledLink
-        to={to}
+      <Wrapper
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         {...rest}
@@ -68,14 +65,17 @@ class FancyLink extends React.Component {
           <Fill className="helloworld" pose={hovering ? 'hover' : 'idle'} />
           {children}
         </span>
-      </StyledLink>
+      </Wrapper>
     );
   }
 }
 
-FancyLink.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+FancyHoverText.propTypes = {
+  children: PropTypes.string,
 };
 
-export default FancyLink;
+FancyHoverText.defaultProps = {
+  children: '',
+};
+
+export default FancyHoverText;

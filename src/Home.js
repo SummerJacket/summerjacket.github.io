@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import VerticalAligner from './VerticalAligner';
-import FancyLink from './FancyLink';
+import FancyHoverText from './FancyHoverText';
 
 const Heading = () => (
   <div>
@@ -21,11 +23,17 @@ const LinkSeparator = styled.span`
   color: var(--accent-color);
 `;
 
+const FancyLink = ({ to, children, ...props }) => (
+  <Link to={to} {...props} style={{ textDecoration: 'none' }}>
+    <FancyHoverText>{children}</FancyHoverText>
+  </Link>
+);
+
 const HomeNav = () => (
   <div style={{ fontSize: '1.3em' }}>
-    <FancyLink to="/projects">PROJECTS</FancyLink>
+    <FancyLink to="/projects">Projects</FancyLink>
     <LinkSeparator>/</LinkSeparator>
-    <FancyLink to="/contact">CONTACT</FancyLink>
+    <FancyLink to="/contact">Contact</FancyLink>
   </div>
 );
 
@@ -36,5 +44,14 @@ const Home = () => (
     <HomeNav />
   </VerticalAligner>
 );
+
+FancyLink.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.string,
+};
+
+FancyLink.defaultProps = {
+  children: '',
+};
 
 export default Home;
