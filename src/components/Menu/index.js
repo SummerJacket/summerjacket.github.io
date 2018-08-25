@@ -21,14 +21,14 @@ class Menu extends React.Component {
       menuOpen: false,
     };
     this.handleMenuButtonClick = this.handleMenuButtonClick.bind(this);
-    this.handleOverlayClick = this.handleOverlayClick.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
   handleMenuButtonClick() {
     this.setState(prev => ({ menuOpen: !prev.menuOpen }));
   }
 
-  handleOverlayClick() {
+  closeMenu() {
     this.setState({ menuOpen: false });
   }
 
@@ -43,7 +43,7 @@ class Menu extends React.Component {
         />
         <Overlay
           pose={menuOpen ? 'open' : 'default'}
-          onClick={this.handleOverlayClick}
+          onClick={this.closeMenu}
           style={{ pointerEvents: menuOpen ? 'auto' : 'none', zIndex: 1 }}
         />
         <MenuNav isActive={menuOpen} style={{ zIndex: 9 }} />

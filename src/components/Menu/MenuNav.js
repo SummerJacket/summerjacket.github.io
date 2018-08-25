@@ -4,6 +4,7 @@ import { Row } from 'reactstrap';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
+import MenuBackground from './MenuBackground';
 import MenuItem from './MenuItem';
 
 const menuHeight = 500;
@@ -17,23 +18,6 @@ const MenuWrapper = styled(
   width: 100%;
 `;
 
-const MenuBackground = styled(
-  posed.div({
-    open: {
-      height: ({ startingheight }) => menuHeight + startingheight,
-      transition: { type: 'spring', mass: 0.7 },
-    },
-    closed: {
-      height: ({ startingheight }) => startingheight,
-      transition: { ease: 'anticipate', duration: 600 },
-    },
-    props: { startingheight: 0 },
-  })
-)`
-  position: fixed;
-  width: inherit;
-`;
-
 const NavContainer = styled(
   posed.div({
     open: { staggerChildren: 80, delayChildren: 200 },
@@ -45,17 +29,19 @@ const NavContainer = styled(
   margin-left: 100px;
 `;
 
-const MenuNav = ({ isActive, style, ...rest }) => {
+const MenuNav = ({ isActive, style, onLinkClick, ...rest }) => {
   const { zIndex = 'inherit' } = style;
   return (
     <MenuWrapper pose={isActive ? 'open' : 'closed'} style={style} {...rest}>
       <MenuBackground
         style={{ backgroundColor: 'var(--accent-color)', zIndex }}
         startingheight={3}
+        menuheight={menuHeight}
       />
       <MenuBackground
         style={{ backgroundColor: '#FFFF', zIndex }}
         startingheight={0}
+        menuheight={menuHeight}
       />
       <Row
         style={{
@@ -78,10 +64,12 @@ const MenuNav = ({ isActive, style, ...rest }) => {
 
 MenuNav.propTypes = {
   isActive: PropTypes.bool.isRequired,
+  onLinkClick: PropTypes.func,
   style: PropTypes.shape({}),
 };
 
 MenuNav.defaultProps = {
+  onLinkClick: undefined,
   style: {},
 };
 
