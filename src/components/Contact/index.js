@@ -13,12 +13,23 @@ const iconStyle = {
   verticalAlign: -4,
 };
 
+const CustomRow = ({ children }) => (
+  <div>
+    <Default>
+      <Row>{children}</Row>
+    </Default>
+    <Mobile>
+      <Row style={{ paddingTop: 50, paddingBottom: 100 }}>{children}</Row>
+    </Mobile>
+  </div>
+);
+
 const CustomCol = ({ children, ...rest }) => (
   <Col sm={12} md={6} {...rest}>
     <Default>
       <VerticalAligner align="center">{children}</VerticalAligner>
     </Default>
-    <Mobile style={{ marginTop: 100 }}>{children}</Mobile>
+    <Mobile style={{ marginTop: 50 }}>{children}</Mobile>
   </Col>
 );
 
@@ -33,7 +44,7 @@ const SocialLink = ({ icon, href, children, ...rest }) => (
 );
 
 const Contact = () => (
-  <Row>
+  <CustomRow>
     <CustomCol>
       <h1>Let&apos;s talk</h1>
       <div style={{ marginTop: '2.5em' }} />
@@ -53,7 +64,7 @@ const Contact = () => (
         SummerJacket
       </SocialLink>
     </CustomCol>
-  </Row>
+  </CustomRow>
 );
 
 SocialLink.propTypes = {
@@ -64,6 +75,14 @@ SocialLink.propTypes = {
 
 SocialLink.defaultProps = {
   href: '',
+  children: '',
+};
+
+CustomRow.propTypes = {
+  children: childrenPropTypes,
+};
+
+CustomRow.defaultProps = {
   children: '',
 };
 
