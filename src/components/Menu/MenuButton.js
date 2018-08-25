@@ -7,7 +7,7 @@ import '../../lib/hamburgers.min.css';
 const ButtonWrapper = styled.div`
   position: fixed;
   margin-top: 2em;
-  margin-left: 2em;
+  margin-left: 1em;
   transform: scale(0.75);
 `;
 
