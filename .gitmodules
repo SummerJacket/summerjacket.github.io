@@ -1,0 +1,3 @@
+[submodule "asteroids"]
+	path = asteroids
+	url = https://github.com/SummerJacket/asteroids.git
