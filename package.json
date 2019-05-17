@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "deploy": "gh-pages -b master -d public",
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.dev.js"
   },
@@ -19,6 +20,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
+    "gh-pages": "^2.0.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
