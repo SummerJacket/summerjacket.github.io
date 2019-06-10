@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "elm-test",
+    "sass:build": "node-sass src/ -o src/",
+    "sass:watch": "npm run sass:build && node-sass src/ -o src/ --watch --recursive"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,8 @@
   "homepage": "https://github.com/jasonliang512/jasonliang512.github.io#readme",
   "dependencies": {
     "three": "^0.105.2"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0"
   }
 }
