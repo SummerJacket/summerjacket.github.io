@@ -1,4 +1,6 @@
-import {
+/* global THREE */
+
+const {
   Scene,
   PerspectiveCamera,
   WebGLRenderer,
@@ -12,16 +14,40 @@ import {
   SphereBufferGeometry,
   ShaderMaterial,
   Fog,
-} from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import * as Shaders from './shaders';
+  GLTFLoader,
+  OrbitControls
+} = THREE;
 
 // -- FLAGS ---------------------------------------------------------
 
 const camControlsEnabled = false;
 const lightHelpersEnabled = false;
 const dimSkyDome = false;
+
+// -- SHADERS -------------------------------------------------------
+
+const vertexShader = `
+  varying vec3 vWorldPosition;
+
+  void main() {
+    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+    vWorldPosition = worldPosition.xyz;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const fragmentShader = `
+  uniform vec3 topColor;
+  uniform vec3 bottomColor;
+  uniform float offset;
+  uniform float exponent;
+  varying vec3 vWorldPosition;
+
+  void main() {
+    float h = normalize(vWorldPosition + offset).y;
+    gl_FragColor = vec4(mix(bottomColor, topColor, max(pow(max(h , 0.0), exponent), 0.0)), 1.0);
+  }
+`;
 
 // -- RENDERER ------------------------------------------------------
 
@@ -46,7 +72,7 @@ const camera = new PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
   1,
-  5000,
+  5000
 );
 
 const camControls = (() => {
@@ -55,7 +81,7 @@ const camControls = (() => {
   }
 
   return {
-    update() {}, // do nothing
+    update() {} // do nothing
   };
 })();
 
@@ -98,7 +124,7 @@ const uniforms = {
   topColor: { value: new Color(0xf8f8f8) },
   bottomColor: { value: new Color(0xf8f8f8) },
   offset: { value: 100 },
-  exponent: { value: 0.6 },
+  exponent: { value: 0.6 }
 };
 
 if (dimSkyDome) {
@@ -111,9 +137,9 @@ scene.fog.color = new Color(0xf8f8f8);
 const skyGeo = new SphereBufferGeometry(4000, 32, 15);
 const skyMat = new ShaderMaterial({
   uniforms,
-  vertexShader: Shaders.vertexShader,
-  fragmentShader: Shaders.fragmentShader,
-  side: BackSide,
+  vertexShader,
+  fragmentShader,
+  side: BackSide
 });
 scene.add(new Mesh(skyGeo, skyMat));
 
@@ -137,7 +163,7 @@ const loadModel = (model, onLoad, onProgress, onError) => {
       scene.add(gltf.scene);
     },
     onProgress,
-    onError,
+    onError
   );
 };
 
@@ -146,26 +172,26 @@ const models = {
   smallIsland: { ref: undefined, y: 0 },
   rock1: { ref: undefined, y: 0 },
   rock2: { ref: undefined, y: 0 },
-  rock3: { ref: undefined, y: 0 },
+  rock3: { ref: undefined, y: 0 }
 };
 
-loadModel('models/big_island.glb', gltf => {
+loadModel("models/big_island.glb", gltf => {
   models.bigIsland.ref = gltf;
   gltf.scene.translateX(20);
 });
-loadModel('models/small_island.glb', gltf => {
+loadModel("models/small_island.glb", gltf => {
   models.smallIsland.ref = gltf;
   gltf.scene.translateX(24);
 });
-loadModel('models/rock1.glb', gltf => {
+loadModel("models/rock1.glb", gltf => {
   models.rock1.ref = gltf;
   gltf.scene.translateX(20);
 });
-loadModel('models/rock2.glb', gltf => {
+loadModel("models/rock2.glb", gltf => {
   models.rock2.ref = gltf;
   gltf.scene.translateX(20);
 });
-loadModel('models/rock3.glb', gltf => {
+loadModel("models/rock3.glb", gltf => {
   models.rock3.ref = gltf;
   gltf.scene.translateX(20);
 });
@@ -174,15 +200,15 @@ loadModel('models/rock3.glb', gltf => {
 
 const mouse = {
   x: window.innerWidth / 2,
-  y: window.innerHeight / 2,
+  y: window.innerHeight / 2
 };
 
-document.addEventListener('mousemove', e => {
+document.addEventListener("mousemove", e => {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
 });
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -199,11 +225,11 @@ const updateIslands = () => {
     }
   };
 
-  updateIsland('bigIsland', Math.cos(tick * -0.005) * 0.75);
-  updateIsland('smallIsland', Math.sin(tick * 0.009));
-  updateIsland('rock1', Math.sin(1 + tick * 0.01));
-  updateIsland('rock2', Math.sin(2 + tick * 0.01));
-  updateIsland('rock3', Math.sin(3 + tick * 0.01));
+  updateIsland("bigIsland", Math.cos(tick * -0.005) * 0.75);
+  updateIsland("smallIsland", Math.sin(tick * 0.009));
+  updateIsland("rock1", Math.sin(1 + tick * 0.01));
+  updateIsland("rock2", Math.sin(2 + tick * 0.01));
+  updateIsland("rock3", Math.sin(3 + tick * 0.01));
 };
 
 const updateCamera = () => {
@@ -211,13 +237,13 @@ const updateCamera = () => {
 
   const cameraOffset = {
     x: 0,
-    y: 10,
+    y: 10
   };
 
   const scrollPositionParallaxFactor = 0.06;
   const mouseMoveCameraFactor = {
     x: 0.002,
-    y: 0.0005,
+    y: 0.0005
   };
   const scrollY = scrollTop * scrollPositionParallaxFactor;
   const pivotX = (mouse.x - window.innerWidth / 2) * mouseMoveCameraFactor.x;
@@ -246,7 +272,3 @@ const animate = () => {
 };
 
 animate();
-
-// -- EXPOSE TO CLIENT ----------------------------------------------
-
-window.mouse = mouse;
