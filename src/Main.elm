@@ -46,7 +46,7 @@ mainPageContent : Html Msg
 mainPageContent =
     main_ []
         [ h1 [] [ text "I'm Jason Liang" ]
-        , h2 [] [ text "This site is under construction. " ]
+        , h2 [] [ text "This site is under construction." ]
         , h2 []
             [ text "Say hi!"
             , div [ class "email" ] [ text "jasonliang512@gmail.com" ]

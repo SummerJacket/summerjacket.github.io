@@ -1,6 +1,4 @@
-/* global THREE */
-
-const {
+import {
   Scene,
   PerspectiveCamera,
   WebGLRenderer,
@@ -14,40 +12,16 @@ const {
   SphereBufferGeometry,
   ShaderMaterial,
   Fog,
-  GLTFLoader,
-  OrbitControls
-} = THREE;
+} from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import * as Shaders from './shaders';
 
 // -- FLAGS ---------------------------------------------------------
 
 const camControlsEnabled = false;
 const lightHelpersEnabled = false;
 const dimSkyDome = false;
-
-// -- SHADERS -------------------------------------------------------
-
-const vertexShader = `
-  varying vec3 vWorldPosition;
-
-  void main() {
-    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
-    vWorldPosition = worldPosition.xyz;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const fragmentShader = `
-  uniform vec3 topColor;
-  uniform vec3 bottomColor;
-  uniform float offset;
-  uniform float exponent;
-  varying vec3 vWorldPosition;
-
-  void main() {
-    float h = normalize(vWorldPosition + offset).y;
-    gl_FragColor = vec4(mix(bottomColor, topColor, max(pow(max(h , 0.0), exponent), 0.0)), 1.0);
-  }
-`;
 
 // -- RENDERER ------------------------------------------------------
 
@@ -137,8 +111,8 @@ scene.fog.color = new Color(0xf8f8f8);
 const skyGeo = new SphereBufferGeometry(4000, 32, 15);
 const skyMat = new ShaderMaterial({
   uniforms,
-  vertexShader,
-  fragmentShader,
+  vertexShader: Shaders.vertexShader,
+  fragmentShader: Shaders.fragmentShader,
   side: BackSide
 });
 scene.add(new Mesh(skyGeo, skyMat));
