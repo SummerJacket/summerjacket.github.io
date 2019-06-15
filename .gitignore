@@ -13,5 +13,5 @@ node_modules
 # Desktop Services Store on macOS
 .DS_Store
 
-# Sass generated css
-src/*.css
+# Tailwind css
+src/build.css

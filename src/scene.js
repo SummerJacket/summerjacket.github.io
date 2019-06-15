@@ -25,7 +25,7 @@ const dimSkyDome = false;
 
 // -- RENDERER ------------------------------------------------------
 
-const renderer = new WebGLRenderer({ antialias: true });
+const renderer = new WebGLRenderer({ antialias: false });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.gammaInput = true;
 renderer.gammaOutput = true;
@@ -95,8 +95,8 @@ if (lightHelpersEnabled) {
 // -- SKYDOME -------------------------------------------------------
 
 const uniforms = {
-  topColor: { value: new Color(0xf8f8f8) },
-  bottomColor: { value: new Color(0xf8f8f8) },
+  topColor: { value: new Color(0xfafafa) },
+  bottomColor: { value: new Color(0xfafafa) },
   offset: { value: 100 },
   exponent: { value: 0.6 }
 };

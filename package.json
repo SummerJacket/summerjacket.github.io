@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "elm-test",
-    "sass:build": "node-sass src/ -o src/",
-    "sass:watch": "npm run sass:build && node-sass src/ -o src/ --watch --recursive"
+    "css:build": "tailwind build src/style.css -o src/build.css",
+    "css:watch": "nodemon -e css --ignore src/build.css --exec 'npm run css:build'"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "three": "^0.105.2"
   },
   "devDependencies": {
-    "node-sass": "^4.12.0"
+    "nodemon": "^1.19.1",
+    "tailwindcss": "^1.0.4"
   }
 }

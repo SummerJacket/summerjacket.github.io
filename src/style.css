@@ -9,6 +9,10 @@
   height: inherit;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: "Inter UI";
   src: url("fonts/Inter-Regular.woff2");
@@ -24,35 +28,29 @@ body {
   margin: 0;
   font-family: "Inter UI", "Source Sans Pro", "Helvetica Neue", Arial,
     sans-serif;
-  color: black;
 }
 
+/*
+  three.js scene.
+  takes up the width and height of the window.
+  use as the background for the page.
+*/
 canvas {
   position: fixed;
   top: 0;
-  left: 0;
+  z-index: -1;
 }
 
-.hero-section {
-  z-index: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  padding-left: 4rem;
+/* display headings */
+
+.display-1 {
+  font-size: 6rem;
 }
 
-h1 {
-  font-size: 5rem;
+.display-2 {
+  font-size: 5.5rem;
 }
 
-h2 {
-  font-size: 3rem;
-  font-weight: normal;
-}
-
-.email {
-  padding-top: 1rem;
-  font-weight: bold;
+.display-3 {
+  font-size: 4.5rem;
 }

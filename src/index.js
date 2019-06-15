@@ -1,5 +1,5 @@
 import './scene.js';
-import './main.css';
+import './build.css';
 import { Elm } from './Main.elm';
 import registerServiceWorker from './registerServiceWorker';
 
