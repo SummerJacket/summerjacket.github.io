@@ -11,17 +11,17 @@ import {
   BackSide,
   SphereBufferGeometry,
   ShaderMaterial,
-  Fog,
-} from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import * as Shaders from './shaders';
+  Fog
+} from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import * as Shaders from "./shaders";
 
 // -- FLAGS ---------------------------------------------------------
 
-const camControlsEnabled = false;
-const lightHelpersEnabled = false;
-const dimSkyDome = false;
+export const camControlsEnabled = true;
+export const lightHelpersEnabled = false;
+export const dimSkyDome = false;
 
 // -- RENDERER ------------------------------------------------------
 
@@ -60,6 +60,7 @@ const camControls = (() => {
 })();
 
 camera.position.set(2, 20, 50);
+camControls.screenSpacePanning = true;
 camControls.update();
 
 // -- LIGHTS --------------------------------------------------------
@@ -95,8 +96,8 @@ if (lightHelpersEnabled) {
 // -- SKYDOME -------------------------------------------------------
 
 const uniforms = {
-  topColor: { value: new Color(0xfafafa) },
-  bottomColor: { value: new Color(0xfafafa) },
+  topColor: { value: new Color(0xf7fafc) },
+  bottomColor: { value: new Color(0xf7fafc) },
   offset: { value: 100 },
   exponent: { value: 0.6 }
 };
@@ -146,7 +147,9 @@ const models = {
   smallIsland: { ref: undefined, y: 0 },
   rock1: { ref: undefined, y: 0 },
   rock2: { ref: undefined, y: 0 },
-  rock3: { ref: undefined, y: 0 }
+  rock3: { ref: undefined, y: 0 },
+  guitar: { ref: undefined },
+  bike: { ref: undefined }
 };
 
 loadModel("models/big_island.glb", gltf => {
@@ -168,6 +171,14 @@ loadModel("models/rock2.glb", gltf => {
 loadModel("models/rock3.glb", gltf => {
   models.rock3.ref = gltf;
   gltf.scene.translateX(20);
+});
+loadModel("models/guitar.glb", gtlf => {
+  models.guitar.ref = gtlf;
+  gtlf.scene.translateX(-20);
+});
+loadModel("models/bike.glb", gtlf => {
+  models.bike.ref = gtlf;
+  gtlf.scene.translateX(-10);
 });
 
 // -- EVENTS --------------------------------------------------------

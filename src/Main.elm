@@ -3,7 +3,15 @@ module Main exposing (Model, Msg(..), init, main, update, view)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import List exposing (map)
+import List
+
+
+
+---- FLAGS ----
+
+
+type alias Flags =
+    { camControlsEnabled : Bool }
 
 
 
@@ -11,12 +19,12 @@ import List exposing (map)
 
 
 type alias Model =
-    {}
+    { camControlsEnabled : Bool }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( {}, Cmd.none )
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( Model flags.camControlsEnabled, Cmd.none )
 
 
 
@@ -43,7 +51,15 @@ heading content =
 
 view : Model -> Html Msg
 view model =
-    div [ class "container mx-auto" ]
+    let
+        containerHidden =
+            if model.camControlsEnabled then
+                " hidden"
+
+            else
+                ""
+    in
+    div [ class ("container mx-auto" ++ containerHidden) ]
         [ hero
         , div [ class "-mt-32" ] []
         , about
@@ -66,7 +82,7 @@ hero =
         [ h1 [ class "text-6xl font-bold" ] [ text "I'm Jason Liang" ]
         , divider
         , ul [ class "ml-2" ] <|
-            map styledLi <|
+            List.map styledLi <|
                 [ "Student"
                 , "Web Developer"
                 , "Functional Programming Enthusiast"
@@ -82,6 +98,7 @@ about : Html Msg
 about =
     div []
         [ heading "About Me"
+        , p [] [ text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis quam placerat, condimentum orci ac, aliquet erat. Morbi turpis ante, hendrerit ut tristique et, mollis dapibus lorem. Quisque porta elit elit. In egestas est a arcu luctus fermentum. Nam dignissim, neque ut facilisis vestibulum, tellus eros lobortis elit, ut convallis neque urna sed diam. Aliquam eget semper nulla, vitae tincidunt eros. Mauris convallis fringilla nunc, a rutrum dui fermentum lacinia. Donec dapibus risus nisi, vitae tincidunt libero dignissim imperdiet. Donec at fringilla lectus. Aliquam consectetur lectus quis nisl volutpat, sit amet sollicitudin nisl vulputate. Vivamus porttitor lacus eget velit commodo consequat. Nulla in aliquet ante." ]
         ]
 
 
@@ -108,11 +125,11 @@ contact =
 ---- PROGRAM ----
 
 
-main : Program () Model Msg
+main : Program Flags Model Msg
 main =
     Browser.element
         { view = view
-        , init = \_ -> init
+        , init = init
         , update = update
         , subscriptions = always Sub.none
         }
