@@ -4,10 +4,17 @@ import Browser
 import Color exposing (Color)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Json.Decode as D exposing (Decoder)
-import Json.Encode as E exposing (Value)
+import Json.Decode as D exposing (..)
+import Json.Encode as E exposing (..)
 import List
-import String.Interpolate exposing (interpolate)
+import Types.Camera exposing (..)
+import Types.Fog exposing (..)
+import Types.Position exposing (..)
+import Types.Scene exposing (..)
+
+
+type alias Value =
+    E.Value
 
 
 
@@ -18,88 +25,6 @@ port threeOut : Value -> Cmd a
 
 
 port threeIn : (Value -> a) -> Sub a
-
-
-type alias Position =
-    { x : Float
-    , y : Float
-    , z : Float
-    }
-
-
-type alias Fog =
-    { color : Color
-    , near : Float
-    , far : Float
-    }
-
-
-type alias Scene =
-    { background : Color
-    , fog : Fog
-    }
-
-
-type alias Camera =
-    { fov : Float
-    , aspect : Float
-    , near : Float
-    , far : Float
-    , position : Position
-    , controlsEnabled : Bool
-    , screenSpacePanning : Bool
-    }
-
-
-encodePosition : Position -> Value
-encodePosition position =
-    E.object
-        [ ( "x", E.float position.x )
-        , ( "y", E.float position.y )
-        , ( "z", E.float position.z )
-        ]
-
-
-encodeColor : Color -> Value
-encodeColor color =
-    let
-        ( r, g, b ) =
-            Color.toRGB color
-    in
-    [ r, g, b ]
-        |> List.map String.fromFloat
-        |> interpolate "rgb({0}, {1}, {2})"
-        |> E.string
-
-
-encodeFog : Fog -> Value
-encodeFog fog =
-    E.object
-        [ ( "color", encodeColor fog.color )
-        , ( "near", E.float fog.near )
-        , ( "far", E.float fog.far )
-        ]
-
-
-encodeScene : Scene -> Value
-encodeScene scene =
-    E.object
-        [ ( "background", encodeColor scene.background )
-        , ( "fog", encodeFog scene.fog )
-        ]
-
-
-encodeCamera : Camera -> Value
-encodeCamera camera =
-    E.object
-        [ ( "fov", E.float camera.fov )
-        , ( "aspect", E.float camera.aspect )
-        , ( "near", E.float camera.near )
-        , ( "far", E.float camera.far )
-        , ( "position", encodePosition camera.position )
-        , ( "controlsEnabled", E.bool camera.controlsEnabled )
-        , ( "screenSpacePanning", E.bool camera.screenSpacePanning )
-        ]
 
 
 
@@ -128,6 +53,18 @@ encodeModel model =
         , ( "scene", encodeScene model.scene )
         , ( "camera", encodeCamera model.camera )
         ]
+
+
+decodeModel : Decoder Model
+decodeModel =
+    map7 Model
+        (field "gammaInput" D.bool)
+        (field "gammaOutput" D.bool)
+        (field "gammaFactor" D.float)
+        (field "shadowMapEnabled" D.bool)
+        (field "antialias" D.bool)
+        (field "scene" decodeScene)
+        (field "camera" decodeCamera)
 
 
 initialModel : Model
@@ -172,6 +109,7 @@ init =
 
 type Msg
     = FrameUpdate Model
+    | DataInError Error
     | NoOp
 
 
@@ -180,6 +118,10 @@ update msg model =
     case msg of
         FrameUpdate newModel ->
             ( newModel, threeOut (encodeModel newModel) )
+
+        DataInError err ->
+            -- what the heck do I do???
+            ( model, Cmd.none )
 
         NoOp ->
             ( model, Cmd.none )
@@ -191,7 +133,17 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    threeIn FrameUpdate
+    threeIn handleThreeIn
+
+
+handleThreeIn : Value -> Msg
+handleThreeIn json =
+    case decodeValue decodeModel json of
+        Ok model ->
+            FrameUpdate model
+
+        Err msg ->
+            DataInError msg
 
 
 
