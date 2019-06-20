@@ -26,7 +26,7 @@ const app = Elm.Main.init({
 });
 
 const update = payload => () => {
-  payload.count++;
+  // payload.count++;
   app.ports.threeIn.send(payload);
 };
 

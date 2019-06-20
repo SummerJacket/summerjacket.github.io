@@ -1,4 +1,4 @@
-module Utils exposing (encodeColor, decodeColor)
+module Utils exposing (decodeColor, encodeColor)
 
 import Color exposing (Color)
 import Json.Decode as D exposing (..)
@@ -11,8 +11,10 @@ type alias Value =
 
 
 encodeColor : Color -> Value
-encodeColor =
-    E.string << Color.toHexString
+encodeColor color =
+    color
+        |> Color.toHexString
+        |> E.string
 
 
 decodeColor : Decoder Color

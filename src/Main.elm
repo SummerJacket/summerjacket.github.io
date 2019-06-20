@@ -37,8 +37,6 @@ type alias Model =
     , gammaFactor : Float
     , shadowMapEnabled : Bool
     , antialias : Bool
-    , scene : Scene
-    , camera : Camera
     }
 
 
@@ -50,22 +48,16 @@ encodeModel model =
         , ( "gammaFactor", E.float model.gammaFactor )
         , ( "shadowMapEnabled", E.bool model.shadowMapEnabled )
         , ( "antialias", E.bool model.antialias )
-        , ( "scene", encodeScene model.scene )
-        , ( "camera", encodeCamera model.camera )
         ]
-
 
 decodeModel : Decoder Model
 decodeModel =
-    map7 Model
+    map5 Model
         (field "gammaInput" D.bool)
         (field "gammaOutput" D.bool)
         (field "gammaFactor" D.float)
         (field "shadowMapEnabled" D.bool)
         (field "antialias" D.bool)
-        (field "scene" decodeScene)
-        (field "camera" decodeCamera)
-
 
 initialModel : Model
 initialModel =
@@ -78,29 +70,21 @@ initialModel =
     , gammaFactor = 2.2
     , shadowMapEnabled = True
     , antialias = False
-    , scene =
-        { background = backgroundColor
-        , fog = Fog backgroundColor 1 3000
-        }
-    , camera =
-        { fov = 45
-        , aspect = 1
-        , near = 1
-        , far = 5000
-        , position =
-            { x = 2
-            , y = 20
-            , z = 50
-            }
-        , controlsEnabled = True
-        , screenSpacePanning = True
-        }
+    -- , scene =
+    --     { background = backgroundColor
+    --     , fog =
+    --         { color = backgroundColor
+    --         , near = 1
+    --         , far = 3000
+    --         }
+    --     }
+    --
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, threeOut (encodeModel initialModel) )
+    ( initialModel, threeOut <| encodeModel initialModel )
 
 
 
@@ -117,7 +101,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FrameUpdate newModel ->
-            ( newModel, threeOut (encodeModel newModel) )
+            ( newModel, threeOut <| encodeModel newModel )
 
         DataInError err ->
             -- what the heck do I do???
@@ -159,11 +143,7 @@ view : Model -> Html Msg
 view model =
     let
         containerHidden =
-            if model.camera.controlsEnabled then
-                " hidden"
-
-            else
-                ""
+            ""
     in
     div [ class ("container mx-auto" ++ containerHidden) ]
         [ hero
@@ -238,4 +218,5 @@ main =
         , init = \_ -> init
         , update = update
         , subscriptions = subscriptions
+        -- , subscriptions = always Sub.none
         }
