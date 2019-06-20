@@ -1,10 +1,9 @@
 module Types.Scene exposing (Scene, decodeScene, encodeScene)
 
-import Color exposing (Color)
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
+import Types.Color exposing (Color, decodeColor, encodeColor)
 import Types.Fog exposing (..)
-import Utils exposing (decodeColor, encodeColor)
 
 
 type alias Value =

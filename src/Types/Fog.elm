@@ -1,9 +1,8 @@
 module Types.Fog exposing (Fog, decodeFog, encodeFog)
 
-import Color exposing (Color)
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
-import Utils exposing (decodeColor, encodeColor)
+import Types.Color exposing (Color, decodeColor, encodeColor)
 
 
 type alias Value =

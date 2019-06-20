@@ -1,13 +1,13 @@
-port module Main exposing (Model, Msg(..), init, main, update, view)
+port module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
 import Browser
-import Color exposing (Color)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
 import List
 import Types.Camera exposing (..)
+import Types.Color as Color
 import Types.Fog exposing (..)
 import Types.Position exposing (..)
 import Types.Scene exposing (..)
@@ -37,6 +37,8 @@ type alias Model =
     , gammaFactor : Float
     , shadowMapEnabled : Bool
     , antialias : Bool
+    , scene : Scene
+    , camera : Camera
     }
 
 
@@ -48,16 +50,22 @@ encodeModel model =
         , ( "gammaFactor", E.float model.gammaFactor )
         , ( "shadowMapEnabled", E.bool model.shadowMapEnabled )
         , ( "antialias", E.bool model.antialias )
+        , ( "scene", encodeScene model.scene )
+        , ( "camera", encodeCamera model.camera )
         ]
+
 
 decodeModel : Decoder Model
 decodeModel =
-    map5 Model
+    map7 Model
         (field "gammaInput" D.bool)
         (field "gammaOutput" D.bool)
         (field "gammaFactor" D.float)
         (field "shadowMapEnabled" D.bool)
         (field "antialias" D.bool)
+        (field "scene" decodeScene)
+        (field "camera" decodeCamera)
+
 
 initialModel : Model
 initialModel =
@@ -70,15 +78,23 @@ initialModel =
     , gammaFactor = 2.2
     , shadowMapEnabled = True
     , antialias = False
-    -- , scene =
-    --     { background = backgroundColor
-    --     , fog =
-    --         { color = backgroundColor
-    --         , near = 1
-    --         , far = 3000
-    --         }
-    --     }
-    --
+    , scene =
+        { background = backgroundColor
+        , fog = Fog backgroundColor 1 3000
+        }
+    , camera =
+        { fov = 45
+        , aspect = 1
+        , near = 1
+        , far = 5000
+        , position =
+            { x = 2
+            , y = 20
+            , z = 50
+            }
+        , controlsEnabled = True
+        , screenSpacePanning = True
+        }
     }
 
 
@@ -218,5 +234,4 @@ main =
         , init = \_ -> init
         , update = update
         , subscriptions = subscriptions
-        -- , subscriptions = always Sub.none
         }
