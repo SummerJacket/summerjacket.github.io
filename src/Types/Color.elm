@@ -1,4 +1,4 @@
-module Types.Color exposing (Color, Value, decodeColor, encodeColor, fromHSL, fromRGB, white)
+module Types.Color exposing (Color, Value, decodeColor, encodeColor, fromHSL, fromRGB)
 
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
@@ -22,31 +22,45 @@ decodeColor =
     D.int
 
 
+{-| Takes rgb values from 0 to 255
+-}
 fromRGB : ( Int, Int, Int ) -> Color
 fromRGB ( r, g, b ) =
     r * (256 ^ 2) + g * (256 ^ 1) + b
 
 
-{-| <https://stackoverflow.com/a/9493060>
-TODO: fix this.
+{-| Takes hsl values from 0 to 1
+
+<https://stackoverflow.com/a/9493060>
+
 -}
 fromHSL : ( Float, Float, Float ) -> Color
 fromHSL ( h, s, l ) =
     if abs s < 0.001 then
         let
             lightness =
-                round (l * 256)
+                round (l * 255)
         in
         fromRGB ( lightness, lightness, lightness )
 
     else
         let
-            hueToRGB ( p, q, t ) =
+            q =
+                if l < 1 / 2 then
+                    l * (1 + s)
+
+                else
+                    l + s - l * s
+
+            p =
+                2 * l - q
+
+            hueToRGB t =
                 if t < 0 then
-                    hueToRGB ( p, q, t + 1 )
+                    hueToRGB (t + 1)
 
                 else if t > 1 then
-                    hueToRGB ( p, q, t - 1 )
+                    hueToRGB (t - 1)
 
                 else if t < 1 / 6 then
                     p + (q - p) * 6 * t
@@ -60,28 +74,13 @@ fromHSL ( h, s, l ) =
                 else
                     p
 
-            qq =
-                if l < 1 / 2 then
-                    l * (1 + s)
-
-                else
-                    l + s - l * s
-
-            pp =
-                2 * l - qq
-
             r =
-                hueToRGB ( pp, qq, h + 1 / 3 )
+                hueToRGB (h + 1 / 3) * 255
 
             g =
-                hueToRGB ( pp, qq, h )
+                hueToRGB h * 255
 
             b =
-                hueToRGB ( pp, qq, h - 1 / 3 )
+                hueToRGB (h - 1 / 3) * 255
         in
         fromRGB ( round r, round g, round b )
-
-
-white : Color
-white =
-    0x00FFFFFF
