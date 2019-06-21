@@ -21,10 +21,10 @@ type alias Value =
 ---- THREE ----
 
 
-port threeOut : Value -> Cmd a
+port threeOut : ( String, Value ) -> Cmd a
 
 
-port threeIn : (Value -> a) -> Sub a
+port threeIn : (String -> a) -> Sub a
 
 
 
@@ -32,7 +32,8 @@ port threeIn : (Value -> a) -> Sub a
 
 
 type alias Model =
-    { gammaInput : Bool
+    { tick : Int
+    , gammaInput : Bool
     , gammaOutput : Bool
     , gammaFactor : Float
     , shadowMapEnabled : Bool
@@ -45,7 +46,8 @@ type alias Model =
 encodeModel : Model -> Value
 encodeModel model =
     E.object
-        [ ( "gammaInput", E.bool model.gammaInput )
+        [ ( "tick", E.int model.tick )
+        , ( "gammaInput", E.bool model.gammaInput )
         , ( "gammaOutput", E.bool model.gammaOutput )
         , ( "gammaFactor", E.float model.gammaFactor )
         , ( "shadowMapEnabled", E.bool model.shadowMapEnabled )
@@ -57,7 +59,8 @@ encodeModel model =
 
 decodeModel : Decoder Model
 decodeModel =
-    map7 Model
+    map8 Model
+        (field "tick" D.int)
         (field "gammaInput" D.bool)
         (field "gammaOutput" D.bool)
         (field "gammaFactor" D.float)
@@ -73,7 +76,8 @@ initialModel =
         backgroundColor =
             Color.fromHSL ( 0.6, 0, 1 )
     in
-    { gammaInput = True
+    { tick = 0
+    , gammaInput = True
     , gammaOutput = True
     , gammaFactor = 2.2
     , shadowMapEnabled = True
@@ -84,7 +88,6 @@ initialModel =
         }
     , camera =
         { fov = 45
-        , aspect = 1
         , near = 1
         , far = 5000
         , position =
@@ -92,7 +95,7 @@ initialModel =
             , y = 20
             , z = 50
             }
-        , controlsEnabled = True
+        , controlsEnabled = False
         , screenSpacePanning = True
         }
     }
@@ -100,7 +103,7 @@ initialModel =
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, threeOut <| encodeModel initialModel )
+    ( initialModel, threeOut ( "INIT", encodeModel initialModel ) )
 
 
 
@@ -108,20 +111,19 @@ init =
 
 
 type Msg
-    = FrameUpdate Model
-    | DataInError Error
+    = FrameUpdate
     | NoOp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FrameUpdate newModel ->
-            ( newModel, threeOut <| encodeModel newModel )
-
-        DataInError err ->
-            -- what the heck do I do???
-            ( model, Cmd.none )
+        FrameUpdate ->
+            let
+                updatedModel =
+                    { model | tick = model.tick + 1 }
+            in
+            ( updatedModel, threeOut ( "UPDATE", encodeModel updatedModel ) )
 
         NoOp ->
             ( model, Cmd.none )
@@ -133,17 +135,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    threeIn handleThreeIn
-
-
-handleThreeIn : Value -> Msg
-handleThreeIn json =
-    case decodeValue decodeModel json of
-        Ok model ->
-            FrameUpdate model
-
-        Err msg ->
-            DataInError msg
+    threeIn (always FrameUpdate)
 
 
 
@@ -159,9 +151,13 @@ view : Model -> Html Msg
 view model =
     let
         containerHidden =
-            ""
+            if model.camera.controlsEnabled then
+                "hidden"
+
+            else
+                ""
     in
-    div [ class ("container mx-auto" ++ containerHidden) ]
+    div [ class ("container mx-auto " ++ containerHidden) ]
         [ hero
         , div [ class "-mt-32" ] []
         , about

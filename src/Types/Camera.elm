@@ -11,7 +11,6 @@ type alias Value =
 
 type alias Camera =
     { fov : Float
-    , aspect : Float
     , near : Float
     , far : Float
     , position : Position
@@ -24,7 +23,6 @@ encodeCamera : Camera -> Value
 encodeCamera camera =
     object
         [ ( "fov", E.float camera.fov )
-        , ( "aspect", E.float camera.aspect )
         , ( "near", E.float camera.near )
         , ( "far", E.float camera.far )
         , ( "position", encodePosition camera.position )
@@ -35,9 +33,8 @@ encodeCamera camera =
 
 decodeCamera : Decoder Camera
 decodeCamera =
-    map7 Camera
+    map6 Camera
         (field "fov" D.float)
-        (field "aspect" D.float)
         (field "near" D.float)
         (field "far" D.float)
         (field "position" decodePosition)
