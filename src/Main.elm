@@ -2,10 +2,13 @@ port module Main exposing (Model, Msg(..), init, main, subscriptions, update, vi
 
 import Browser
 import Browser.Dom exposing (..)
+import Browser.Events exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
+import Task exposing (..)
+import Types.AnimationRecord exposing (..)
 import Types.Camera exposing (..)
 import Types.Color exposing (..)
 import Types.Fog exposing (..)
@@ -30,15 +33,12 @@ inspectSceneForDebugging =
 port threeOut : ( String, Value ) -> Cmd a
 
 
-port threeIn : (Value -> a) -> Sub a
-
-
 
 ---- MODEL ----
 
 
 type alias Model =
-    { tick : Int
+    { animationRecord : AnimationRecord
     , gammaInput : Bool
     , gammaOutput : Bool
     , gammaFactor : Float
@@ -54,7 +54,7 @@ type alias Model =
 encodeModel : Model -> Value
 encodeModel model =
     E.object
-        [ ( "tick", E.int model.tick )
+        [ ( "animationRecord", encodeAnimationRecord model.animationRecord )
         , ( "gammaInput", E.bool model.gammaInput )
         , ( "gammaOutput", E.bool model.gammaOutput )
         , ( "gammaFactor", E.float model.gammaFactor )
@@ -77,7 +77,11 @@ initialModel =
             else
                 fromHSL ( 0.6, 0, 1 )
     in
-    { tick = 0
+    { animationRecord =
+        { elapsedTime = 0
+        , deltaTime = 0
+        , scrollTop = 0
+        }
     , gammaInput = True
     , gammaOutput = True
     , gammaFactor = 2.2
@@ -98,7 +102,7 @@ initialModel =
     , lights =
         [ HemisphereLight
             { skyColor = fromHSL ( 0.6, 0.9, 0.75 )
-            , groundColor = fromHSL ( 0.05, 1, 0.1 )
+            , groundColor = fromHSL ( 0.1, 0.2, 0.1 )
             , intensity = 0.8
             , helperEnabled = inspectSceneForDebugging || False
             }
@@ -114,12 +118,12 @@ initialModel =
             { url = "models/big_island.glb"
             , position = Position 20 0 0
             , update =
-                \tick (GLTFModel island) ->
+                \record (GLTFModel island) ->
                     GLTFModel
                         { island
                             | position =
                                 { x = island.position.x
-                                , y = cos (toFloat tick * -0.005) * 0.75
+                                , y = cos (record.elapsedTime * -0.0005) * 0.75
                                 , z = island.position.z
                                 }
                         }
@@ -128,12 +132,12 @@ initialModel =
             { url = "models/small_island.glb"
             , position = Position 24 0 0
             , update =
-                \tick (GLTFModel island) ->
+                \record (GLTFModel island) ->
                     GLTFModel
                         { island
                             | position =
                                 { x = island.position.x
-                                , y = sin <| toFloat tick * -0.009
+                                , y = sin <| record.elapsedTime * -0.0009
                                 , z = island.position.z
                                 }
                         }
@@ -142,12 +146,12 @@ initialModel =
             { url = "models/rock1.glb"
             , position = Position 20 0 0
             , update =
-                \tick (GLTFModel rock) ->
+                \record (GLTFModel rock) ->
                     GLTFModel
                         { rock
                             | position =
                                 { x = rock.position.x
-                                , y = sin <| 1 + toFloat tick * 0.01
+                                , y = sin <| 1 + record.elapsedTime * 0.001
                                 , z = rock.position.z
                                 }
                         }
@@ -156,12 +160,12 @@ initialModel =
             { url = "models/rock2.glb"
             , position = Position 20 0 0
             , update =
-                \tick (GLTFModel rock) ->
+                \record (GLTFModel rock) ->
                     GLTFModel
                         { rock
                             | position =
                                 { x = rock.position.x
-                                , y = sin <| 2 + toFloat tick * 0.01
+                                , y = sin <| 2 + record.elapsedTime * 0.001
                                 , z = rock.position.z
                                 }
                         }
@@ -170,12 +174,12 @@ initialModel =
             { url = "models/rock3.glb"
             , position = Position 20 0 0
             , update =
-                \tick (GLTFModel rock) ->
+                \record (GLTFModel rock) ->
                     GLTFModel
                         { rock
                             | position =
                                 { x = rock.position.x
-                                , y = sin <| 3 + toFloat tick * 0.01
+                                , y = sin <| 3 + record.elapsedTime * 0.001
                                 , z = rock.position.z
                                 }
                         }
@@ -194,20 +198,37 @@ init =
 
 
 type Msg
-    = FrameUpdate
+    = FrameUpdate AnimationRecord
     | NoOp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FrameUpdate ->
+        FrameUpdate animationRecord ->
             let
+                updatedCamera =
+                    let
+                        camera =
+                            model.camera
+                    in
+                    { camera
+                        | position =
+                            { x = camera.position.x
+                            , y = camera.position.y
+                            , z = camera.position.z
+                            }
+                    }
+
                 updatedGLTFModels =
-                    List.map (gltfUpdate model.tick) model.models
+                    List.map (gltfUpdate model.animationRecord) model.models
 
                 updatedModel =
-                    { model | tick = model.tick + 1, models = updatedGLTFModels }
+                    { model
+                        | animationRecord = animationRecord
+                        , camera = updatedCamera
+                        , models = updatedGLTFModels
+                    }
             in
             ( updatedModel, threeOut ( "UPDATE", encodeModel updatedModel ) )
 
@@ -221,7 +242,14 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    threeIn (always FrameUpdate)
+    onAnimationFrameDelta
+        (\deltaTime ->
+            FrameUpdate
+                { elapsedTime = model.animationRecord.elapsedTime + deltaTime
+                , deltaTime = deltaTime
+                , scrollTop = 0
+                }
+        )
 
 
 

@@ -22,10 +22,11 @@ const app = Elm.Main.init({
 const loader = new GLTFLoader();
 
 let renderer, scene, camera, camControls;
-let lights, models;
+let models;
 
 const init = payload => {
   // -- RENDERER -----------------------------------------------------
+
   renderer = new WebGLRenderer({ antialias: payload.antialias });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.gammaInput = payload.gammaInput;
@@ -36,6 +37,7 @@ const init = payload => {
   document.body.appendChild(renderer.domElement);
 
   // -- SCENE --------------------------------------------------------
+
   scene = new Scene();
   scene.background = new Color(payload.scene.background);
   scene.fog = new Fog(
@@ -45,6 +47,7 @@ const init = payload => {
   );
 
   // -- CAMERA -------------------------------------------------------
+
   camera = new PerspectiveCamera(
     payload.camera.fov,
     window.innerWidth / window.innerHeight,
@@ -62,43 +65,45 @@ const init = payload => {
     };
   })();
 
-  const { position: cPos } = payload.camera;
-  camera.position.set(cPos.x, cPos.y, cPos.z);
   camControls.screenSpacePanning = true;
   camControls.update();
 
   // -- LIGHTS -------------------------------------------------------
-  lights = payload.lights.reduce((acc, curr) => {
-    let light;
 
-    switch (curr.type) {
+  payload.lights.forEach(light => {
+    let lightObj;
+
+    switch (light.type) {
       case "DIRECTIONAL_LIGHT":
-        light = new DirectionalLight(curr.color, curr.intensity);
-        light.position.set(curr.position.x, curr.position.y, curr.position.z);
+        lightObj = new DirectionalLight(light.color, light.intensity);
+        lightObj.position.set(
+          light.position.x,
+          light.position.y,
+          light.position.z
+        );
 
-        if (curr.helperEnabled) {
-          scene.add(new DirectionalLightHelper(light, 2));
+        if (light.helperEnabled) {
+          scene.add(new DirectionalLightHelper(lightObj, 2));
         }
         break;
       case "HEMISPHERE_LIGHT":
-        light = new HemisphereLight(
-          curr.skyColor,
-          curr.groundColor,
-          curr.intensity
+        lightObj = new HemisphereLight(
+          light.skyColor,
+          light.groundColor,
+          light.intensity
         );
 
-        if (curr.helperEnabled) {
-          scene.add(new HemisphereLightHelper(light, 2));
+        if (light.helperEnabled) {
+          scene.add(new HemisphereLightHelper(lightObj, 2));
         }
         break;
     }
 
-    scene.add(light);
-    acc.push(light);
-    return acc;
-  }, []);
+    scene.add(lightObj);
+  });
 
   // -- MODELS -------------------------------------------------------
+
   models = payload.models.reduce((acc, curr, i) => {
     loader.load(curr.url, gltf => {
       scene.add(gltf.scene);
@@ -114,6 +119,7 @@ const init = payload => {
   }, []);
 
   // -- EVENTS -------------------------------------------------------
+
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -123,16 +129,17 @@ const init = payload => {
 
 const update = payload => () => {
   models.forEach((model, i) => {
-    // model not loaded.
+    // check for unloaded model
     if (!model) return;
 
     const { position: mPos } = payload.models[i];
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
   });
 
+  const { position: cPos } = payload.camera;
+  camera.position.set(cPos.x, cPos.y, cPos.z);
   camControls.update();
   renderer.render(scene, camera);
-  app.ports.threeIn.send();
 };
 
 app.ports.threeOut.subscribe(([action, payload]) => {

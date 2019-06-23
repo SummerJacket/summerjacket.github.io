@@ -2,13 +2,13 @@ module Types.GLTFModel exposing (GLTFModel(..), encodeGLTFModel, gltfUpdate)
 
 import Json.Encode exposing (..)
 import Types.Position exposing (..)
-
+import Types.AnimationRecord exposing (..)
 
 type GLTFModel
     = GLTFModel
         { url : String
         , position : Position
-        , update : Int -> GLTFModel -> GLTFModel
+        , update : AnimationRecord -> GLTFModel -> GLTFModel
         }
 
 
@@ -20,6 +20,6 @@ encodeGLTFModel (GLTFModel gltf) =
         ]
 
 
-gltfUpdate : Int -> GLTFModel -> GLTFModel
-gltfUpdate tick (GLTFModel gltf) =
-    gltf.update tick <| GLTFModel gltf
+gltfUpdate : AnimationRecord -> GLTFModel -> GLTFModel
+gltfUpdate record (GLTFModel gltf) =
+    gltf.update record <| GLTFModel gltf
