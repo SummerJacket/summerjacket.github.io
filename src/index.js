@@ -6,8 +6,7 @@ import {
   HemisphereLightHelper,
   DirectionalLight,
   DirectionalLightHelper,
-  Color,
-  Fog
+  Color
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -60,8 +59,9 @@ const init = payload => {
     };
   })();
 
-  const { position: cPos } = payload.camera;
+  const { position: cPos, lookAt } = payload.camera;
   camera.position.set(cPos.x, cPos.y, cPos.z);
+  camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
   camControls.screenSpacePanning = true;
   camControls.update();
 
@@ -124,22 +124,23 @@ const init = payload => {
   });
 };
 
-const update = payload => () => {
+const update = payload => {
   models.forEach((model, i) => {
     // check for unloaded model
     if (!model) return;
 
-    const { position: mPos } = payload.models[i];
+    const mPos = payload.models[i].position;
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
   });
 
   const { position: cPos, controlsEnabled } = payload.camera;
+
   if (controlsEnabled) {
     camControls.update();
-  }
-  else {
+  } else {
     camera.position.set(cPos.x, cPos.y, cPos.z);
   }
+
   renderer.render(scene, camera);
 };
 
@@ -148,7 +149,7 @@ app.ports.threeOut.subscribe(([action, payload]) => {
     init(payload);
   }
 
-  requestAnimationFrame(update(payload));
+  update(payload);
 });
 
 registerServiceWorker();

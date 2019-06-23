@@ -14,6 +14,7 @@ type alias Camera =
     , near : Float
     , far : Float
     , position : Position
+    , lookAt : Position
     , controlsEnabled : Bool
     , screenSpacePanning : Bool
     }
@@ -26,6 +27,7 @@ encodeCamera camera =
         , ( "near", E.float camera.near )
         , ( "far", E.float camera.far )
         , ( "position", encodePosition camera.position )
+        , ( "lookAt", encodePosition camera.lookAt )
         , ( "controlsEnabled", E.bool camera.controlsEnabled )
         , ( "screenSpacePanning", E.bool camera.screenSpacePanning )
         ]
@@ -33,10 +35,11 @@ encodeCamera camera =
 
 decodeCamera : Decoder Camera
 decodeCamera =
-    map6 Camera
+    map7 Camera
         (field "fov" D.float)
         (field "near" D.float)
         (field "far" D.float)
         (field "position" decodePosition)
+        (field "lookAt" decodePosition)
         (field "controlsEnabled" D.bool)
         (field "screenSpacePanning" D.bool)

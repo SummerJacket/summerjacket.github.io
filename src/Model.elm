@@ -69,7 +69,8 @@ initialModel =
         { fov = 45
         , near = 1
         , far = 1000
-        , position = Position 0 0 50
+        , position = Position 0 20 50
+        , lookAt = Position 0 0 0
         , controlsEnabled = inspectSceneForDebugging || False
         , screenSpacePanning = True
         }
