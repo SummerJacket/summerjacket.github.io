@@ -26,7 +26,7 @@ decodeColor =
 -}
 fromRGB : ( Int, Int, Int ) -> Color
 fromRGB ( r, g, b ) =
-    r * (256 ^ 2) + g * (256 ^ 1) + b
+    r * (256 ^ 2) + g * 256 + b
 
 
 {-| Takes hsl values from 0 to 1

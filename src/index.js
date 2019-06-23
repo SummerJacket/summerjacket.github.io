@@ -108,9 +108,12 @@ const init = payload => {
         curr.position.z
       );
       acc.push(gltf);
-      return acc;
     });
+
+    return acc;
   }, []);
+
+  window.models = models;
 
   // -- EVENTS -------------------------------------------------------
   window.addEventListener("resize", () => {
@@ -120,10 +123,15 @@ const init = payload => {
   });
 };
 
-const update = () => {
+const update = payload => () => {
+  models.forEach((model, i) => {
+    const { position: mPos } = payload.models[i];
+    model.scene.position.set(mPos.x, mPos.y, mPos.z);
+  });
+
   camControls.update();
   renderer.render(scene, camera);
-  app.ports.threeIn.send("ignored");
+  app.ports.threeIn.send();
 };
 
 app.ports.threeOut.subscribe(([action, payload]) => {
@@ -131,7 +139,7 @@ app.ports.threeOut.subscribe(([action, payload]) => {
     init(payload);
   }
 
-  requestAnimationFrame(update);
+  requestAnimationFrame(update(payload));
 });
 
 registerServiceWorker();

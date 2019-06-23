@@ -1,4 +1,4 @@
-module Types.GLTFModel exposing (GLTFModel(..), encodeGLTFModel)
+module Types.GLTFModel exposing (GLTFModel(..), encodeGLTFModel, gltfUpdate)
 
 import Json.Encode exposing (..)
 import Types.Position exposing (..)
@@ -8,7 +8,7 @@ type GLTFModel
     = GLTFModel
         { url : String
         , position : Position
-        , update : GLTFModel -> GLTFModel
+        , update : Int -> GLTFModel -> GLTFModel
         }
 
 
@@ -18,3 +18,8 @@ encodeGLTFModel (GLTFModel gltf) =
         [ ( "url", string gltf.url )
         , ( "position", encodePosition gltf.position )
         ]
+
+
+gltfUpdate : Int -> GLTFModel -> GLTFModel
+gltfUpdate tick (GLTFModel gltf) =
+    gltf.update tick <| GLTFModel gltf

@@ -25,7 +25,7 @@ type alias Value =
 port threeOut : ( String, Value ) -> Cmd a
 
 
-port threeIn : (String -> a) -> Sub a
+port threeIn : (Value -> a) -> Sub a
 
 
 
@@ -104,7 +104,16 @@ initialModel =
         [ GLTFModel
             { url = "models/big_island.glb"
             , position = Position 20 0 0
-            , update = identity
+            , update =
+                \tick (GLTFModel island) ->
+                    GLTFModel
+                        { island
+                            | position =
+                                { x = island.position.x
+                                , y = sin (toFloat tick * -0.005) * 0.75
+                                , z = island.position.z
+                                }
+                        }
             }
         ]
     }
@@ -129,8 +138,11 @@ update msg model =
     case msg of
         FrameUpdate ->
             let
+                updatedGLTFModels =
+                    List.map (gltfUpdate model.tick) model.models
+
                 updatedModel =
-                    { model | tick = model.tick + 1 }
+                    { model | tick = model.tick + 1, models = updatedGLTFModels }
             in
             ( updatedModel, threeOut ( "UPDATE", encodeModel updatedModel ) )
 
