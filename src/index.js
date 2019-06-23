@@ -77,7 +77,7 @@ const init = payload => {
         light.position.set(curr.position.x, curr.position.y, curr.position.z);
 
         if (curr.helperEnabled) {
-          scene.add(new DirectionalLightHelper(light, 10));
+          scene.add(new DirectionalLightHelper(light, 2));
         }
         break;
       case "HEMISPHERE_LIGHT":
@@ -88,7 +88,7 @@ const init = payload => {
         );
 
         if (curr.helperEnabled) {
-          scene.add(new HemisphereLightHelper(light, 10));
+          scene.add(new HemisphereLightHelper(light, 2));
         }
         break;
     }

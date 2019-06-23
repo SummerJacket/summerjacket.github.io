@@ -18,6 +18,10 @@ type alias Value =
     E.Value
 
 
+inspectSceneForDebugging =
+    True
+
+
 
 ---- PORTS ----
 
@@ -66,7 +70,11 @@ initialModel : Model
 initialModel =
     let
         backgroundColor =
-            fromHSL ( 0.6, 0, 1 )
+            if inspectSceneForDebugging then
+                fromHSL ( 0.6, 0, 0.5 )
+
+            else
+                fromHSL ( 0.6, 0, 1 )
     in
     { tick = 0
     , gammaInput = True
@@ -83,7 +91,7 @@ initialModel =
         , near = 1
         , far = 1000
         , position = Position 2 0 50
-        , controlsEnabled = False
+        , controlsEnabled = inspectSceneForDebugging || False
         , screenSpacePanning = True
         }
     , lights =
@@ -91,13 +99,13 @@ initialModel =
             { skyColor = fromHSL ( 0.6, 0.9, 0.75 )
             , groundColor = fromHSL ( 0.05, 1, 0.1 )
             , intensity = 0.8
-            , helperEnabled = False
+            , helperEnabled = inspectSceneForDebugging || False
             }
         , DirectionalLight
             { color = fromHSL ( 0.1, 1, 0.95 )
             , intensity = 1
             , position = Position 1 0.5 0
-            , helperEnabled = False
+            , helperEnabled = inspectSceneForDebugging || False
             }
         ]
     , models =
