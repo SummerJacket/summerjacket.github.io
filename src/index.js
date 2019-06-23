@@ -99,7 +99,7 @@ const init = payload => {
   }, []);
 
   // -- MODELS -------------------------------------------------------
-  models = payload.models.reduce((acc, curr) => {
+  models = payload.models.reduce((acc, curr, i) => {
     loader.load(curr.url, gltf => {
       scene.add(gltf.scene);
       gltf.scene.position.set(
@@ -107,13 +107,11 @@ const init = payload => {
         curr.position.y,
         curr.position.z
       );
-      acc.push(gltf);
+      acc[i] = gltf;
     });
 
     return acc;
   }, []);
-
-  window.models = models;
 
   // -- EVENTS -------------------------------------------------------
   window.addEventListener("resize", () => {
@@ -125,6 +123,9 @@ const init = payload => {
 
 const update = payload => () => {
   models.forEach((model, i) => {
+    // model not loaded.
+    if (!model) return;
+
     const { position: mPos } = payload.models[i];
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
   });

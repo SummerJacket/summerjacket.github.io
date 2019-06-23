@@ -1,6 +1,7 @@
 port module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
 import Browser
+import Browser.Dom exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as D exposing (..)
@@ -19,7 +20,7 @@ type alias Value =
 
 
 inspectSceneForDebugging =
-    True
+    False
 
 
 
@@ -90,7 +91,7 @@ initialModel =
         { fov = 45
         , near = 1
         , far = 1000
-        , position = Position 2 0 50
+        , position = Position 0 0 50
         , controlsEnabled = inspectSceneForDebugging || False
         , screenSpacePanning = True
         }
@@ -139,15 +140,15 @@ initialModel =
             }
         , GLTFModel
             { url = "models/rock1.glb"
-            , position = Position 19 0 0
+            , position = Position 20 0 0
             , update =
-                \tick (GLTFModel island) ->
+                \tick (GLTFModel rock) ->
                     GLTFModel
-                        { island
+                        { rock
                             | position =
-                                { x = island.position.x
+                                { x = rock.position.x
                                 , y = sin <| 1 + toFloat tick * 0.01
-                                , z = island.position.z
+                                , z = rock.position.z
                                 }
                         }
             }
@@ -155,13 +156,13 @@ initialModel =
             { url = "models/rock2.glb"
             , position = Position 20 0 0
             , update =
-                \tick (GLTFModel island) ->
+                \tick (GLTFModel rock) ->
                     GLTFModel
-                        { island
+                        { rock
                             | position =
-                                { x = island.position.x
+                                { x = rock.position.x
                                 , y = sin <| 2 + toFloat tick * 0.01
-                                , z = island.position.z
+                                , z = rock.position.z
                                 }
                         }
             }
@@ -169,13 +170,13 @@ initialModel =
             { url = "models/rock3.glb"
             , position = Position 20 0 0
             , update =
-                \tick (GLTFModel island) ->
+                \tick (GLTFModel rock) ->
                     GLTFModel
-                        { island
+                        { rock
                             | position =
-                                { x = island.position.x
+                                { x = rock.position.x
                                 , y = sin <| 3 + toFloat tick * 0.01
-                                , z = island.position.z
+                                , z = rock.position.z
                                 }
                         }
             }
