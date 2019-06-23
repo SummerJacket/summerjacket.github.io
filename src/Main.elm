@@ -1,29 +1,15 @@
-port module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
+port module Main exposing (main)
 
 import Browser
 import Browser.Dom exposing (..)
 import Browser.Events exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Json.Decode as D exposing (..)
-import Json.Encode as E exposing (..)
+import Json.Encode exposing (..)
+import Model exposing (..)
 import Task exposing (..)
 import Types.AnimationRecord exposing (..)
-import Types.Camera exposing (..)
-import Types.Color exposing (..)
-import Types.Fog exposing (..)
 import Types.GLTFModel exposing (..)
-import Types.Light exposing (..)
-import Types.Position exposing (..)
-import Types.Scene exposing (..)
-
-
-type alias Value =
-    E.Value
-
-
-inspectSceneForDebugging =
-    False
 
 
 
@@ -35,157 +21,6 @@ port threeOut : ( String, Value ) -> Cmd a
 
 
 ---- MODEL ----
-
-
-type alias Model =
-    { animationRecord : AnimationRecord
-    , gammaInput : Bool
-    , gammaOutput : Bool
-    , gammaFactor : Float
-    , shadowMapEnabled : Bool
-    , antialias : Bool
-    , scene : Scene
-    , camera : Camera
-    , lights : List Light
-    , models : List GLTFModel
-    }
-
-
-encodeModel : Model -> Value
-encodeModel model =
-    E.object
-        [ ( "animationRecord", encodeAnimationRecord model.animationRecord )
-        , ( "gammaInput", E.bool model.gammaInput )
-        , ( "gammaOutput", E.bool model.gammaOutput )
-        , ( "gammaFactor", E.float model.gammaFactor )
-        , ( "shadowMapEnabled", E.bool model.shadowMapEnabled )
-        , ( "antialias", E.bool model.antialias )
-        , ( "scene", encodeScene model.scene )
-        , ( "camera", encodeCamera model.camera )
-        , ( "lights", E.list encodeLight model.lights )
-        , ( "models", E.list encodeGLTFModel model.models )
-        ]
-
-
-initialModel : Model
-initialModel =
-    let
-        backgroundColor =
-            if inspectSceneForDebugging then
-                fromHSL ( 0.6, 0, 0.5 )
-
-            else
-                fromHSL ( 0.6, 0, 1 )
-    in
-    { animationRecord =
-        { elapsedTime = 0
-        , deltaTime = 0
-        , scrollTop = 0
-        }
-    , gammaInput = True
-    , gammaOutput = True
-    , gammaFactor = 2.2
-    , shadowMapEnabled = True
-    , antialias = True
-    , scene =
-        { background = backgroundColor
-        , fog = Fog backgroundColor 1 3000
-        }
-    , camera =
-        { fov = 45
-        , near = 1
-        , far = 1000
-        , position = Position 0 0 50
-        , controlsEnabled = inspectSceneForDebugging || False
-        , screenSpacePanning = True
-        }
-    , lights =
-        [ HemisphereLight
-            { skyColor = fromHSL ( 0.6, 0.9, 0.75 )
-            , groundColor = fromHSL ( 0.1, 0.2, 0.1 )
-            , intensity = 0.8
-            , helperEnabled = inspectSceneForDebugging || False
-            }
-        , DirectionalLight
-            { color = fromHSL ( 0.1, 1, 0.95 )
-            , intensity = 1
-            , position = Position 1 0.5 0
-            , helperEnabled = inspectSceneForDebugging || False
-            }
-        ]
-    , models =
-        [ GLTFModel
-            { url = "models/big_island.glb"
-            , position = Position 20 0 0
-            , update =
-                \record (GLTFModel island) ->
-                    GLTFModel
-                        { island
-                            | position =
-                                { x = island.position.x
-                                , y = cos (record.elapsedTime * -0.0005) * 0.75
-                                , z = island.position.z
-                                }
-                        }
-            }
-        , GLTFModel
-            { url = "models/small_island.glb"
-            , position = Position 24 0 0
-            , update =
-                \record (GLTFModel island) ->
-                    GLTFModel
-                        { island
-                            | position =
-                                { x = island.position.x
-                                , y = sin <| record.elapsedTime * -0.0009
-                                , z = island.position.z
-                                }
-                        }
-            }
-        , GLTFModel
-            { url = "models/rock1.glb"
-            , position = Position 20 0 0
-            , update =
-                \record (GLTFModel rock) ->
-                    GLTFModel
-                        { rock
-                            | position =
-                                { x = rock.position.x
-                                , y = sin <| 1 + record.elapsedTime * 0.001
-                                , z = rock.position.z
-                                }
-                        }
-            }
-        , GLTFModel
-            { url = "models/rock2.glb"
-            , position = Position 20 0 0
-            , update =
-                \record (GLTFModel rock) ->
-                    GLTFModel
-                        { rock
-                            | position =
-                                { x = rock.position.x
-                                , y = sin <| 2 + record.elapsedTime * 0.001
-                                , z = rock.position.z
-                                }
-                        }
-            }
-        , GLTFModel
-            { url = "models/rock3.glb"
-            , position = Position 20 0 0
-            , update =
-                \record (GLTFModel rock) ->
-                    GLTFModel
-                        { rock
-                            | position =
-                                { x = rock.position.x
-                                , y = sin <| 3 + record.elapsedTime * 0.001
-                                , z = rock.position.z
-                                }
-                        }
-            }
-        ]
-    }
 
 
 init : ( Model, Cmd Msg )

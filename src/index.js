@@ -39,12 +39,7 @@ const init = payload => {
   // -- SCENE --------------------------------------------------------
 
   scene = new Scene();
-  scene.background = new Color(payload.scene.background);
-  scene.fog = new Fog(
-    payload.scene.fog.color,
-    payload.scene.fog.near,
-    payload.scene.fog.far
-  );
+  scene.background = new Color(payload.background);
 
   // -- CAMERA -------------------------------------------------------
 
@@ -65,6 +60,8 @@ const init = payload => {
     };
   })();
 
+  const { position: cPos } = payload.camera;
+  camera.position.set(cPos.x, cPos.y, cPos.z);
   camControls.screenSpacePanning = true;
   camControls.update();
 
@@ -136,9 +133,13 @@ const update = payload => () => {
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
   });
 
-  const { position: cPos } = payload.camera;
-  camera.position.set(cPos.x, cPos.y, cPos.z);
-  camControls.update();
+  const { position: cPos, controlsEnabled } = payload.camera;
+  if (controlsEnabled) {
+    camControls.update();
+  }
+  else {
+    camera.position.set(cPos.x, cPos.y, cPos.z);
+  }
   renderer.render(scene, camera);
 };
 
