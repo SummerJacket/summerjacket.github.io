@@ -24,49 +24,39 @@ const app = Elm.Main.init({
   node: document.getElementById("root")
 });
 
-const model = {
-  tick: 0,
-  gammaInput: undefined,
-  gammaOutput: undefined,
-  gammaFactor: undefined,
-  shadowMapEnabled: undefined,
-  antialias: undefined,
-  scene: undefined,
-  camera: undefined,
-  camControls: undefined
-};
+let renderer, scene, camera, camControls;
 
 const init = payload => {
   // -- renderer --
-  model.renderer = new WebGLRenderer({ antialias: payload.antialias });
-  model.renderer.setSize(window.innerWidth, window.innerHeight);
-  model.renderer.gammaInput = payload.gammaInput;
-  model.renderer.gammaOutput = payload.gammaOutput;
-  model.renderer.gammaFactor = payload.gammaFactor;
-  model.renderer.shadowMap.enabled = payload.shadowMapEnabled;
+  renderer = new WebGLRenderer({ antialias: payload.antialias });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.gammaInput = payload.gammaInput;
+  renderer.gammaOutput = payload.gammaOutput;
+  renderer.gammaFactor = payload.gammaFactor;
+  renderer.shadowMap.enabled = payload.shadowMapEnabled;
 
-  document.body.appendChild(model.renderer.domElement);
+  document.body.appendChild(renderer.domElement);
 
   // -- scene --
-  model.scene = new Scene();
-  model.scene.background = new Color(payload.scene.background);
-  model.scene.fog = new Fog(
+  scene = new Scene();
+  scene.background = new Color(payload.scene.background);
+  scene.fog = new Fog(
     payload.scene.fog.color,
     payload.scene.fog.near,
     payload.scene.fog.far
   );
 
   // -- camera --
-  model.camera = new PerspectiveCamera(
+  camera = new PerspectiveCamera(
     payload.camera.fov,
     window.innerWidth / window.innerHeight,
     payload.camera.near,
     payload.camera.far
   );
 
-  model.camControls = (() => {
+  camControls = (() => {
     if (payload.camera.controlsEnabled) {
-      return new OrbitControls(model.camera, model.renderer.domElement);
+      return new OrbitControls(camera, renderer.domElement);
     }
 
     return {
@@ -75,25 +65,27 @@ const init = payload => {
   })();
 
   const { position: cPos } = payload.camera;
-  model.camera.position.set(cPos.x, cPos.y, cPos.z);
-  model.camControls.screenSpacePanning = true;
-  model.camControls.update();
+  camera.position.set(cPos.x, cPos.y, cPos.z);
+  camControls.screenSpacePanning = true;
+  camControls.update();
 
   // -- lights --
-  // -- skydome --
-  // -- models --
-  // -- events --
 
+  // -- skydome --
+
+  // -- models --
+
+  // -- events --
   window.addEventListener("resize", () => {
-    model.camera.aspect = window.innerWidth / window.innerHeight;
-    model.camera.updateProjectionMatrix();
-    model.renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
   });
 };
 
 const update = () => {
-  model.camControls.update();
-  model.renderer.render(model.scene, model.camera);
+  camControls.update();
+  renderer.render(scene, camera);
   app.ports.threeIn.send("ignored");
 };
 

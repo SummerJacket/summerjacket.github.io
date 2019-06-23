@@ -5,12 +5,12 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
-import List
 import Types.Camera exposing (..)
 import Types.Color as Color
 import Types.Fog exposing (..)
 import Types.Position exposing (..)
 import Types.Scene exposing (..)
+import Types.GLTFModel exposing (..)
 
 
 type alias Value =
@@ -18,7 +18,7 @@ type alias Value =
 
 
 
----- THREE ----
+---- PORTS ----
 
 
 port threeOut : ( String, Value ) -> Cmd a
@@ -40,6 +40,7 @@ type alias Model =
     , antialias : Bool
     , scene : Scene
     , camera : Camera
+    , models : List GLTFModel
     }
 
 
@@ -54,12 +55,13 @@ encodeModel model =
         , ( "antialias", E.bool model.antialias )
         , ( "scene", encodeScene model.scene )
         , ( "camera", encodeCamera model.camera )
+        , ( "models", encodeGLTFModel model.models )
         ]
 
 
 decodeModel : Decoder Model
 decodeModel =
-    map8 Model
+    map9 Model
         (field "tick" D.int)
         (field "gammaInput" D.bool)
         (field "gammaOutput" D.bool)
@@ -68,6 +70,7 @@ decodeModel =
         (field "antialias" D.bool)
         (field "scene" decodeScene)
         (field "camera" decodeCamera)
+        (field "models" decodeGLTFModel)
 
 
 initialModel : Model
