@@ -6,11 +6,12 @@ import Html.Attributes exposing (..)
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)
 import Types.Camera exposing (..)
-import Types.Color as Color
+import Types.Color exposing (..)
 import Types.Fog exposing (..)
+import Types.GLTFModel exposing (..)
+import Types.Light exposing (..)
 import Types.Position exposing (..)
 import Types.Scene exposing (..)
-import Types.GLTFModel exposing (..)
 
 
 type alias Value =
@@ -40,6 +41,7 @@ type alias Model =
     , antialias : Bool
     , scene : Scene
     , camera : Camera
+    , lights : List Light
     , models : List GLTFModel
     }
 
@@ -55,29 +57,16 @@ encodeModel model =
         , ( "antialias", E.bool model.antialias )
         , ( "scene", encodeScene model.scene )
         , ( "camera", encodeCamera model.camera )
-        , ( "models", encodeGLTFModel model.models )
+        , ( "lights", E.list encodeLight model.lights )
+        , ( "models", E.list encodeGLTFModel model.models )
         ]
-
-
-decodeModel : Decoder Model
-decodeModel =
-    map9 Model
-        (field "tick" D.int)
-        (field "gammaInput" D.bool)
-        (field "gammaOutput" D.bool)
-        (field "gammaFactor" D.float)
-        (field "shadowMapEnabled" D.bool)
-        (field "antialias" D.bool)
-        (field "scene" decodeScene)
-        (field "camera" decodeCamera)
-        (field "models" decodeGLTFModel)
 
 
 initialModel : Model
 initialModel =
     let
         backgroundColor =
-            Color.fromHSL ( 0.6, 0, 1 )
+            fromHSL ( 0.6, 0, 1 )
     in
     { tick = 0
     , gammaInput = True
@@ -92,15 +81,32 @@ initialModel =
     , camera =
         { fov = 45
         , near = 1
-        , far = 5000
-        , position =
-            { x = 2
-            , y = 20
-            , z = 50
-            }
+        , far = 1000
+        , position = Position 2 0 50
         , controlsEnabled = False
         , screenSpacePanning = True
         }
+    , lights =
+        [ HemisphereLight
+            { skyColor = fromHSL ( 0.6, 0.9, 0.75 )
+            , groundColor = fromHSL ( 0.05, 1, 0.1 )
+            , intensity = 0.8
+            , helperEnabled = False
+            }
+        , DirectionalLight
+            { color = fromHSL ( 0.1, 1, 0.95 )
+            , intensity = 1
+            , position = Position 1 0.5 0
+            , helperEnabled = False
+            }
+        ]
+    , models =
+        [ GLTFModel
+            { url = "models/big_island.glb"
+            , position = Position 20 0 0
+            , update = identity
+            }
+        ]
     }
 
 

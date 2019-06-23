@@ -1,4 +1,4 @@
-module Types.Color exposing (Color, Value, decodeColor, encodeColor, fromHSL, fromRGB)
+module Types.Color exposing (Color, decodeColor, encodeColor, fromHSL, fromRGB)
 
 import Json.Decode as D exposing (..)
 import Json.Encode as E exposing (..)

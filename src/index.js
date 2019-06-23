@@ -24,10 +24,13 @@ const app = Elm.Main.init({
   node: document.getElementById("root")
 });
 
+const loader = new GLTFLoader();
+
 let renderer, scene, camera, camControls;
+let lights, models;
 
 const init = payload => {
-  // -- renderer --
+  // -- RENDERER -----------------------------------------------------
   renderer = new WebGLRenderer({ antialias: payload.antialias });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.gammaInput = payload.gammaInput;
@@ -37,7 +40,7 @@ const init = payload => {
 
   document.body.appendChild(renderer.domElement);
 
-  // -- scene --
+  // -- SCENE --------------------------------------------------------
   scene = new Scene();
   scene.background = new Color(payload.scene.background);
   scene.fog = new Fog(
@@ -46,7 +49,7 @@ const init = payload => {
     payload.scene.fog.far
   );
 
-  // -- camera --
+  // -- CAMERA -------------------------------------------------------
   camera = new PerspectiveCamera(
     payload.camera.fov,
     window.innerWidth / window.innerHeight,
@@ -69,13 +72,54 @@ const init = payload => {
   camControls.screenSpacePanning = true;
   camControls.update();
 
-  // -- lights --
+  // -- LIGHTS -------------------------------------------------------
+  lights = payload.lights.reduce((acc, curr) => {
+    let light;
 
-  // -- skydome --
+    switch (curr.type) {
+      case "DIRECTIONAL_LIGHT":
+        light = new DirectionalLight(curr.color, curr.intensity);
+        light.position.set(curr.position.x, curr.position.y, curr.position.z);
 
-  // -- models --
+        if (curr.helperEnabled) {
+          scene.add(new DirectionalLightHelper(light, 10));
+        }
+        break;
+      case "HEMISPHERE_LIGHT":
+        light = new HemisphereLight(
+          curr.skyColor,
+          curr.groundColor,
+          curr.intensity
+        );
 
-  // -- events --
+        if (curr.helperEnabled) {
+          scene.add(new HemisphereLightHelper(light, 10));
+        }
+        break;
+    }
+
+    scene.add(light);
+    acc.push(light);
+    return acc;
+  }, []);
+
+  // -- SKYDOME ------------------------------------------------------
+
+  // -- MODELS -------------------------------------------------------
+  models = payload.models.reduce((acc, curr) => {
+    loader.load(curr.url, gltf => {
+      scene.add(gltf.scene);
+      gltf.scene.position.set(
+        curr.position.x,
+        curr.position.y,
+        curr.position.z
+      );
+      acc.push(gltf);
+      return acc;
+    });
+  }, []);
+
+  // -- EVENTS -------------------------------------------------------
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -90,14 +134,10 @@ const update = () => {
 };
 
 app.ports.threeOut.subscribe(([action, payload]) => {
-  switch (action) {
-    case "INIT":
-      init(payload);
-      break;
-    case "UPDATE":
-      // do nothing
-      break;
+  if (action === "INIT") {
+    init(payload);
   }
+
   requestAnimationFrame(update);
 });
 
