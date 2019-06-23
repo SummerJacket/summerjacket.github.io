@@ -73,7 +73,7 @@ initialModel =
     , gammaOutput = True
     , gammaFactor = 2.2
     , shadowMapEnabled = True
-    , antialias = False
+    , antialias = True
     , scene =
         { background = backgroundColor
         , fog = Fog backgroundColor 1 3000
@@ -110,7 +110,63 @@ initialModel =
                         { island
                             | position =
                                 { x = island.position.x
-                                , y = sin (toFloat tick * -0.005) * 0.75
+                                , y = cos (toFloat tick * -0.005) * 0.75
+                                , z = island.position.z
+                                }
+                        }
+            }
+        , GLTFModel
+            { url = "models/small_island.glb"
+            , position = Position 24 0 0
+            , update =
+                \tick (GLTFModel island) ->
+                    GLTFModel
+                        { island
+                            | position =
+                                { x = island.position.x
+                                , y = sin <| toFloat tick * -0.009
+                                , z = island.position.z
+                                }
+                        }
+            }
+        , GLTFModel
+            { url = "models/rock1.glb"
+            , position = Position 19 0 0
+            , update =
+                \tick (GLTFModel island) ->
+                    GLTFModel
+                        { island
+                            | position =
+                                { x = island.position.x
+                                , y = sin <| 1 + toFloat tick * 0.01
+                                , z = island.position.z
+                                }
+                        }
+            }
+        , GLTFModel
+            { url = "models/rock2.glb"
+            , position = Position 20 0 0
+            , update =
+                \tick (GLTFModel island) ->
+                    GLTFModel
+                        { island
+                            | position =
+                                { x = island.position.x
+                                , y = sin <| 2 + toFloat tick * 0.01
+                                , z = island.position.z
+                                }
+                        }
+            }
+        , GLTFModel
+            { url = "models/rock3.glb"
+            , position = Position 20 0 0
+            , update =
+                \tick (GLTFModel island) ->
+                    GLTFModel
+                        { island
+                            | position =
+                                { x = island.position.x
+                                , y = sin <| 3 + toFloat tick * 0.01
                                 , z = island.position.z
                                 }
                         }
