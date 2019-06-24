@@ -2,14 +2,14 @@ module Types.Light exposing (Light(..), encodeLight)
 
 import Json.Encode exposing (..)
 import Types.Color exposing (..)
-import Types.Position exposing (..)
+import Types.Vector3 exposing (..)
 
 
 type Light
     = DirectionalLight
         { color : Color
         , intensity : Float
-        , position : Position
+        , position : Vector3
         , helperEnabled : Bool
         }
     | HemisphereLight
@@ -28,7 +28,7 @@ encodeLight light =
                 [ ( "type", string "DIRECTIONAL_LIGHT" )
                 , ( "color", encodeColor dirLight.color )
                 , ( "intensity", float dirLight.intensity )
-                , ( "position", encodePosition dirLight.position )
+                , ( "position", encodeVector3 dirLight.position )
                 , ( "helperEnabled", bool dirLight.helperEnabled )
                 ]
 

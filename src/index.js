@@ -59,9 +59,10 @@ const init = payload => {
     };
   })();
 
-  const { position: cPos, lookAt } = payload.camera;
+  const cPos = payload.camera.transform.position;
   camera.position.set(cPos.x, cPos.y, cPos.z);
-  camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
+  // TODO: rotations
+  // camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
   camControls.screenSpacePanning = true;
   camControls.update();
 
@@ -105,9 +106,9 @@ const init = payload => {
     loader.load(curr.url, gltf => {
       scene.add(gltf.scene);
       gltf.scene.position.set(
-        curr.position.x,
-        curr.position.y,
-        curr.position.z
+        curr.transform.position.x,
+        curr.transform.position.y,
+        curr.transform.position.z
       );
       acc[i] = gltf;
     });
@@ -129,15 +130,14 @@ const update = payload => {
     // check for unloaded model
     if (!model) return;
 
-    const mPos = payload.models[i].position;
+    const mPos = payload.models[i].transform.position;
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
   });
 
-  const { position: cPos, controlsEnabled } = payload.camera;
-
-  if (controlsEnabled) {
+  if (payload.camera.controlsEnabled) {
     camControls.update();
   } else {
+    const cPos = payload.camera.transform.position;
     camera.position.set(cPos.x, cPos.y, cPos.z);
   }
 

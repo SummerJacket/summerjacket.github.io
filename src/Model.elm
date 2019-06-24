@@ -4,10 +4,13 @@ import Json.Encode exposing (..)
 import Types.AnimationRecord exposing (..)
 import Types.Camera exposing (..)
 import Types.Color exposing (..)
+import Types.Euler exposing (..)
 import Types.Fog exposing (..)
 import Types.GLTFModel exposing (..)
 import Types.Light exposing (..)
-import Types.Position exposing (..)
+import Types.Transform exposing (..)
+import Types.Vector3 exposing (..)
+import Utility exposing (flip)
 
 
 inspectSceneForDebugging =
@@ -69,8 +72,10 @@ initialModel =
         { fov = 45
         , near = 1
         , far = 1000
-        , position = Position 0 20 50
-        , lookAt = Position 0 0 0
+        , transform =
+            { position = Vector3 0 0 50
+            , rotation = Euler 0 0 0 XYZ
+            }
         , controlsEnabled = inspectSceneForDebugging || False
         , screenSpacePanning = True
         }
@@ -84,80 +89,76 @@ initialModel =
         , DirectionalLight
             { color = fromHSL ( 0.1, 1, 0.95 )
             , intensity = 1
-            , position = Position 1 0.5 0
+            , position = Vector3 1 0.5 0
             , helperEnabled = inspectSceneForDebugging || False
             }
         ]
     , models =
         [ GLTFModel
             { url = "models/big_island.glb"
-            , position = Position 20 0 0
+            , transform =
+                { position = Vector3 20 0 0
+                , rotation = Euler 0 0 0 XYZ
+                }
             , update =
                 \record (GLTFModel island) ->
-                    GLTFModel
-                        { island
-                            | position =
-                                { x = island.position.x
-                                , y = cos (record.elapsedTime * -0.0005) * 0.75
-                                , z = island.position.z
-                                }
-                        }
+                    cos (record.elapsedTime * -0.0005)
+                        * 0.75
+                        |> flip setY island.transform.position
+                        |> flip setPosition island.transform
+                        |> flip setTransform (GLTFModel island)
             }
         , GLTFModel
             { url = "models/small_island.glb"
-            , position = Position 24 0 0
+            , transform =
+                { position = Vector3 24 0 0
+                , rotation = Euler 0 0 0 XYZ
+                }
             , update =
                 \record (GLTFModel island) ->
-                    GLTFModel
-                        { island
-                            | position =
-                                { x = island.position.x
-                                , y = sin <| record.elapsedTime * -0.0009
-                                , z = island.position.z
-                                }
-                        }
+                    sin (record.elapsedTime * -0.0009)
+                        |> flip setY island.transform.position
+                        |> flip setPosition island.transform
+                        |> flip setTransform (GLTFModel island)
             }
         , GLTFModel
             { url = "models/rock1.glb"
-            , position = Position 20 0 0
+            , transform =
+                { position = Vector3 20 0 0
+                , rotation = Euler 0 0 0 XYZ
+                }
             , update =
                 \record (GLTFModel rock) ->
-                    GLTFModel
-                        { rock
-                            | position =
-                                { x = rock.position.x
-                                , y = sin <| 1 + record.elapsedTime * 0.001
-                                , z = rock.position.z
-                                }
-                        }
+                    sin (1 + record.elapsedTime * 0.001)
+                        |> flip setY rock.transform.position
+                        |> flip setPosition rock.transform
+                        |> flip setTransform (GLTFModel rock)
             }
         , GLTFModel
             { url = "models/rock2.glb"
-            , position = Position 20 0 0
+            , transform =
+                { position = Vector3 20 0 0
+                , rotation = Euler 0 0 0 XYZ
+                }
             , update =
                 \record (GLTFModel rock) ->
-                    GLTFModel
-                        { rock
-                            | position =
-                                { x = rock.position.x
-                                , y = sin <| 2 + record.elapsedTime * 0.001
-                                , z = rock.position.z
-                                }
-                        }
+                    sin (2 + record.elapsedTime * 0.001)
+                        |> flip setY rock.transform.position
+                        |> flip setPosition rock.transform
+                        |> flip setTransform (GLTFModel rock)
             }
         , GLTFModel
             { url = "models/rock3.glb"
-            , position = Position 20 0 0
+            , transform =
+                { position = Vector3 20 0 0
+                , rotation = Euler 0 0 0 XYZ
+                }
             , update =
                 \record (GLTFModel rock) ->
-                    GLTFModel
-                        { rock
-                            | position =
-                                { x = rock.position.x
-                                , y = sin <| 3 + record.elapsedTime * 0.001
-                                , z = rock.position.z
-                                }
-                        }
+                    sin (3 + record.elapsedTime * 0.001)
+                        |> flip setY rock.transform.position
+                        |> flip setPosition rock.transform
+                        |> flip setTransform (GLTFModel rock)
             }
         ]
     }

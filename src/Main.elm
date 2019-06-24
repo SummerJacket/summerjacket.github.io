@@ -42,26 +42,12 @@ update msg model =
     case msg of
         FrameUpdate animationRecord ->
             let
-                updatedCamera =
-                    let
-                        camera =
-                            model.camera
-                    in
-                    { camera
-                        | position =
-                            { x = camera.position.x
-                            , y = camera.position.y
-                            , z = camera.position.z
-                            }
-                    }
-
                 updatedGLTFModels =
                     List.map (gltfUpdate model.animationRecord) model.models
 
                 updatedModel =
                     { model
                         | animationRecord = animationRecord
-                        , camera = updatedCamera
                         , models = updatedGLTFModels
                     }
             in

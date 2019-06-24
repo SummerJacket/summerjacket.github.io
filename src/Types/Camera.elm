@@ -1,20 +1,14 @@
-module Types.Camera exposing (Camera, decodeCamera, encodeCamera)
+module Types.Camera exposing (Camera, encodeCamera)
 
-import Json.Decode as D exposing (..)
-import Json.Encode as E exposing (..)
-import Types.Position exposing (..)
-
-
-type alias Value =
-    E.Value
+import Json.Encode exposing (..)
+import Types.Transform exposing (..)
 
 
 type alias Camera =
     { fov : Float
     , near : Float
     , far : Float
-    , position : Position
-    , lookAt : Position
+    , transform : Transform
     , controlsEnabled : Bool
     , screenSpacePanning : Bool
     }
@@ -23,23 +17,15 @@ type alias Camera =
 encodeCamera : Camera -> Value
 encodeCamera camera =
     object
-        [ ( "fov", E.float camera.fov )
-        , ( "near", E.float camera.near )
-        , ( "far", E.float camera.far )
-        , ( "position", encodePosition camera.position )
-        , ( "lookAt", encodePosition camera.lookAt )
-        , ( "controlsEnabled", E.bool camera.controlsEnabled )
-        , ( "screenSpacePanning", E.bool camera.screenSpacePanning )
+        [ ( "fov", float camera.fov )
+        , ( "near", float camera.near )
+        , ( "far", float camera.far )
+        , ( "transform", encodeTransform camera.transform )
+        , ( "controlsEnabled", bool camera.controlsEnabled )
+        , ( "screenSpacePanning", bool camera.screenSpacePanning )
         ]
 
 
-decodeCamera : Decoder Camera
-decodeCamera =
-    map7 Camera
-        (field "fov" D.float)
-        (field "near" D.float)
-        (field "far" D.float)
-        (field "position" decodePosition)
-        (field "lookAt" decodePosition)
-        (field "controlsEnabled" D.bool)
-        (field "screenSpacePanning" D.bool)
+setTransform : Transform -> Camera -> Camera
+setTransform transform camera =
+    { camera | transform = transform }
