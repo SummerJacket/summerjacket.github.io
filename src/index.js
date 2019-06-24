@@ -6,7 +6,8 @@ import {
   HemisphereLightHelper,
   DirectionalLight,
   DirectionalLightHelper,
-  Color
+  Color,
+  Euler
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -59,10 +60,9 @@ const init = payload => {
     };
   })();
 
-  const cPos = payload.camera.transform.position;
+  const { position: cPos, rotation: cRot } = payload.camera.transform;
   camera.position.set(cPos.x, cPos.y, cPos.z);
-  // TODO: rotations
-  // camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
+  camera.setRotationFromEuler(new Euler(cRot.x, cRot.y, cRot.z, cRot.order));
   camControls.screenSpacePanning = true;
   camControls.update();
 
@@ -137,8 +137,14 @@ const update = payload => {
   if (payload.camera.controlsEnabled) {
     camControls.update();
   } else {
-    const cPos = payload.camera.transform.position;
+    const {
+      position: cPos
+      // rotation: cRot
+    } = payload.camera.transform;
+
     camera.position.set(cPos.x, cPos.y, cPos.z);
+    // rotation never changes
+    // camera.setRotationFromEuler(new Euler(cRot.x, cRot.y, cRot.z, cRot.order));
   }
 
   renderer.render(scene, camera);

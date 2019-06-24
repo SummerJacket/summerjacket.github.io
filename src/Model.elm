@@ -73,8 +73,8 @@ initialModel =
         , near = 1
         , far = 1000
         , transform =
-            { position = Vector3 0 0 50
-            , rotation = Euler 0 0 0 XYZ
+            { position = Vector3 0 20 50
+            , rotation = Euler -0.35 0 0 XYZ
             }
         , controlsEnabled = inspectSceneForDebugging || False
         , screenSpacePanning = True
@@ -102,8 +102,7 @@ initialModel =
                 }
             , update =
                 \record (GLTFModel island) ->
-                    cos (record.elapsedTime * -0.0005)
-                        * 0.75
+                    (cos (record.elapsedTime * -0.0005) * 0.75)
                         |> flip setY island.transform.position
                         |> flip setPosition island.transform
                         |> flip setTransform (GLTFModel island)
