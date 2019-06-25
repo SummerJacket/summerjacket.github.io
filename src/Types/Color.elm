@@ -1,11 +1,11 @@
 module Types.Color exposing (Color, decodeColor, encodeColor, fromHSL, fromRGB)
 
-import Json.Decode as D exposing (..)
-import Json.Encode as E exposing (..)
+import Json.Decode as Decode exposing (..)
+import Json.Encode as Encode exposing (..)
 
 
 type alias Value =
-    E.Value
+    Encode.Value
 
 
 type alias Color =
@@ -14,12 +14,12 @@ type alias Color =
 
 encodeColor : Color -> Value
 encodeColor =
-    E.int
+    Encode.int
 
 
 decodeColor : Decoder Color
 decodeColor =
-    D.int
+    Decode.int
 
 
 {-| Takes rgb values from 0 to 255

@@ -1,14 +1,11 @@
 port module Main exposing (main)
 
 import Browser
-import Browser.Dom exposing (..)
-import Browser.Events exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Model exposing (..)
-import Task exposing (..)
 import Types.AnimationRecord exposing (..)
 import Types.GLTFModel exposing (..)
 import Types.Vector2 exposing (..)

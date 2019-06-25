@@ -1,11 +1,11 @@
 module Types.Vector3 exposing (Vector3, decodeVector3, encodeVector3, setX, setY, setZ)
 
-import Json.Decode as D exposing (..)
-import Json.Encode as E exposing (..)
+import Json.Decode as Decode exposing (..)
+import Json.Encode as Encode exposing (..)
 
 
 type alias Value =
-    E.Value
+    Encode.Value
 
 
 type alias Vector3 =
@@ -18,18 +18,18 @@ type alias Vector3 =
 encodeVector3 : Vector3 -> Value
 encodeVector3 position =
     object
-        [ ( "x", E.float position.x )
-        , ( "y", E.float position.y )
-        , ( "z", E.float position.z )
+        [ ( "x", Encode.float position.x )
+        , ( "y", Encode.float position.y )
+        , ( "z", Encode.float position.z )
         ]
 
 
 decodeVector3 : Decoder Vector3
 decodeVector3 =
     map3 Vector3
-        (field "x" D.float)
-        (field "y" D.float)
-        (field "z" D.float)
+        (field "x" Decode.float)
+        (field "y" Decode.float)
+        (field "z" Decode.float)
 
 
 setX : Float -> Vector3 -> Vector3
