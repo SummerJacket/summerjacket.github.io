@@ -7,8 +7,12 @@ import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 import Model exposing (..)
 import Types.AnimationRecord exposing (..)
+import Types.Camera as Camera exposing (..)
 import Types.GLTFModel exposing (..)
+import Types.Transform exposing (..)
 import Types.Vector2 exposing (..)
+import Types.Vector3 as Vector3 exposing (..)
+import Utility exposing (flip)
 
 
 type alias Value =
@@ -63,12 +67,19 @@ update msg model =
     case msg of
         FrameUpdate animationRecord ->
             let
+                updatedCamera =
+                    (20 - animationRecord.scrollTop * 0.06)
+                        |> flip Vector3.setY model.camera.transform.position
+                        |> flip setPosition model.camera.transform
+                        |> flip Camera.setTransform model.camera
+
                 updatedGLTFModels =
-                    List.map (gltfUpdate model.animationRecord) model.models
+                    List.map (gltfUpdate animationRecord) model.models
 
                 updatedModel =
                     { model
                         | animationRecord = animationRecord
+                        , camera = updatedCamera
                         , models = updatedGLTFModels
                     }
             in

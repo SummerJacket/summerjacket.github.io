@@ -5,7 +5,7 @@ import Types.AnimationRecord exposing (..)
 import Types.Camera exposing (..)
 import Types.Color exposing (..)
 import Types.Euler exposing (..)
-import Types.GLTFModel exposing (..)
+import Types.GLTFModel as GLTFModel exposing (..)
 import Types.Light exposing (..)
 import Types.Transform exposing (..)
 import Types.Vector3 exposing (..)
@@ -108,7 +108,7 @@ initialModel =
                     (cos (record.elapsedTime * -0.0005) * 0.75)
                         |> flip setY island.transform.position
                         |> flip setPosition island.transform
-                        |> flip setTransform (GLTFModel island)
+                        |> flip GLTFModel.setTransform (GLTFModel island)
             }
         , GLTFModel
             { url = "models/small_island.glb"
@@ -121,7 +121,7 @@ initialModel =
                     sin (record.elapsedTime * -0.0009)
                         |> flip setY island.transform.position
                         |> flip setPosition island.transform
-                        |> flip setTransform (GLTFModel island)
+                        |> flip GLTFModel.setTransform (GLTFModel island)
             }
         , GLTFModel
             { url = "models/rock1.glb"
@@ -134,7 +134,7 @@ initialModel =
                     sin (1 + record.elapsedTime * 0.001)
                         |> flip setY rock.transform.position
                         |> flip setPosition rock.transform
-                        |> flip setTransform (GLTFModel rock)
+                        |> flip GLTFModel.setTransform (GLTFModel rock)
             }
         , GLTFModel
             { url = "models/rock2.glb"
@@ -147,7 +147,7 @@ initialModel =
                     sin (2 + record.elapsedTime * 0.001)
                         |> flip setY rock.transform.position
                         |> flip setPosition rock.transform
-                        |> flip setTransform (GLTFModel rock)
+                        |> flip GLTFModel.setTransform (GLTFModel rock)
             }
         , GLTFModel
             { url = "models/rock3.glb"
@@ -160,7 +160,7 @@ initialModel =
                     sin (3 + record.elapsedTime * 0.001)
                         |> flip setY rock.transform.position
                         |> flip setPosition rock.transform
-                        |> flip setTransform (GLTFModel rock)
+                        |> flip GLTFModel.setTransform (GLTFModel rock)
             }
         ]
     }

@@ -1,4 +1,4 @@
-module Types.Camera exposing (Camera, encodeCamera)
+module Types.Camera exposing (Camera, encodeCamera, setTransform)
 
 import Json.Encode exposing (..)
 import Types.Transform exposing (..)

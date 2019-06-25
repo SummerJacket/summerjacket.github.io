@@ -137,10 +137,12 @@ const init = payload => {
 };
 
 const update = payload => {
+  // calculate delta time
   const currentTime = new Date().getTime();
   const deltaTime = currentTime - previousTime;
   previousTime = currentTime;
 
+  // update 3d models
   models.forEach((model, i) => {
     // check for unloaded model
     if (!model) return;
@@ -149,6 +151,7 @@ const update = payload => {
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
   });
 
+  // update camera
   if (payload.camera.controlsEnabled) {
     camControls.update();
   } else {
@@ -158,12 +161,12 @@ const update = payload => {
     camera.setRotationFromEuler(new Euler(cRot.x, cRot.y, cRot.z, cRot.order));
   }
 
+  // draw the scene
   renderer.render(scene, camera);
 
-  const { scrollTop } = document.documentElement;
   app.ports.threeIn.send({
     deltaTime,
-    scrollTop,
+    scrollTop: document.documentElement.scrollTop,
     mouse
   });
 };
