@@ -1,12 +1,13 @@
 module Types.AnimationRecord exposing (AnimationRecord, encodeAnimationRecord)
 
 import Json.Encode exposing (..)
-
+import Types.Vector2 exposing (..)
 
 type alias AnimationRecord =
     { elapsedTime : Float
     , deltaTime : Float
-    , scrollTop : Int
+    , scrollTop : Float
+    , mouse : Vector2
     }
 
 
@@ -15,5 +16,6 @@ encodeAnimationRecord record =
     object
         [ ( "elapsedTime", float record.elapsedTime )
         , ( "deltaTime", float record.deltaTime )
-        , ( "scrollTop", int record.scrollTop )
+        , ( "scrollTop", float record.scrollTop )
+        , ( "mouse", encodeVector2 record.mouse )
         ]

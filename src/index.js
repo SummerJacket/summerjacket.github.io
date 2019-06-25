@@ -21,6 +21,12 @@ const app = Elm.Main.init({
 
 const loader = new GLTFLoader();
 
+const mouse = {
+  x: window.innerWidth / 2,
+  y: window.innerHeight / 2
+};
+
+let previousTime = new Date().getTime();
 let renderer, scene, camera, camControls;
 let models;
 
@@ -123,9 +129,18 @@ const init = payload => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
+
+  document.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
 };
 
 const update = payload => {
+  const currentTime = new Date().getTime();
+  const deltaTime = currentTime - previousTime;
+  previousTime = currentTime;
+
   models.forEach((model, i) => {
     // check for unloaded model
     if (!model) return;
@@ -137,17 +152,20 @@ const update = payload => {
   if (payload.camera.controlsEnabled) {
     camControls.update();
   } else {
-    const {
-      position: cPos
-      // rotation: cRot
-    } = payload.camera.transform;
+    const { position: cPos, rotation: cRot } = payload.camera.transform;
 
     camera.position.set(cPos.x, cPos.y, cPos.z);
-    // rotation never changes
-    // camera.setRotationFromEuler(new Euler(cRot.x, cRot.y, cRot.z, cRot.order));
+    camera.setRotationFromEuler(new Euler(cRot.x, cRot.y, cRot.z, cRot.order));
   }
 
   renderer.render(scene, camera);
+
+  const { scrollTop } = document.documentElement;
+  app.ports.threeIn.send({
+    deltaTime,
+    scrollTop,
+    mouse
+  });
 };
 
 app.ports.threeOut.subscribe(([action, payload]) => {
@@ -155,7 +173,7 @@ app.ports.threeOut.subscribe(([action, payload]) => {
     init(payload);
   }
 
-  update(payload);
+  requestAnimationFrame(() => update(payload));
 });
 
 registerServiceWorker();

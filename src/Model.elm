@@ -61,6 +61,10 @@ initialModel =
         { elapsedTime = 0
         , deltaTime = 0
         , scrollTop = 0
+        , mouse =
+            { x = 0
+            , y = 0
+            }
         }
     , gammaInput = True
     , gammaOutput = True

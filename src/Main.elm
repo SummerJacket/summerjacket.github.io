@@ -5,11 +5,17 @@ import Browser.Dom exposing (..)
 import Browser.Events exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Json.Encode exposing (..)
+import Json.Decode as Decode exposing (..)
+import Json.Encode as Encode exposing (..)
 import Model exposing (..)
 import Task exposing (..)
 import Types.AnimationRecord exposing (..)
 import Types.GLTFModel exposing (..)
+import Types.Vector2 exposing (..)
+
+
+type alias Value =
+    Encode.Value
 
 
 
@@ -17,6 +23,24 @@ import Types.GLTFModel exposing (..)
 
 
 port threeOut : ( String, Value ) -> Cmd a
+
+
+port threeIn : (Value -> a) -> Sub a
+
+
+type alias ThreeIn =
+    { deltaTime : Float
+    , scrollTop : Float
+    , mouse : Vector2
+    }
+
+
+decodeThreeIn : Decoder ThreeIn
+decodeThreeIn =
+    Decode.map3 ThreeIn
+        (field "deltaTime" Decode.float)
+        (field "scrollTop" Decode.float)
+        (field "mouse" decodeVector2)
 
 
 
@@ -63,14 +87,25 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    onAnimationFrameDelta
-        (\deltaTime ->
-            FrameUpdate
-                { elapsedTime = model.animationRecord.elapsedTime + deltaTime
-                , deltaTime = deltaTime
-                , scrollTop = 0
+    threeIn <| handleThreeIn model
+
+
+handleThreeIn : Model -> Value -> Msg
+handleThreeIn model value =
+    FrameUpdate <|
+        case decodeValue decodeThreeIn value of
+            Ok res ->
+                { elapsedTime = model.animationRecord.elapsedTime + res.deltaTime
+                , deltaTime = res.deltaTime
+                , scrollTop = res.scrollTop
+                , mouse =
+                    { x = res.mouse.x
+                    , y = res.mouse.y
+                    }
                 }
-        )
+
+            Err err ->
+                Debug.todo <| Debug.toString err
 
 
 
