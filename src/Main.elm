@@ -67,58 +67,68 @@ type Msg
     | NoOp
 
 
+updateCameraPosition : AnimationRecord -> Vector3 -> Vector3
+updateCameraPosition animationRecord cameraPos =
+    let
+        desiredY =
+            20 - animationRecord.scrollTop * 0.07
+    in
+    cameraPos
+        |> Vector3.setY (cameraPos.y + (desiredY - cameraPos.y) * 0.25)
+
+
+updateCameraRotation : AnimationRecord -> Euler -> Euler
+updateCameraRotation animationRecord cameraRot =
+    -- mouse x and mouse y are swapped?
+    -- or is it that my iq is too low to understand 3d?
+    let
+        sensitivity =
+            0.0001
+
+        desiredX =
+            let
+                mid =
+                    toFloat animationRecord.height / 2
+            in
+            (mid - animationRecord.mouse.y) * sensitivity - 0.35
+
+        desiredY =
+            let
+                mid =
+                    toFloat animationRecord.width / 2
+            in
+            (mid - animationRecord.mouse.x) * sensitivity
+    in
+    cameraRot
+        |> Euler.setX (cameraRot.x + (desiredX - cameraRot.x) * 0.05)
+        |> Euler.setY (cameraRot.y + (desiredY - cameraRot.y) * 0.05)
+
+
+updateCamera : AnimationRecord -> Camera -> Camera
+updateCamera animationRecord camera =
+    let
+        camT =
+            camera.transform
+
+        updatedCameraPosition =
+            updateCameraPosition animationRecord camT.position
+
+        updatedCameraRotation =
+            updateCameraRotation animationRecord camT.rotation
+    in
+    camera.transform
+        |> setPosition updatedCameraPosition
+        |> setRotation updatedCameraRotation
+        |> flip Camera.setTransform camera
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FrameUpdate animationRecord ->
             let
-                updatedCameraPosition =
-                    let
-                        camY =
-                            model.camera.transform.position.y
-
-                        desiredY =
-                            20 - animationRecord.scrollTop * 0.06
-                    in
-                    model.camera.transform.position
-                        |> Vector3.setY (camY + (desiredY - camY) * 0.2)
-
-                updatedCameraRotation =
-                    let
-                        mouse =
-                            model.animationRecord.mouse
-
-                        sensitivity =
-                            0.0001
-
-                        camRot =
-                            model.camera.transform.rotation
-
-                        desiredX =
-                            let
-                                mid =
-                                    toFloat model.animationRecord.height / 2
-                            in
-                            (mid - mouse.y) * sensitivity - 0.35
-
-                        desiredY =
-                            let
-                                mid =
-                                    toFloat model.animationRecord.width / 2
-                            in
-                            (mid - mouse.x) * sensitivity
-                    in
-                    -- x and y are swapped?
-                    -- or is it that my iq is too low to understand 3d?
-                    camRot
-                        |> Euler.setX (camRot.x + (desiredX - camRot.x) * 0.05)
-                        |> Euler.setY (camRot.y + (desiredY - camRot.y) * 0.05)
-
                 updatedCamera =
-                    model.camera.transform
-                        |> setPosition updatedCameraPosition
-                        |> setRotation updatedCameraRotation
-                        |> flip Camera.setTransform model.camera
+                    updateCamera animationRecord model.camera
 
                 updatedGLTFModels =
                     List.map (gltfUpdate animationRecord) model.models
