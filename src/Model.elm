@@ -8,7 +8,7 @@ import Types.Euler exposing (..)
 import Types.GLTFModel as GLTFModel exposing (..)
 import Types.Light exposing (..)
 import Types.Transform exposing (..)
-import Types.Vector3 exposing (..)
+import Types.Vector3 as Vector3 exposing (..)
 import Utility exposing (flip)
 
 
@@ -64,6 +64,8 @@ initialModel =
             { x = 0
             , y = 0
             }
+        , width = 1
+        , height = 1
         }
     , gammaInput = True
     , gammaOutput = True
@@ -106,7 +108,7 @@ initialModel =
             , update =
                 \record (GLTFModel island) ->
                     (cos (record.elapsedTime * -0.0005) * 0.75)
-                        |> flip setY island.transform.position
+                        |> flip Vector3.setY island.transform.position
                         |> flip setPosition island.transform
                         |> flip GLTFModel.setTransform (GLTFModel island)
             }
@@ -119,7 +121,7 @@ initialModel =
             , update =
                 \record (GLTFModel island) ->
                     sin (record.elapsedTime * -0.0009)
-                        |> flip setY island.transform.position
+                        |> flip Vector3.setY island.transform.position
                         |> flip setPosition island.transform
                         |> flip GLTFModel.setTransform (GLTFModel island)
             }
@@ -132,7 +134,7 @@ initialModel =
             , update =
                 \record (GLTFModel rock) ->
                     sin (1 + record.elapsedTime * 0.001)
-                        |> flip setY rock.transform.position
+                        |> flip Vector3.setY rock.transform.position
                         |> flip setPosition rock.transform
                         |> flip GLTFModel.setTransform (GLTFModel rock)
             }
@@ -145,7 +147,7 @@ initialModel =
             , update =
                 \record (GLTFModel rock) ->
                     sin (2 + record.elapsedTime * 0.001)
-                        |> flip setY rock.transform.position
+                        |> flip Vector3.setY rock.transform.position
                         |> flip setPosition rock.transform
                         |> flip GLTFModel.setTransform (GLTFModel rock)
             }
@@ -158,7 +160,7 @@ initialModel =
             , update =
                 \record (GLTFModel rock) ->
                     sin (3 + record.elapsedTime * 0.001)
-                        |> flip setY rock.transform.position
+                        |> flip Vector3.setY rock.transform.position
                         |> flip setPosition rock.transform
                         |> flip GLTFModel.setTransform (GLTFModel rock)
             }

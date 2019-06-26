@@ -167,7 +167,9 @@ const update = payload => {
   app.ports.threeIn.send({
     deltaTime,
     scrollTop: document.documentElement.scrollTop,
-    mouse
+    mouse,
+    width: window.innerWidth,
+    height: window.innerHeight
   });
 };
 

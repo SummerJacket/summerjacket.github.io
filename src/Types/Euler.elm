@@ -1,4 +1,4 @@
-module Types.Euler exposing (Euler, Order(..), encodeEuler, encodeOrder)
+module Types.Euler exposing (Euler, Order(..), encodeEuler, encodeOrder, setX, setY, setZ)
 
 import Json.Encode exposing (..)
 
@@ -51,3 +51,18 @@ encodeEuler euler =
         , ( "z", float euler.z )
         , ( "order", encodeOrder euler.order )
         ]
+
+
+setX : Float -> Euler -> Euler
+setX x rot =
+    { rot | x = x }
+
+
+setY : Float -> Euler -> Euler
+setY y rot =
+    { rot | y = y }
+
+
+setZ : Float -> Euler -> Euler
+setZ z rot =
+    { rot | z = z }

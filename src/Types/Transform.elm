@@ -1,4 +1,4 @@
-module Types.Transform exposing (Transform, encodeTransform, setPosition)
+module Types.Transform exposing (Transform, encodeTransform, setPosition, setRotation)
 
 import Json.Encode exposing (..)
 import Types.Euler exposing (..)
@@ -22,3 +22,8 @@ encodeTransform transform =
 setPosition : Vector3 -> Transform -> Transform
 setPosition vec3 transform =
     { transform | position = vec3 }
+
+
+setRotation : Euler -> Transform -> Transform
+setRotation rot transform =
+    { transform | rotation = rot }

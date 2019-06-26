@@ -8,6 +8,7 @@ import Json.Encode as Encode exposing (..)
 import Model exposing (..)
 import Types.AnimationRecord exposing (..)
 import Types.Camera as Camera exposing (..)
+import Types.Euler as Euler exposing (..)
 import Types.GLTFModel exposing (..)
 import Types.Transform exposing (..)
 import Types.Vector2 exposing (..)
@@ -33,15 +34,19 @@ type alias ThreeIn =
     { deltaTime : Float
     , scrollTop : Float
     , mouse : Vector2
+    , width : Int
+    , height : Int
     }
 
 
 decodeThreeIn : Decoder ThreeIn
 decodeThreeIn =
-    Decode.map3 ThreeIn
+    Decode.map5 ThreeIn
         (field "deltaTime" Decode.float)
         (field "scrollTop" Decode.float)
         (field "mouse" decodeVector2)
+        (field "width" Decode.int)
+        (field "height" Decode.int)
 
 
 
@@ -67,10 +72,52 @@ update msg model =
     case msg of
         FrameUpdate animationRecord ->
             let
+                updatedCameraPosition =
+                    let
+                        camY =
+                            model.camera.transform.position.y
+
+                        desiredY =
+                            20 - animationRecord.scrollTop * 0.06
+                    in
+                    model.camera.transform.position
+                        |> Vector3.setY (camY + (desiredY - camY) * 0.2)
+
+                updatedCameraRotation =
+                    let
+                        mouse =
+                            model.animationRecord.mouse
+
+                        sensitivity =
+                            0.0001
+
+                        camRot =
+                            model.camera.transform.rotation
+
+                        desiredX =
+                            let
+                                mid =
+                                    toFloat model.animationRecord.height / 2
+                            in
+                            (mid - mouse.y) * sensitivity - 0.35
+
+                        desiredY =
+                            let
+                                mid =
+                                    toFloat model.animationRecord.width / 2
+                            in
+                            (mid - mouse.x) * sensitivity
+                    in
+                    -- x and y are swapped?
+                    -- or is it that my iq is too low to understand 3d?
+                    camRot
+                        |> Euler.setX (camRot.x + (desiredX - camRot.x) * 0.05)
+                        |> Euler.setY (camRot.y + (desiredY - camRot.y) * 0.05)
+
                 updatedCamera =
-                    (20 - animationRecord.scrollTop * 0.06)
-                        |> flip Vector3.setY model.camera.transform.position
-                        |> flip setPosition model.camera.transform
+                    model.camera.transform
+                        |> setPosition updatedCameraPosition
+                        |> setRotation updatedCameraRotation
                         |> flip Camera.setTransform model.camera
 
                 updatedGLTFModels =
@@ -110,6 +157,8 @@ handleThreeIn model value =
                     { x = res.mouse.x
                     , y = res.mouse.y
                     }
+                , width = res.width
+                , height = res.height
                 }
 
             Err err ->
