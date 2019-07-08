@@ -1,11 +1,7 @@
 module Types.Color exposing (Color, decodeColor, encodeColor, fromHSL, fromRGB)
 
-import Json.Decode as Decode exposing (..)
-import Json.Encode as Encode exposing (..)
-
-
-type alias Value =
-    Encode.Value
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode exposing (Value)
 
 
 type alias Color =

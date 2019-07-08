@@ -1,8 +1,8 @@
 module Types.Light exposing (Light(..), encodeLight)
 
-import Json.Encode exposing (..)
-import Types.Color exposing (..)
-import Types.Vector3 exposing (..)
+import Json.Encode as Encode exposing (Value)
+import Types.Color as Color exposing (Color)
+import Types.Vector3 as Vector3 exposing (Vector3)
 
 
 type Light
@@ -24,19 +24,19 @@ encodeLight : Light -> Value
 encodeLight light =
     case light of
         DirectionalLight dirLight ->
-            object
-                [ ( "type", string "DIRECTIONAL_LIGHT" )
-                , ( "color", encodeColor dirLight.color )
-                , ( "intensity", float dirLight.intensity )
-                , ( "position", encodeVector3 dirLight.position )
-                , ( "helperEnabled", bool dirLight.helperEnabled )
+            Encode.object
+                [ ( "type", Encode.string "DIRECTIONAL_LIGHT" )
+                , ( "color", Color.encodeColor dirLight.color )
+                , ( "intensity", Encode.float dirLight.intensity )
+                , ( "position", Vector3.encodeVector3 dirLight.position )
+                , ( "helperEnabled", Encode.bool dirLight.helperEnabled )
                 ]
 
         HemisphereLight hemiLight ->
-            object
-                [ ( "type", string "HEMISPHERE_LIGHT" )
-                , ( "skyColor", encodeColor hemiLight.skyColor )
-                , ( "groundColor", encodeColor hemiLight.groundColor )
-                , ( "intensity", float hemiLight.intensity )
-                , ( "helperEnabled", bool hemiLight.helperEnabled )
+            Encode.object
+                [ ( "type", Encode.string "HEMISPHERE_LIGHT" )
+                , ( "skyColor", Color.encodeColor hemiLight.skyColor )
+                , ( "groundColor", Color.encodeColor hemiLight.groundColor )
+                , ( "intensity", Encode.float hemiLight.intensity )
+                , ( "helperEnabled", Encode.bool hemiLight.helperEnabled )
                 ]

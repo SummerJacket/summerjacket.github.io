@@ -1,8 +1,8 @@
 module Types.Transform exposing (Transform, encodeTransform, setPosition, setRotation)
 
-import Json.Encode exposing (..)
-import Types.Euler exposing (..)
-import Types.Vector3 exposing (..)
+import Json.Encode as Encode exposing (Value)
+import Types.Euler as Euler exposing (Euler)
+import Types.Vector3 as Vector3 exposing (Vector3)
 
 
 type alias Transform =
@@ -13,9 +13,9 @@ type alias Transform =
 
 encodeTransform : Transform -> Value
 encodeTransform transform =
-    object
-        [ ( "position", encodeVector3 transform.position )
-        , ( "rotation", encodeEuler transform.rotation )
+    Encode.object
+        [ ( "position", Vector3.encodeVector3 transform.position )
+        , ( "rotation", Euler.encodeEuler transform.rotation )
         ]
 
 

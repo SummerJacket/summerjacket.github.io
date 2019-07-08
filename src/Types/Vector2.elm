@@ -1,11 +1,7 @@
 module Types.Vector2 exposing (Vector2, decodeVector2, encodeVector2, setX, setY)
 
-import Json.Decode as Decode exposing (..)
-import Json.Encode as Encode exposing (..)
-
-
-type alias Value =
-    Encode.Value
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode exposing (Value)
 
 
 type alias Vector2 =
@@ -16,7 +12,7 @@ type alias Vector2 =
 
 encodeVector2 : Vector2 -> Value
 encodeVector2 position =
-    object
+    Encode.object
         [ ( "x", Encode.float position.x )
         , ( "y", Encode.float position.y )
         ]
@@ -24,9 +20,9 @@ encodeVector2 position =
 
 decodeVector2 : Decoder Vector2
 decodeVector2 =
-    map2 Vector2
-        (field "x" Decode.float)
-        (field "y" Decode.float)
+    Decode.map2 Vector2
+        (Decode.field "x" Decode.float)
+        (Decode.field "y" Decode.float)
 
 
 setX : Float -> Vector2 -> Vector2

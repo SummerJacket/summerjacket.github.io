@@ -1,8 +1,8 @@
 module Types.GLTFModel exposing (GLTFModel(..), encodeGLTFModel, gltfUpdate, setTransform)
 
-import Json.Encode exposing (..)
-import Types.AnimationRecord exposing (..)
-import Types.Transform exposing (..)
+import Json.Encode as Encode exposing (Value)
+import Types.AnimationRecord exposing (AnimationRecord)
+import Types.Transform as Transform exposing (Transform)
 
 
 type GLTFModel
@@ -15,9 +15,9 @@ type GLTFModel
 
 encodeGLTFModel : GLTFModel -> Value
 encodeGLTFModel (GLTFModel gltf) =
-    object
-        [ ( "url", string gltf.url )
-        , ( "transform", encodeTransform gltf.transform )
+    Encode.object
+        [ ( "url", Encode.string gltf.url )
+        , ( "transform", Transform.encodeTransform gltf.transform )
         ]
 
 

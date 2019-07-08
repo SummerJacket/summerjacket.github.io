@@ -1,23 +1,19 @@
 port module Main exposing (main)
 
 import Browser
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Json.Decode as Decode exposing (..)
-import Json.Encode as Encode exposing (..)
-import Model exposing (..)
-import Types.AnimationRecord exposing (..)
-import Types.Camera as Camera exposing (..)
-import Types.Euler as Euler exposing (..)
-import Types.GLTFModel exposing (..)
-import Types.Transform exposing (..)
-import Types.Vector2 exposing (..)
-import Types.Vector3 as Vector3 exposing (..)
+import Html exposing (Html)
+import Html.Attributes as Attr
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode exposing (Value)
+import Model exposing (Model)
+import Types.AnimationRecord exposing (AnimationRecord)
+import Types.Camera as Camera exposing (Camera)
+import Types.Euler as Euler exposing (Euler)
+import Types.GLTFModel as GLTFModel
+import Types.Transform as Transform
+import Types.Vector2 as Vector2 exposing (Vector2)
+import Types.Vector3 as Vector3 exposing (Vector3)
 import Utility exposing (flip)
-
-
-type alias Value =
-    Encode.Value
 
 
 
@@ -42,11 +38,11 @@ type alias ThreeIn =
 decodeThreeIn : Decoder ThreeIn
 decodeThreeIn =
     Decode.map5 ThreeIn
-        (field "deltaTime" Decode.float)
-        (field "scrollTop" Decode.float)
-        (field "mouse" decodeVector2)
-        (field "width" Decode.int)
-        (field "height" Decode.int)
+        (Decode.field "deltaTime" Decode.float)
+        (Decode.field "scrollTop" Decode.float)
+        (Decode.field "mouse" Vector2.decodeVector2)
+        (Decode.field "width" Decode.int)
+        (Decode.field "height" Decode.int)
 
 
 
@@ -55,7 +51,9 @@ decodeThreeIn =
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, threeOut ( "INIT", encodeModel initialModel ) )
+    ( Model.initialModel
+    , threeOut ( "INIT", Model.encodeModel Model.initialModel )
+    )
 
 
 
@@ -74,7 +72,7 @@ updateCameraPosition animationRecord cameraPos =
             20 - animationRecord.scrollTop * 0.07
     in
     cameraPos
-        |> Vector3.setY (cameraPos.y + (desiredY - cameraPos.y) * 0.25)
+        |> Vector3.setY (cameraPos.y + (desiredY - cameraPos.y) * 0.45)
 
 
 updateCameraRotation : AnimationRecord -> Euler -> Euler
@@ -117,8 +115,8 @@ updateCamera animationRecord camera =
             updateCameraRotation animationRecord camT.rotation
     in
     camera.transform
-        |> setPosition updatedCameraPosition
-        |> setRotation updatedCameraRotation
+        |> Transform.setPosition updatedCameraPosition
+        |> Transform.setRotation updatedCameraRotation
         |> flip Camera.setTransform camera
 
 
@@ -131,7 +129,7 @@ update msg model =
                     updateCamera animationRecord model.camera
 
                 updatedGLTFModels =
-                    List.map (gltfUpdate animationRecord) model.models
+                    List.map (GLTFModel.gltfUpdate animationRecord) model.models
 
                 updatedModel =
                     { model
@@ -140,7 +138,9 @@ update msg model =
                         , models = updatedGLTFModels
                     }
             in
-            ( updatedModel, threeOut ( "UPDATE", encodeModel updatedModel ) )
+            ( updatedModel
+            , threeOut ( "UPDATE", Model.encodeModel updatedModel )
+            )
 
         NoOp ->
             ( model, Cmd.none )
@@ -158,7 +158,7 @@ subscriptions model =
 handleThreeIn : Model -> Value -> Msg
 handleThreeIn model value =
     FrameUpdate <|
-        case decodeValue decodeThreeIn value of
+        case Decode.decodeValue decodeThreeIn value of
             Ok res ->
                 { elapsedTime = model.animationRecord.elapsedTime + res.deltaTime
                 , deltaTime = res.deltaTime
@@ -181,7 +181,7 @@ handleThreeIn model value =
 
 heading : String -> Html Msg
 heading content =
-    h1 [ class "display-1 font-bold" ] [ text content ]
+    Html.h1 [ Attr.class "display-1 font-bold" ] [ Html.text content ]
 
 
 view : Model -> Html Msg
@@ -194,13 +194,13 @@ view model =
             else
                 ""
     in
-    div [ class ("container mx-auto " ++ containerHidden) ]
+    Html.div [ Attr.class ("container mx-auto " ++ containerHidden) ]
         [ hero
-        , div [ class "-mt-32" ] []
+        , Html.div [ Attr.class "-mt-32" ] []
         , about
         , projects
         , contact
-        , div [ class "mb-24" ] []
+        , Html.div [ Attr.class "mb-24" ] []
         ]
 
 
@@ -208,15 +208,15 @@ hero : Html Msg
 hero =
     let
         divider =
-            div [ class "ml-4 mt-10 mb-6 w-16 h-1 bg-black" ] []
+            Html.div [ Attr.class "ml-4 mt-10 mb-6 w-16 h-1 bg-black" ] []
 
         styledLi x =
-            li [ class "leading-loose" ] [ text x ]
+            Html.li [ Attr.class "leading-loose" ] [ Html.text x ]
     in
-    div [ class "flex flex-col justify-center h-screen ml-24" ]
-        [ h1 [ class "text-6xl font-bold" ] [ text "I'm Jason Liang" ]
+    Html.div [ Attr.class "flex flex-col justify-center h-screen ml-24" ]
+        [ Html.h1 [ Attr.class "text-6xl font-bold" ] [ Html.text "I'm Jason Liang" ]
         , divider
-        , ul [ class "ml-2" ] <|
+        , Html.ul [ Attr.class "ml-2" ] <|
             List.map styledLi <|
                 [ "Student"
                 , "Web Developer"
@@ -225,34 +225,34 @@ hero =
                 , "3D Artist"
                 , "😎😎😎 Epic Gamer 😎😎😎"
                 ]
-        , div [ class "my-8" ] []
+        , Html.div [ Attr.class "my-8" ] []
         ]
 
 
 about : Html Msg
 about =
-    div []
+    Html.div []
         [ heading "About Me"
-        , p [] [ text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis quam placerat, condimentum orci ac, aliquet erat. Morbi turpis ante, hendrerit ut tristique et, mollis dapibus lorem. Quisque porta elit elit. In egestas est a arcu luctus fermentum. Nam dignissim, neque ut facilisis vestibulum, tellus eros lobortis elit, ut convallis neque urna sed diam. Aliquam eget semper nulla, vitae tincidunt eros. Mauris convallis fringilla nunc, a rutrum dui fermentum lacinia. Donec dapibus risus nisi, vitae tincidunt libero dignissim imperdiet. Donec at fringilla lectus. Aliquam consectetur lectus quis nisl volutpat, sit amet sollicitudin nisl vulputate. Vivamus porttitor lacus eget velit commodo consequat. Nulla in aliquet ante." ]
+        , Html.p [] [ Html.text "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam quis quam placerat, condimentum orci ac, aliquet erat. Morbi turpis ante, hendrerit ut tristique et, mollis dapibus lorem. Quisque porta elit elit. In egestas est a arcu luctus fermentum. Nam dignissim, neque ut facilisis vestibulum, tellus eros lobortis elit, ut convallis neque urna sed diam. Aliquam eget semper nulla, vitae tincidunt eros. Mauris convallis fringilla nunc, a rutrum dui fermentum lacinia. Donec dapibus risus nisi, vitae tincidunt libero dignissim imperdiet. Donec at fringilla lectus. Aliquam consectetur lectus quis nisl volutpat, sit amet sollicitudin nisl vulputate. Vivamus porttitor lacus eget velit commodo consequat. Nulla in aliquet ante." ]
         ]
 
 
 projects : Html Msg
 projects =
-    div []
+    Html.div []
         [ heading "Projects"
         ]
 
 
 contact : Html Msg
 contact =
-    div []
+    Html.div []
         [ heading "Say Hi"
-        , a
-            [ class "text-xl text-blue-700 hover:underline"
-            , href "mailto:jasonliang512@gmail.com"
+        , Html.a
+            [ Attr.class "text-xl text-blue-700 hover:underline"
+            , Attr.href "mailto:jasonliang512@gmail.com"
             ]
-            [ text "jasonliang512@gmail.com" ]
+            [ Html.text "jasonliang512@gmail.com" ]
         ]
 
 

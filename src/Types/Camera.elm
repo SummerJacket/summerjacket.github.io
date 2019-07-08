@@ -1,7 +1,7 @@
 module Types.Camera exposing (Camera, encodeCamera, setTransform)
 
-import Json.Encode exposing (..)
-import Types.Transform exposing (..)
+import Json.Encode as Encode exposing (Value)
+import Types.Transform as Transform exposing (Transform)
 
 
 type alias Camera =
@@ -16,13 +16,13 @@ type alias Camera =
 
 encodeCamera : Camera -> Value
 encodeCamera camera =
-    object
-        [ ( "fov", float camera.fov )
-        , ( "near", float camera.near )
-        , ( "far", float camera.far )
-        , ( "transform", encodeTransform camera.transform )
-        , ( "controlsEnabled", bool camera.controlsEnabled )
-        , ( "screenSpacePanning", bool camera.screenSpacePanning )
+    Encode.object
+        [ ( "fov", Encode.float camera.fov )
+        , ( "near", Encode.float camera.near )
+        , ( "far", Encode.float camera.far )
+        , ( "transform", Transform.encodeTransform camera.transform )
+        , ( "controlsEnabled", Encode.bool camera.controlsEnabled )
+        , ( "screenSpacePanning", Encode.bool camera.screenSpacePanning )
         ]
 
 

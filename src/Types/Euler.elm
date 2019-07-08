@@ -1,6 +1,6 @@
 module Types.Euler exposing (Euler, Order(..), encodeEuler, encodeOrder, setX, setY, setZ)
 
-import Json.Encode exposing (..)
+import Json.Encode as Encode exposing (Value)
 
 
 type Order
@@ -22,7 +22,7 @@ type alias Euler =
 
 encodeOrder : Order -> Value
 encodeOrder order =
-    string <|
+    Encode.string <|
         case order of
             XYZ ->
                 "XYZ"
@@ -45,10 +45,10 @@ encodeOrder order =
 
 encodeEuler : Euler -> Value
 encodeEuler euler =
-    object
-        [ ( "x", float euler.x )
-        , ( "y", float euler.y )
-        , ( "z", float euler.z )
+    Encode.object
+        [ ( "x", Encode.float euler.x )
+        , ( "y", Encode.float euler.y )
+        , ( "z", Encode.float euler.z )
         , ( "order", encodeOrder euler.order )
         ]
 
