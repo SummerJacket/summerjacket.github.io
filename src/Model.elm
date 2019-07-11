@@ -164,5 +164,13 @@ initialModel =
                         |> flip Transform.setPosition rock.transform
                         |> flip GLTFModel.setTransform (GLTFModel rock)
             }
+        , GLTFModel
+            { url = "models/guitar.glb"
+            , transform =
+                { position = Vector3 0 -30 0
+                , rotation = Euler 1 0 1 Euler.XYZ
+                }
+            , update = always identity
+            }
         ]
     }
