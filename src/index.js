@@ -147,8 +147,11 @@ const update = payload => {
     // check for unloaded model
     if (!model) return;
 
-    const mPos = payload.models[i].transform.position;
+    const { position: mPos, rotation: mRot } = payload.models[i].transform;
     model.scene.position.set(mPos.x, mPos.y, mPos.z);
+    model.scene.setRotationFromEuler(
+      new Euler(mRot.x, mRot.y, mRot.z, mRot.order)
+    );
   });
 
   // update camera
