@@ -1,22 +1,22 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d97fe3c6ef19dd34738d27373698466b",
+    "revision": "dc3d956af770a11703f2c2065020d8e0",
     "url": "/images/chat-app.png"
   },
   {
-    "revision": "27d9e392d9fe675b782e085818d78591",
+    "revision": "59edf34cd4bcf613c7ddeb5ed45dde2e",
     "url": "/images/heroicons.png"
   },
   {
-    "revision": "c6b08746d95546c0e965a20a3564be64",
+    "revision": "ef792747382bf9ebbca6545eedded4a7",
     "url": "/images/temtem.png"
   },
   {
-    "revision": "7a6559fb798c5becf498d7910a5d0c94",
+    "revision": "751e0f569548e2e8753a156b2066d1f8",
     "url": "/images/wildermaze.png"
   },
   {
-    "revision": "3046fb80dfc8e29ac223cd134e4c5f07",
+    "revision": "dd36813f8447ff2923127ba7f09129a0",
     "url": "/index.html"
   },
   {
@@ -24,12 +24,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/manifest.json"
   },
   {
-    "revision": "76bc2df6371f0534ed82",
-    "url": "/static/css/main.3abfcd91.chunk.css"
+    "revision": "f0fa1bd588d36c968b3a",
+    "url": "/static/css/main.3d73ca81.chunk.css"
   },
   {
-    "revision": "76bc2df6371f0534ed82",
-    "url": "/static/js/main.76bc2df6.chunk.js"
+    "revision": "f0fa1bd588d36c968b3a",
+    "url": "/static/js/main.f0fa1bd5.chunk.js"
   },
   {
     "revision": "1b922744246c39b6bc43",
