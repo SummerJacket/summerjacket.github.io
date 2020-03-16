@@ -1,6 +1,6 @@
 ---
 - title: "Yet Another Chat App"
-  description: "A school assignment. This is a chat application that uses the MERN stack. Messages are sent in real time using Socket.IO."
+  description: "A school project. This is a chat application that uses the MERN stack. Messages are sent in real time using Socket.IO."
   visit: null
   source: null
   tags: [Express, MongoDB, React, Tailwind CSS, Socket.IO]
@@ -24,5 +24,5 @@
   description: "A tiny web app for viewing type matchups between different Temtem types."
   visit: "https://temtypecalc.netlify.com"
   source: "https://github.com/jasonliang512/temtem-type-calculator"
-  tags: [Gatsby, React, JavaScript]
+  tags: [Gatsby, GraphQL, React, Tailwind CSS]
   image: "images/temtem.png"

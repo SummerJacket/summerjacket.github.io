@@ -90,9 +90,9 @@ view model =
         , div [ class "mb-24" ]
             [ case model.projects of
                 Ok projects ->
-                    div [ class "-mt-10 container mx-auto px-4" ]
+                    div [ class "-mt-10 container mx-auto px-4 lg:px-24 xl:px-0" ]
                         [ sectionHeading "Projects"
-                        , div [ class "grid row-gap-10 lg:px-24" ]
+                        , div [ class "grid xl:grid-cols-2 col-gap-8 row-gap-10" ]
                             (List.map Project.view projects)
                         ]
 

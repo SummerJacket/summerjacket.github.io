@@ -49,43 +49,46 @@ view project =
                 ]
                 [ polygon [ SvgAttrs.points "100,0 100,1000 0,1000 98,0" ] [] ]
             ]
-        , div [ class "p-8 md:pt-10 md:pb-12 md:w-3/5" ]
+        , div [ class "p-8 md:pt-10 md:pb-12 md:w-3/5 flex flex-col" ]
             [ h3 [ class "font-bold text-2xl mb-2" ] [ text project.title ]
             , p [] [ text project.description ]
             , div [ class "mt-4 mb-5" ] <|
                 List.map
                     (\tag ->
-                        span [ class "inline-block p-1 px-4 mr-2 mb-3 rounded-full bg-gray-200 text-gray-700 font-bold text-sm" ]
+                        span [ class "inline-block p-1 px-3 mr-2 mb-3 rounded-full bg-gray-200 text-gray-700 font-bold text-sm" ]
                             [ text tag ]
                     )
                     project.tags
-            , case project.visit of
-                Just link ->
-                    a
-                        [ class "transition duration-200 px-6 py-2 bg-blue-700 hover:bg-blue-800 text-blue-100 font-bold rounded shadow mr-4 inline-flex items-center hover:shadow-md"
-                        , Attrs.href link
-                        ]
-                        [ text "Visit"
-                        , Heroicons.Solid.externalLink
-                            [ SvgAttrs.class "text-blue-200 ml-1 w-5" ]
-                        ]
+            , div [ class "mt-auto" ]
+                [ case project.visit of
+                    Just link ->
+                        a
+                            [ class "transition duration-200 px-6 py-2 bg-blue-700 hover:bg-blue-800 text-blue-100 font-bold rounded shadow mr-4 inline-flex items-center hover:shadow-lg focus:outline-none focus:shadow-outline"
+                            , Attrs.href link
+                            ]
+                            [ text "Visit"
+                            , Heroicons.Solid.externalLink
+                                [ SvgAttrs.class "text-blue-200 ml-1 w-5" ]
+                            ]
 
-                Nothing ->
-                    text ""
-            , case project.source of
-                Just link ->
-                    a
-                        [ class "transition duration-200 group px-6 py-2 bg-blue-100 text-blue-600 hover:text-blue-900 font-bold shadow rounded inline-flex items-center hover:shadow-md"
-                        , Attrs.href link
-                        ]
-                        [ text "Source"
-                        , span [ class "text-blue-600 group-hover:text-blue-800 ml-2 w-4"
-                               , class "duration-200" -- to avoid "wave" effect
-                               ]
-                            [ Icons.github ]
-                        ]
+                    Nothing ->
+                        text ""
+                , case project.source of
+                    Just link ->
+                        a
+                            [ class "transition duration-200 group px-6 py-2 bg-blue-100 text-blue-700 hover:text-blue-900 font-bold rounded inline-flex items-center shadow-sm hover:shadow focus:outline-none focus:shadow-outline"
+                            , Attrs.href link
+                            ]
+                            [ text "Source"
+                            , span
+                                [ class "text-blue-600 group-hover:text-blue-800 ml-2 w-4"
+                                , class "duration-200" -- to avoid "wave" effect
+                                ]
+                                [ Icons.github ]
+                            ]
 
-                Nothing ->
-                    text ""
+                    Nothing ->
+                        text ""
+                ]
             ]
         ]
