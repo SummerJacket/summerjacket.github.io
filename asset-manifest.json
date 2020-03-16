@@ -1,0 +1,18 @@
+{
+  "main.css": "/static/css/main.3abfcd91.chunk.css",
+  "main.js": "/static/js/main.76bc2df6.chunk.js",
+  "main.js.map": "/static/js/main.76bc2df6.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.1b922744.js",
+  "runtime~main.js.map": "/static/js/runtime~main.1b922744.js.map",
+  "vendors~main.js": "/static/js/vendors~main.3ca81432.chunk.js",
+  "vendors~main.js.map": "/static/js/vendors~main.3ca81432.chunk.js.map",
+  "./service-worker.js": "/./service-worker.js",
+  "favicon.ico": "/favicon.ico",
+  "images/chat-app.png": "/images/chat-app.png",
+  "images/heroicons.png": "/images/heroicons.png",
+  "images/temtem.png": "/images/temtem.png",
+  "images/wildermaze.png": "/images/wildermaze.png",
+  "index.html": "/index.html",
+  "manifest.json": "/manifest.json",
+  "precache-manifest.c973de3410a7f42f65f02698ef546c14.js": "/precache-manifest.c973de3410a7f42f65f02698ef546c14.js"
+}
