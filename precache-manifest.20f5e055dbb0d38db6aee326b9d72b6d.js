@@ -1,9 +1,5 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "987da976a8b2a4169346a497ba84749d",
-    "url": "/favicon.ico"
-  },
-  {
     "revision": "d97fe3c6ef19dd34738d27373698466b",
     "url": "/images/chat-app.png"
   },
@@ -20,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/images/wildermaze.png"
   },
   {
-    "revision": "93d4e319dc2b2b2e042b1ee1b9ec0291",
+    "revision": "d9f44b2d21b18ef3d86b9c98044dbcb9",
     "url": "/index.html"
   },
   {

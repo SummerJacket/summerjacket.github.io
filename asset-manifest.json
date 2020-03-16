@@ -7,12 +7,11 @@
   "vendors~main.js": "/static/js/vendors~main.3ca81432.chunk.js",
   "vendors~main.js.map": "/static/js/vendors~main.3ca81432.chunk.js.map",
   "./service-worker.js": "/./service-worker.js",
-  "favicon.ico": "/favicon.ico",
   "images/chat-app.png": "/images/chat-app.png",
   "images/heroicons.png": "/images/heroicons.png",
   "images/temtem.png": "/images/temtem.png",
   "images/wildermaze.png": "/images/wildermaze.png",
   "index.html": "/index.html",
   "manifest.json": "/manifest.json",
-  "precache-manifest.c973de3410a7f42f65f02698ef546c14.js": "/precache-manifest.c973de3410a7f42f65f02698ef546c14.js"
+  "precache-manifest.20f5e055dbb0d38db6aee326b9d72b6d.js": "/precache-manifest.20f5e055dbb0d38db6aee326b9d72b6d.js"
 }
