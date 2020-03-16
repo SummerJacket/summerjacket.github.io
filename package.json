@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "deploy": "gh-pages -d build -b master"
+  },
   "dependencies": {},
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
