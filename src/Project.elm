@@ -30,6 +30,14 @@ decoder =
         (Decode.field "image" Decode.string)
 
 
+buttonLink : List (Attribute msg) -> List (Html msg) -> Html msg
+buttonLink attrs =
+    a
+        (class "transition duration-200 px-6 py-2 font-bold rounded inline-flex items-center focus:outline-none focus:shadow-outline"
+            :: attrs
+        )
+
+
 view : Project -> Html msg
 view project =
     div [ class "text-gray-800 bg-white shadow-xl rounded-lg md:flex" ]
@@ -62,8 +70,8 @@ view project =
             , div [ class "mt-auto" ]
                 [ case project.visit of
                     Just link ->
-                        a
-                            [ class "transition duration-200 px-6 py-2 bg-blue-700 hover:bg-blue-800 text-blue-100 font-bold rounded shadow mr-4 inline-flex items-center hover:shadow-lg focus:outline-none focus:shadow-outline"
+                        buttonLink
+                            [ class "bg-blue-700 hover:bg-blue-800 text-blue-100 shadow hover:shadow-lg mr-4"
                             , Attrs.href link
                             ]
                             [ text "Visit"
@@ -75,14 +83,16 @@ view project =
                         text ""
                 , case project.source of
                     Just link ->
-                        a
-                            [ class "transition duration-200 group px-6 py-2 bg-blue-100 text-blue-700 hover:text-blue-900 font-bold rounded inline-flex items-center shadow-sm hover:shadow focus:outline-none focus:shadow-outline"
+                        buttonLink
+                            [ class "group bg-blue-100 text-blue-700 hover:text-blue-900 shadow-sm hover:shadow"
                             , Attrs.href link
                             ]
                             [ text "Source"
                             , span
                                 [ class "text-blue-600 group-hover:text-blue-800 ml-2 w-4"
-                                , class "duration-200" -- to avoid "wave" effect
+
+                                -- to avoid "wave" effect when hovering
+                                , class "duration-200"
                                 ]
                                 [ Icons.github ]
                             ]

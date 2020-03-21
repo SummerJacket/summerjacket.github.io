@@ -7,6 +7,7 @@ import Html exposing (..)
 import Html.Attributes as Attrs exposing (class)
 import Icons
 import Project exposing (Project)
+import Shapes
 import Svg exposing (polygon, svg)
 import Svg.Attributes as SvgAttrs
 import Yaml.Decode as Decode exposing (Decoder)
@@ -44,18 +45,6 @@ update msg model =
 ---- VIEW ----
 
 
-contactLink : ( String, String, Html msg ) -> Html msg
-contactLink ( label, to, icon ) =
-    a
-        [ class "transition-colors duration-200 group flex items-center mx-2 relative p-2 px-4 hover:text-gray-900"
-        , Attrs.href to
-        ]
-        [ span [ class "z-10 w-6 h-6 mr-2" ] [ icon ]
-        , span [ class "z-10" ] [ text label ]
-        , div [ class "rounded z-0 transition-all duration-200 absolute bg-gray-300 inset-x-0 h-0 group-hover:h-full" ] []
-        ]
-
-
 sectionHeading : String -> Html msg
 sectionHeading label =
     div []
@@ -66,20 +55,53 @@ sectionHeading label =
 
 view : Model -> Html Msg
 view model =
-    div [ class "text-gray-900" ]
-        [ div [ class "min-h-screen flex items-center justify-center" ]
-            [ div []
+    div [ class "text-gray-900 relative overflow-x-hidden" ]
+        [ div [ class "absolute z-0 h-screen inset-x-0 text-gray-300" ]
+            [ div
+                [ class "absolute z-50 w-8 sm:w-20 md:w-48 right-0 mt-12 opacity-50"
+                , Attrs.style "background-image" "url(%PUBLIC_URL%/bg/500.png)"
+                , Attrs.style "height" "30em"
+                ]
+                []
+            , div [ class "absolute right-0" ]
+                [ Shapes.circle [ SvgAttrs.class "inline-block w-64 h-64 -mt-16 -mr-32" ] ]
+            , div [ class "absolute right-0 bottom-0 hidden sm:block" ]
+                [ Shapes.square [ SvgAttrs.class "inline-block w-48 md:w-64 h-64 -mb-2" ] ]
+            , div [ class "absolute left-0 transform rotate-45" ]
+                [ Shapes.triangle [ SvgAttrs.class "inline-block w-64 h-64 mt-32 -ml-10" ] ]
+            , div [ class "absolute left-0 bottom-0" ]
+                [ Shapes.hexagon
+                    [ SvgAttrs.class "inline-block -mb-32 ml-8 md:ml-32 lg:ml-64"
+                    , Attrs.style "width" "18em"
+                    ]
+                ]
+            ]
+        , div [ class "relative z-10 min-h-screen flex items-center justify-center" ]
+            [ div [ class "flex flex-col items-center" ]
                 [ h1 [ class "font-bold text-6xl text-center" ]
                     [ text "Jason Liang" ]
                 , p [ class "text-center text-gray-800" ]
-                    [ text "I like making web applications" ]
-                , div [ class "text-gray-700 mt-8" ]
-                    (List.map contactLink
+                    [ text "I like to create web applications" ]
+                , div
+                    [ class "text-gray-700 mt-8"
+                    , Attrs.style "width" "20em"
+                    ]
+                    (List.map
+                        (\( label, to, icon ) ->
+                            a
+                                [ class "transition-colors duration-200 group flex items-center mx-2 relative p-2 px-4 hover:text-gray-900"
+                                , Attrs.href to
+                                ]
+                                [ span [ class "z-10 w-6 h-6 mr-2" ] [ icon ]
+                                , span [ class "z-10" ] [ text label ]
+                                , div [ class "rounded z-0 transition-all duration-200 absolute bg-gray-400 opacity-0 group-hover:opacity-50 inset-x-0 h-0 group-hover:h-full" ] []
+                                ]
+                        )
                         [ ( "jasonliang512@gmail.com"
                           , "mailto:jasonliang512@gmail.com"
                           , Heroicons.Solid.mail []
                           )
-                        , ( "jasonliang512"
+                        , ( "GitHub"
                           , "https://github.com/jasonliang512"
                           , Icons.github
                           )
@@ -87,10 +109,10 @@ view model =
                     )
                 ]
             ]
-        , div [ class "mb-24" ]
+        , div [ class "relative z-10 mb-24 container mx-auto px-4 px-4 lg:px-24 xl:px-0" ]
             [ case model.projects of
                 Ok projects ->
-                    div [ class "-mt-10 container mx-auto px-4 lg:px-24 xl:px-0" ]
+                    div [ class "-mt-10" ]
                         [ sectionHeading "Projects"
                         , div [ class "grid xl:grid-cols-2 col-gap-8 row-gap-10" ]
                             (List.map Project.view projects)
@@ -111,6 +133,12 @@ view model =
                             ]
                         ]
             ]
+        , div
+            [ class "absolute z-0 bottom-0 ml-2 h-32 opacity-50"
+            , Attrs.style "background-image" "url(%PUBLIC_URL%/bg/500.png)"
+            , Attrs.style "width" "20em"
+            ]
+            []
         ]
 
 
