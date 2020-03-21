@@ -1,17 +1,22 @@
 {
-  "main.css": "/static/css/main.3d73ca81.chunk.css",
-  "main.js": "/static/js/main.f0fa1bd5.chunk.js",
-  "main.js.map": "/static/js/main.f0fa1bd5.chunk.js.map",
+  "main.css": "/static/css/main.8d6771a9.chunk.css",
+  "main.js": "/static/js/main.394ed9ad.chunk.js",
+  "main.js.map": "/static/js/main.394ed9ad.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.1b922744.js",
   "runtime~main.js.map": "/static/js/runtime~main.1b922744.js.map",
   "vendors~main.js": "/static/js/vendors~main.3ca81432.chunk.js",
   "vendors~main.js.map": "/static/js/vendors~main.3ca81432.chunk.js.map",
   "./service-worker.js": "/./service-worker.js",
+  "bg/100.png": "/bg/100.png",
+  "bg/200.png": "/bg/200.png",
+  "bg/300.png": "/bg/300.png",
+  "bg/400.png": "/bg/400.png",
+  "bg/500.png": "/bg/500.png",
   "images/chat-app.png": "/images/chat-app.png",
   "images/heroicons.png": "/images/heroicons.png",
   "images/temtem.png": "/images/temtem.png",
   "images/wildermaze.png": "/images/wildermaze.png",
   "index.html": "/index.html",
   "manifest.json": "/manifest.json",
-  "precache-manifest.badb048c5c923b7da7d6ba50fe4d29e1.js": "/precache-manifest.badb048c5c923b7da7d6ba50fe4d29e1.js"
+  "precache-manifest.972c2c9b6e3c1d34ffaacd37c70e3cf4.js": "/precache-manifest.972c2c9b6e3c1d34ffaacd37c70e3cf4.js"
 }
