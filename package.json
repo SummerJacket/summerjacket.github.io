@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "deploy": "gh-pages -d build -b master"
+    "deploy": "elm-app build && gh-pages -d build -b master"
   },
   "dependencies": {},
   "devDependencies": {
