@@ -7,6 +7,7 @@
   "vendors~main.js": "/static/js/vendors~main.3ca81432.chunk.js",
   "vendors~main.js.map": "/static/js/vendors~main.3ca81432.chunk.js.map",
   "./service-worker.js": "/./service-worker.js",
+  "CNAME": "/CNAME",
   "bg/100.png": "/bg/100.png",
   "bg/200.png": "/bg/200.png",
   "bg/300.png": "/bg/300.png",
@@ -18,5 +19,5 @@
   "images/wildermaze.png": "/images/wildermaze.png",
   "index.html": "/index.html",
   "manifest.json": "/manifest.json",
-  "precache-manifest.972c2c9b6e3c1d34ffaacd37c70e3cf4.js": "/precache-manifest.972c2c9b6e3c1d34ffaacd37c70e3cf4.js"
+  "precache-manifest.4992ac3b435aac4441115b6cc2d48597.js": "/precache-manifest.4992ac3b435aac4441115b6cc2d48597.js"
 }
