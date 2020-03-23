@@ -1,13 +1,13 @@
 ---
 - title: "Yet Another Chat App"
   description: "A school project. This is a chat application that uses the MERN stack. Messages are sent in real time using Socket.IO."
-  visit: null
-  source: null
+  visit: "https://yet-another-chat-app.xyz/"
+  source: "https://github.com/jasonliang512/yet-another-chat-app"
   tags: [Express, MongoDB, React, Tailwind CSS, Socket.IO]
   image: "images/chat-app.png"
 
 - title: "elm-heroicons"
-  description: "A package for the Elm programming language that provides the Heroicons set as SVG icons. Generated with Python."
+  description: "A package for the Elm programming language that provides the Heroicons set as SVG icons. This package was generated using a Python script."
   visit: "https://package.elm-lang.org/packages/jasonliang512/elm-heroicons/latest/"
   source: "https://github.com/jasonliang512/elm-heroicons"
   tags: [Elm, Python]
