@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.8d6771a9.chunk.css",
-  "main.js": "/static/js/main.394ed9ad.chunk.js",
-  "main.js.map": "/static/js/main.394ed9ad.chunk.js.map",
+  "main.js": "/static/js/main.5a6880ab.chunk.js",
+  "main.js.map": "/static/js/main.5a6880ab.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.1b922744.js",
   "runtime~main.js.map": "/static/js/runtime~main.1b922744.js.map",
   "vendors~main.js": "/static/js/vendors~main.3ca81432.chunk.js",
@@ -19,5 +19,5 @@
   "images/wildermaze.png": "/images/wildermaze.png",
   "index.html": "/index.html",
   "manifest.json": "/manifest.json",
-  "precache-manifest.4992ac3b435aac4441115b6cc2d48597.js": "/precache-manifest.4992ac3b435aac4441115b6cc2d48597.js"
+  "precache-manifest.cb1f64cd86d9faa24a9b165735ff5bff.js": "/precache-manifest.cb1f64cd86d9faa24a9b165735ff5bff.js"
 }

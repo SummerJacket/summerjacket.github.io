@@ -40,7 +40,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/images/wildermaze.png"
   },
   {
-    "revision": "d011e7fe7494927579e7f2cbb39e3680",
+    "revision": "4b54d52696fa2a1096fa2dbc8165d437",
     "url": "/index.html"
   },
   {
@@ -48,12 +48,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/manifest.json"
   },
   {
-    "revision": "394ed9adf46f697d23ff",
+    "revision": "5a6880abd855a8ef671d",
     "url": "/static/css/main.8d6771a9.chunk.css"
   },
   {
-    "revision": "394ed9adf46f697d23ff",
-    "url": "/static/js/main.394ed9ad.chunk.js"
+    "revision": "5a6880abd855a8ef671d",
+    "url": "/static/js/main.5a6880ab.chunk.js"
   },
   {
     "revision": "1b922744246c39b6bc43",
