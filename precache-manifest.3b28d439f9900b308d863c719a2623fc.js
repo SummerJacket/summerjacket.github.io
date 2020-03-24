@@ -4,6 +4,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CNAME"
   },
   {
+    "revision": "fe5c664fc829616e2438597dfa4cc71a",
+    "url": "/android-chrome-192x192.png"
+  },
+  {
+    "revision": "04a2be9500db5f9b4714aa9215d238e3",
+    "url": "/android-chrome-512x512.png"
+  },
+  {
+    "revision": "e817091647ffe28afb088cbf6155334b",
+    "url": "/apple-touch-icon.png"
+  },
+  {
     "revision": "6bdba3f8fbcf4d5a3c368f9c6e32903a",
     "url": "/bg/100.png"
   },
@@ -24,6 +36,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bg/500.png"
   },
   {
+    "revision": "fd089e12083128cb38b653e9b35be00e",
+    "url": "/favicon-16x16.png"
+  },
+  {
+    "revision": "c76ad02b3c29c42cdad30cd21684637b",
+    "url": "/favicon-32x32.png"
+  },
+  {
+    "revision": "f4a23932531a6bb35359976bab811551",
+    "url": "/favicon.ico"
+  },
+  {
     "revision": "dc3d956af770a11703f2c2065020d8e0",
     "url": "/images/chat-app.png"
   },
@@ -40,12 +64,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/images/wildermaze.png"
   },
   {
-    "revision": "4b54d52696fa2a1096fa2dbc8165d437",
+    "revision": "aabf0683f3b2bb6dcce49a858116c6c3",
     "url": "/index.html"
   },
   {
     "revision": "1c82903c2994c2507b385b9042bbfac5",
     "url": "/manifest.json"
+  },
+  {
+    "revision": "e24930d2af9703820ef6fe1b67a7c780",
+    "url": "/site.webmanifest"
   },
   {
     "revision": "5a6880abd855a8ef671d",
