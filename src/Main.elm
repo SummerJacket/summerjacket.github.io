@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Browser
 import Heroicons.Outline
@@ -14,16 +14,27 @@ import Yaml.Decode as Decode exposing (Decoder)
 
 
 
+---- PORTS ----
+
+
+port easterEgg : (() -> msg) -> Sub msg
+
+
+
 ---- MODEL ----
 
 
 type alias Model =
-    { projects : Result Decode.Error (List Project) }
+    { projects : Result Decode.Error (List Project)
+    , easterEggEnabled : Bool
+    }
 
 
 init : String -> ( Model, Cmd Msg )
 init data =
-    ( { projects = Decode.fromString (Decode.list Project.decoder) data }
+    ( { projects = Decode.fromString (Decode.list Project.decoder) data
+      , easterEggEnabled = False
+      }
     , Cmd.none
     )
 
@@ -34,11 +45,19 @@ init data =
 
 type Msg
     = NoOp
+    | ToggleEasterEgg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        NoOp ->
+            ( model, Cmd.none )
+
+        ToggleEasterEgg ->
+            ( { model | easterEggEnabled = not model.easterEggEnabled }
+            , Cmd.none
+            )
 
 
 
@@ -55,8 +74,22 @@ sectionHeading label =
 
 view : Model -> Html Msg
 view model =
-    div [ class "text-gray-900 relative overflow-x-hidden" ]
-        [ div [ class "absolute z-0 h-screen inset-x-0 text-gray-300" ]
+    div
+        (class "relative overflow-x-hidden"
+            :: (if model.easterEggEnabled then
+                    [ class "rainbow"
+                    , Attrs.style "background-image"
+                        "url(%PUBLIC_URL%/images/nezuko.gif)"
+                    ]
+
+                else
+                    [ class "text-gray-900" ]
+               )
+        )
+        [ div
+            [ class "absolute z-0 h-screen inset-x-0 text-gray-300"
+            , Attrs.classList [ ( "hidden", model.easterEggEnabled ) ]
+            ]
             [ div
                 [ class "absolute z-50 w-8 sm:w-20 md:w-48 right-0 mt-12 opacity-50"
                 , Attrs.style "background-image" "url(%PUBLIC_URL%/bg/500.png)"
@@ -119,7 +152,7 @@ view model =
                         ]
 
                 Err _ ->
-                    div [ class "md:w-3/5 mx-auto p-8 bg-white rounded-lg shadow-md text-center" ]
+                    div [ class "max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md text-center" ]
                         [ h1 [ class "text-4xl font-bold" ]
                             [ text "Something went wrong!" ]
                         , p [ class "mt-2 mb-8" ]
@@ -129,7 +162,7 @@ view model =
                             , Attrs.href "mailto:jasonliang512@gmail.com"
                             ]
                             [ Heroicons.Outline.mail [ SvgAttrs.class "w-8 mr-2" ]
-                            , text "Tell the developer!"
+                            , strong [] [ text "Tell the developer!"]
                             ]
                         ]
             ]
@@ -143,6 +176,15 @@ view model =
 
 
 
+---- SUBSCRIPTIONS ----
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    easterEgg (always ToggleEasterEgg)
+
+
+
 ---- PROGRAM ----
 
 
@@ -152,5 +194,5 @@ main =
         { view = view
         , init = init
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }

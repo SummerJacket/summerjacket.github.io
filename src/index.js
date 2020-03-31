@@ -1,12 +1,16 @@
+import Konami from "konami";
+
 import "./main.css";
 import { Elm } from "./Main.elm";
 import * as serviceWorker from "./serviceWorker";
 import data from "!!raw-loader!./projects.yaml";
 
-Elm.Main.init({
+const app = Elm.Main.init({
   node: document.getElementById("root"),
   flags: data
 });
+
+new Konami(() => app.ports.easterEgg.send(null));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

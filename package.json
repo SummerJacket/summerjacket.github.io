@@ -2,7 +2,9 @@
   "scripts": {
     "deploy": "elm-app build && gh-pages -d build -b master"
   },
-  "dependencies": {},
+  "dependencies": {
+    "konami": "^1.6.2"
+  },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "postcss-loader": "^3.0.0",
