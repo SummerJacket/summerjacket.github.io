@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "cdee5518e82194dcd481a9bdb9bf03da",
+    "url": "/.DS_Store"
+  },
+  {
     "revision": "cb92e848fa913b583ead79931ff716c3",
     "url": "/CNAME"
   },
@@ -36,6 +40,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bg/500.png"
   },
   {
+    "revision": "699d78586a7c179708a695d507f320ac",
+    "url": "/bg/600.png"
+  },
+  {
+    "revision": "a71adfdcd077b043cdcfee66fca6c5a7",
+    "url": "/bg/700.png"
+  },
+  {
+    "revision": "15a2c4c5c0c56e5bb85d3bac22857b3e",
+    "url": "/bg/800.png"
+  },
+  {
     "revision": "fd089e12083128cb38b653e9b35be00e",
     "url": "/favicon-16x16.png"
   },
@@ -68,7 +84,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/images/wildermaze.png"
   },
   {
-    "revision": "b9ded0b651db7a8cc031047e34c7b6c3",
+    "revision": "38248b2f68ca4b8e74730f41ce44e71b",
     "url": "/index.html"
   },
   {
@@ -80,19 +96,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/site.webmanifest"
   },
   {
-    "revision": "56a0a111aa0fe1e5394f",
-    "url": "/static/css/main.baf7c1b2.chunk.css"
+    "revision": "55f99bf8da617bd5fdb6",
+    "url": "/static/css/main.7e06bd91.chunk.css"
   },
   {
-    "revision": "56a0a111aa0fe1e5394f",
-    "url": "/static/js/main.56a0a111.chunk.js"
+    "revision": "55f99bf8da617bd5fdb6",
+    "url": "/static/js/main.55f99bf8.chunk.js"
   },
   {
     "revision": "1b922744246c39b6bc43",
     "url": "/static/js/runtime~main.1b922744.js"
   },
   {
-    "revision": "b11fad2826688d075164",
-    "url": "/static/js/vendors~main.b11fad28.chunk.js"
+    "revision": "ce296c8cfea8ccc85ade",
+    "url": "/static/js/vendors~main.ce296c8c.chunk.js"
   }
 ]);
