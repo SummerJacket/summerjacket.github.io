@@ -3,11 +3,16 @@ import Konami from "konami";
 import "./main.css";
 import { Elm } from "./Main.elm";
 import * as serviceWorker from "./serviceWorker";
-import data from "!!raw-loader!./projects.yaml";
+import projects from "!!raw-loader!./projects.yaml";
 
 const app = Elm.Main.init({
   node: document.getElementById("root"),
-  flags: data
+  flags: {
+    projects,
+    prefersDark:
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches,
+  },
 });
 
 new Konami(() => app.ports.easterEgg.send(null));

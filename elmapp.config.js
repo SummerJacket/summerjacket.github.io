@@ -19,22 +19,22 @@ module.exports = {
                       ? [
                           purgecss({
                             content: ["./public/index.html", "./src/**/*.elm"],
-                            defaultExtractor: content =>
-                              content.match(/[\w-/:]+(?<!:)/g) || []
-                          })
+                            defaultExtractor: (content) =>
+                              content.match(/[\w-/:]+(?<!:)/g) || [],
+                          }),
                         ]
-                      : [])
-                  ]
-                }
-              }
-            ]
+                      : []),
+                  ],
+                },
+              },
+            ],
           },
           {
             test: /\.yaml$/,
-            loader: "raw-loader"
-          }
-        ]
-      }
+            loader: "raw-loader",
+          },
+        ],
+      },
     });
-  }
+  },
 };
