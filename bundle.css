@@ -659,8 +659,40 @@ video {
   background-color: #2E5A94;
 }
 
+.mode-dark .dark\:bg-gray-300 {
+  background-color: #e2e8f0;
+}
+
+.mode-dark .dark\:bg-gray-750 {
+  background-color: #374459;
+}
+
+.mode-dark .dark\:bg-gray-850 {
+  background-color: #252D3B;
+}
+
+.mode-dark .dark\:bg-gray-900 {
+  background-color: #1a202c;
+}
+
+.mode-dark .dark\:bg-blue-750 {
+  background-color: #2E5A94;
+}
+
+.mode-dark .dark-hover\:bg-gray-100:hover {
+  background-color: #f7fafc;
+}
+
+.mode-dark .dark-hover\:bg-blue-700:hover {
+  background-color: #2b6cb0;
+}
+
 .border-blue-500 {
   border-color: #4299e1;
+}
+
+.mode-dark .dark\:border-blue-600 {
+  border-color: #3182ce;
 }
 
 .rounded {
@@ -988,6 +1020,14 @@ video {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
+.mode-dark .dark-hover\:shadow-md:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.mode-dark .dark-hover\:shadow-lg:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
 .text-center {
   text-align: center;
 }
@@ -1038,6 +1078,42 @@ video {
 
 .group:hover .group-hover\:text-blue-800 {
   color: #2c5282;
+}
+
+.mode-dark .dark\:text-gray-200 {
+  color: #edf2f7;
+}
+
+.mode-dark .dark\:text-gray-300 {
+  color: #e2e8f0;
+}
+
+.mode-dark .dark\:text-gray-400 {
+  color: #cbd5e0;
+}
+
+.mode-dark .dark\:text-gray-500 {
+  color: #a0aec0;
+}
+
+.mode-dark .dark\:text-gray-850 {
+  color: #252D3B;
+}
+
+.mode-dark .dark\:text-gray-950 {
+  color: #0E131C;
+}
+
+.mode-dark .dark-hover\:text-gray-100:hover {
+  color: #f7fafc;
+}
+
+.mode-dark .dark-hover\:text-gray-300:hover {
+  color: #e2e8f0;
+}
+
+.mode-dark .group:hover .dark-group-hover\:text-gray-200 {
+  color: #edf2f7;
 }
 
 .text-sm {
@@ -1144,6 +1220,21 @@ video {
 
 dots {
   background-image: url("/images/500.png");
+}
+
+.mode-dark dots {
+  background-image: url("/images/700.png");
+}
+
+.easter-egg {
+  background-image: url("/images/nezuko.gif");
+}
+
+.easter-egg * {
+  -webkit-animation: rainbow 1s linear;
+          animation: rainbow 1s linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 
 @keyframes rainbow {
