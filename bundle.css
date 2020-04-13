@@ -1023,9 +1023,12 @@ dots {
   padding-right: 1rem;
 }
 
-.py-64 {
-  padding-top: 16rem;
-  padding-bottom: 16rem;
+.pt-32 {
+  padding-top: 8rem;
+}
+
+.pb-48 {
+  padding-bottom: 12rem;
 }
 
 .fixed {
