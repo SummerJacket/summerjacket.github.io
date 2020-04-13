@@ -3,6 +3,7 @@ import "./style.css";
 
 const app = new App({
   target: document.body,
+  intro: true,
 });
 
 window.app = app;

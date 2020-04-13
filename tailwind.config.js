@@ -7,6 +7,12 @@ module.exports = {
         '"Source Sans Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
     },
     extend: {
+      borderRadius: {
+        'xl': '1rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+      },
       colors: {
         gray: {
           ...colors.gray,
@@ -18,6 +24,17 @@ module.exports = {
           ...colors.blue,
           "750": "#2E5A94",
         },
+      },
+      opacity: {
+        "10": 0.1,
+        "15": 0.15,
+        "20": 0.2,
+        "30": 0.3,
+        "40": 0.4,
+      },
+      spacing: {
+        "2px": "2px",
+        "4px": "4px",
       },
     },
   },
@@ -43,7 +60,9 @@ module.exports = {
     borderColor: ["dark"],
     boxShadow: ["responsive", "hover", "focus", "dark", "dark-hover"],
     opacity: ["responsive", "hover", "focus", "group-hover"],
-    height: ["responsive", "hover", "group-hover"],
+    height: ["responsive", "hover", "focus", "group-hover"],
+    scale: ["responsive", "hover", "focus", "group-hover"],
+    translate: ["responsive", "hover", "focus", "group-hover"],
   },
   plugins: [require("tailwindcss-dark-mode")()],
 };

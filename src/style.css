@@ -3,8 +3,6 @@
 @tailwind components;
 /* purgecss end ignore */
 
-@tailwind utilities;
-
 dots {
   background-image: url("/images/500.png");
 }
@@ -13,7 +11,7 @@ dots {
   background-image: url("/images/700.png");
 }
 
-.easter-egg {
+.easter-egg .nezuko {
   background-image: url("/images/nezuko.gif");
 }
 
@@ -61,3 +59,23 @@ dots {
     color: rgb(255, 0, 127);
   }
 }
+
+.btn {
+  @apply px-6 py-2;
+  @apply font-bold;
+  @apply inline-flex items-center;
+  @apply rounded;
+  @apply outline-none;
+  @apply transition duration-200;
+  @apply transform;
+}
+
+.btn:focus {
+  @apply shadow-outline;
+}
+
+.btn:hover {
+  @apply -translate-y-2px;
+}
+
+@tailwind utilities;

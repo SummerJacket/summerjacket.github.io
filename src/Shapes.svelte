@@ -1,10 +1,10 @@
 <script>
- export let isDark;
- export let easterEgg;
+  export let isDark;
+  export let easterEgg;
 </script>
 
-<div
-  class="absolute z-0 h-screen inset-x-0 text-gray-300 dark:text-gray-950"
+<shapes
+  class="absolute z-0 inset-0 text-gray-300 dark:text-gray-950"
   class:hidden="{easterEgg}"
 >
   <dots
@@ -37,4 +37,4 @@
       <polygon points="300,150 225,280 75,280 0,150 75,20 225,20" />
     </svg>
   </div>
-</div>
+</shapes>
