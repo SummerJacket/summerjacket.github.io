@@ -1,53 +1,4 @@
 
-@keyframes svelte-13q6lrk-rainbow{
-  100%,0%{
-    color:rgb(255, 0, 0)
-  }
-
-  8%{
-    color:rgb(255, 127, 0)
-  }
-
-  16%{
-    color:rgb(255, 255, 0)
-  }
-
-  25%{
-    color:rgb(127, 255, 0)
-  }
-
-  33%{
-    color:rgb(0, 255, 0)
-  }
-
-  41%{
-    color:rgb(0, 255, 127)
-  }
-
-  50%{
-    color:rgb(0, 255, 255)
-  }
-
-  58%{
-    color:rgb(0, 127, 255)
-  }
-
-  66%{
-    color:rgb(0, 0, 255)
-  }
-
-  75%{
-    color:rgb(127, 0, 255)
-  }
-
-  83%{
-    color:rgb(255, 0, 255)
-  }
-
-  91%{
-    color:rgb(255, 0, 127)
-  }
-}
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -679,6 +630,68 @@ dots {
 
 .mode-dark dots {
   background-image: url("/images/700.png");
+}
+
+.easter-egg .nezuko {
+  background-image: url("/images/nezuko.gif");
+}
+
+.easter-egg * {
+  -webkit-animation: rainbow 1s linear;
+          animation: rainbow 1s linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@keyframes rainbow {
+  100%,
+  0% {
+    color: rgb(255, 0, 0);
+  }
+
+  8% {
+    color: rgb(255, 127, 0);
+  }
+
+  16% {
+    color: rgb(255, 255, 0);
+  }
+
+  25% {
+    color: rgb(127, 255, 0);
+  }
+
+  33% {
+    color: rgb(0, 255, 0);
+  }
+
+  41% {
+    color: rgb(0, 255, 127);
+  }
+
+  50% {
+    color: rgb(0, 255, 255);
+  }
+
+  58% {
+    color: rgb(0, 127, 255);
+  }
+
+  66% {
+    color: rgb(0, 0, 255);
+  }
+
+  75% {
+    color: rgb(127, 0, 255);
+  }
+
+  83% {
+    color: rgb(255, 0, 255);
+  }
+
+  91% {
+    color: rgb(255, 0, 127);
+  }
 }
 
 .btn {
