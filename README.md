@@ -1,24 +1,6 @@
-# portfolio-vue
+# jasonliang512.github.io
 
-## Project setup
-```
-npm install
-```
+My personal website.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[https://jasonliang.js.org/](https://jasonliang.js.org/) is an alias for
+[https://jasonliang512.github.io/](https://jasonliang512.github.io/).
