@@ -1,0 +1,123 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
+/*
+.easter-egg .nezuko {
+  background-image: url("/images/nezuko.gif");
+}
+
+.easter-egg * {
+  animation: rainbow 1s linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rainbow {
+  100%,
+  0% {
+    color: rgb(255, 0, 0);
+  }
+  8% {
+    color: rgb(255, 127, 0);
+  }
+  16% {
+    color: rgb(255, 255, 0);
+  }
+  25% {
+    color: rgb(127, 255, 0);
+  }
+  33% {
+    color: rgb(0, 255, 0);
+  }
+  41% {
+    color: rgb(0, 255, 127);
+  }
+  50% {
+    color: rgb(0, 255, 255);
+  }
+  58% {
+    color: rgb(0, 127, 255);
+  }
+  66% {
+    color: rgb(0, 0, 255);
+  }
+  75% {
+    color: rgb(127, 0, 255);
+  }
+  83% {
+    color: rgb(255, 0, 255);
+  }
+  91% {
+    color: rgb(255, 0, 127);
+  }
+}
+*/
+
+dots {
+  background-image: url("/images/500.png");
+}
+
+.mode-dark dots {
+  background-image: url("/images/700.png");
+}
+
+.btn {
+  @apply px-6 py-2;
+  @apply font-bold;
+  @apply inline-flex items-center;
+  @apply rounded;
+  @apply outline-none;
+  @apply transition duration-200;
+  @apply transform;
+}
+
+.btn:focus {
+  @apply shadow-outline;
+}
+
+.btn:hover {
+  @apply -translate-y-2px;
+}
+
+.badge {
+  @apply inline-block;
+  @apply p-1 px-4;
+  @apply bg-gray-300 text-gray-700;
+  @apply font-bold;
+  @apply rounded-full;
+}
+
+.mode-dark .badge {
+  @apply bg-gray-900 text-gray-400;
+}
+
+.fix-svg > svg {
+  width: 100%;
+}
+
+@tailwind utilities;
