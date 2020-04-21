@@ -7,7 +7,7 @@ import "./style.css";
 
 Vue.config.productionTip = false;
 
-new Vue({
+window.app = new Vue({
   render: h =>
     h(App, {
       props: { projects, skills }

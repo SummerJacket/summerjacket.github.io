@@ -1,40 +1,49 @@
 <template>
-  <div class="bg-gray-100 text-gray-900 font-semibold overflow-x-hidden">
-    <div class="max-w-4xl mx-auto px-4">
-      <header class="py-64">
+  <div
+    class="bg-gray-100 text-gray-900 font-semibold overflow-x-hidden"
+    :class="{ 'easter-egg': easterEggEnabled }"
+  >
+    <div class="max-w-4xl mx-auto px-8">
+      <header class="pt-48 pb-12 md:pt-64 md:pb-48">
         <small class="text-sm uppercase font-bold tracking-wider text-gray-700">
           Welcome to my portfolio &#x1F44B;
         </small>
-        <h1 class="text-6xl font-bold leading-tight">
-          Hi! My name is
-          <span class="text-blue-700">Jason Liang</span>
-          and I love front-end development
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+          Hi! My name is <span class="text-blue-700">Jason Liang</span>, and I
+          love front-end development
         </h1>
-        <p class="text-2xl pt-4 w-5/6 leading-relaxed">
+        <p class="text-xl md:text-2xl pt-4 w-5/6 leading-relaxed">
           I’m passionate about crafting accessible and highly performant
-          applications for the web.
+          applications for the web. Check out my
+          <a
+            href="https://github.com/jasonliang512"
+            class="border-b-2 border-gray-800"
+            >GitHub</a
+          >!
         </p>
       </header>
       <main>
         <section-header bg-text="Personal Projects">Projects</section-header>
-        <div class="pt-16 grid row-gap-12 max-w-3xl mx-auto">
+        <div
+          class="md:pt-8 grid row-gap-8 md:row-gap-12 max-w-3xl mx-auto -mx-4 sm:mx-0"
+        >
           <project
             v-bind="project"
             v-for="project in projects"
             :key="project.title"
           />
         </div>
-        <section-header class="pt-48" bg-text="About Myself">
+        <section-header class="pt-12 md:pt-32" bg-text="About Myself">
           About Me
         </section-header>
-        <p class="text-2xl w-3/4 leading-relaxed">
+        <p class="text-xl md:text-2xl md:w-3/4 leading-relaxed">
           Learning continuously is one of my core values. I find joy by
           exploring the many different web technologies that are out in the
           wild. I also love to create (and break) tiny coding projects with my
           spare time. When I’m not programming, I’m either listening to music
           &#x1F3A7; or playing the guitar &#x1F3B8;
         </p>
-        <h3 class="text-5xl font-bold pt-24 pb-12">Skills</h3>
+        <h3 class="text-4xl md:text-5xl font-bold pt-24 pb-12">Skills</h3>
         <div class="grid row-gap-10">
           <skill-section
             v-for="skill in skills"
@@ -42,17 +51,19 @@
             v-bind="skill"
           />
         </div>
-        <h3 class="text-5xl font-bold pt-32 pb-16">Let’s get in touch</h3>
-        <h4 class="text-2xl font-bold pb-1">Email Address</h4>
+        <h3 class="text-4xl md:text-5xl font-bold pt-32 pb-16">
+          Let’s get in touch
+        </h3>
+        <h4 class="text-xl md:text-2xl font-bold pb-1">Email Address</h4>
         <a
           href="mailto:jasonliang512@gmail.com"
-          class="transition-colors duration-200 text-2xl pb-1 text-gray-600 hover:text-gray-700 border-b-2 border-gray-600"
+          class="transition-colors duration-200 text-xl md:text-2xl pb-1 text-gray-600 hover:text-gray-700 border-b-2 border-gray-600"
         >
           jasonliang512@gmail.com
         </a>
       </main>
     </div>
-    <footer class="pt-56 pb-16">
+    <footer class="pt-48 pb-16">
       <div class="text-center pb-12">
         <a href="https://codepen.io/jasonliang512" class="social-link">
           <svg viewBox="0 0 512 512" fill="currentColor">
@@ -87,6 +98,8 @@
 </template>
 
 <script>
+import Konami from "konami";
+
 import Project from "./components/Project.vue";
 import SkillSection from "./components/SkillSection.vue";
 import SectionHeader from "./components/SectionHeader.vue";
@@ -94,7 +107,18 @@ import SectionHeader from "./components/SectionHeader.vue";
 export default {
   name: "App",
   components: { Project, SectionHeader, SkillSection },
-  props: ["projects", "skills"]
+  props: ["projects", "skills"],
+  data() {
+    return {
+      easterEggEnabled: false,
+      darkModeEnabled: false
+    };
+  },
+  mounted() {
+    new Konami(() => {
+      this.easterEggEnabled = !this.easterEggEnabled;
+    });
+  }
 };
 </script>
 
@@ -107,6 +131,56 @@ export default {
 }
 
 .social-link:hover {
-  @apply text-gray-850;
+  @apply text-gray-900;
+}
+
+.easter-egg {
+  background-image: url("/images/nezuko.gif");
+}
+
+.easter-egg,
+.easter-egg >>> * {
+  animation: rainbow 5s linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rainbow {
+  100%,
+  0% {
+    color: rgb(255, 0, 0);
+  }
+  8% {
+    color: rgb(255, 127, 0);
+  }
+  16% {
+    color: rgb(255, 255, 0);
+  }
+  25% {
+    color: rgb(127, 255, 0);
+  }
+  33% {
+    color: rgb(0, 255, 0);
+  }
+  41% {
+    color: rgb(0, 255, 127);
+  }
+  50% {
+    color: rgb(0, 255, 255);
+  }
+  58% {
+    color: rgb(0, 127, 255);
+  }
+  66% {
+    color: rgb(0, 0, 255);
+  }
+  75% {
+    color: rgb(127, 0, 255);
+  }
+  83% {
+    color: rgb(255, 0, 255);
+  }
+  91% {
+    color: rgb(255, 0, 127);
+  }
 }
 </style>

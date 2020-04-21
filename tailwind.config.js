@@ -26,7 +26,14 @@ module.exports = {
           '"Source Sans Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
       },
       fontSize: {
+        huge: "10rem",
         massive: "20rem"
+      },
+      gridTemplateColumns: {
+        auto1: "auto 1fr"
+      },
+      gridTemplateRows: {
+        auto1: "auto 1fr"
       },
       inset: {
         "1/2": "50%"

@@ -14,24 +14,26 @@
         class="transition-opacity duration-200 absolute w-full h-full bg-blue-500 opacity-25 group-hover:opacity-15"
       />
       <svg
-        class="transition-transform transform duration-200 hidden sm:block absolute h-full right-0 text-white dark:text-gray-850 -mr-3"
-        viewBox="0 0 140 1000"
+        viewBox="0 0 78 394"
         fill="currentColor"
+        class="hidden sm:block absolute h-full right-0 text-white dark:text-gray-850 -mr-1"
       >
-        <polygon points="100,0 140,0 140,1000 0,1000" />
+        <path
+          d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"
+        />
       </svg>
     </div>
-    <div class="p-8 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
+    <div class="p-6 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
       <h3 class="font-bold text-2xl pb-2 leading-snug">{{ title }}</h3>
       <p class="text-md">{{ description }}</p>
-      <ul class="pt-4 pb-5 text-sm">
+      <ul class="py-4 text-sm">
         <li v-for="tag in tags" :key="tag" class="badge mr-2 mb-3">
           {{ tag }}
         </li>
       </ul>
-      <div class="pt-4">
+      <div class="md:pt-4">
         <a
-          class="btn bg-blue-700 hover:bg-blue-750 dark:bg-blue-750 dark-hover:bg-blue-700 text-blue-100 shadow hover:shadow-lg dark-hover:shadow-md mr-4"
+          class="btn bg-blue-700 hover:bg-blue-750 dark:bg-blue-750 dark-hover:bg-blue-700 text-blue-100 shadow hover:shadow-lg dark-hover:shadow-md mr-4 mb-2"
           :href="visit"
         >
           <span>Visit</span>
