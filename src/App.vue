@@ -139,7 +139,9 @@ export default {
   data() {
     return {
       easterEggEnabled: false,
-      darkModeEnabled: false
+      darkModeEnabled:
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
     };
   },
   mounted() {
