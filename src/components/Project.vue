@@ -27,7 +27,11 @@
       <h3 class="font-bold text-2xl pb-2 leading-snug">{{ title }}</h3>
       <p class="text-md">{{ description }}</p>
       <ul class="py-4 text-sm">
-        <li v-for="tag in tags" :key="tag" class="badge mr-2 mb-3">
+        <li
+          v-for="tag in tags"
+          :key="tag"
+          class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3"
+        >
           {{ tag }}
         </li>
       </ul>

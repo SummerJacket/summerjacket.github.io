@@ -1,7 +1,7 @@
 <template>
   <div class="pb-20">
     <div
-      class="flex justify-center w-full text-gray-200 font-black text-huge md:text-massive whitespace-no-wrap leading-none select-none"
+      class="flex justify-center w-full text-gray-200 dark:text-gray-850 font-black text-huge md:text-massive whitespace-no-wrap leading-none select-none"
     >
       {{ bgText }}
     </div>

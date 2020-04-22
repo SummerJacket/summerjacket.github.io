@@ -27,14 +27,6 @@
   font-weight: 900;
 }
 
-dots {
-  background-image: url("/images/500.png");
-}
-
-.mode-dark dots {
-  background-image: url("/images/700.png");
-}
-
 .btn {
   @apply px-6 py-2;
   @apply font-bold;
@@ -56,13 +48,8 @@ dots {
 .badge {
   @apply inline-block;
   @apply p-1 px-4;
-  @apply bg-gray-300 text-gray-700;
   @apply font-bold;
   @apply rounded-full;
-}
-
-.mode-dark .badge {
-  @apply bg-gray-900 text-gray-400;
 }
 
 .fix-svg > svg {

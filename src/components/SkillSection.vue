@@ -17,7 +17,7 @@
       <li
         v-for="item in items"
         :key="item"
-        class="badge mr-2 mb-3 md:mr-3 md:mb-4"
+        class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4"
       >
         {{ item }}
       </li>
