@@ -27,22 +27,12 @@
   font-weight: 900;
 }
 
-.btn {
-  @apply px-6 py-2;
-  @apply font-bold;
-  @apply inline-flex items-center;
-  @apply rounded;
-  @apply outline-none;
-  @apply transition duration-200;
-  @apply transform;
+::selection {
+  @apply bg-blue-200 text-blue-800;
 }
 
-.btn:focus {
-  @apply shadow-outline;
-}
-
-.btn:hover {
-  @apply -translate-y-2px;
+.mode-dark ::selection {
+  @apply bg-blue-800 text-blue-300;
 }
 
 .badge {
@@ -50,10 +40,6 @@
   @apply p-1 px-4;
   @apply font-bold;
   @apply rounded-full;
-}
-
-.fix-svg > svg {
-  width: 100%;
 }
 
 @tailwind utilities;

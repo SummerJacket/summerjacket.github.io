@@ -11,7 +11,7 @@
         alt=""
       />
       <div
-        class="transition-opacity duration-200 absolute w-full h-full bg-blue-500 opacity-25 group-hover:opacity-15"
+        class="transition-opacity duration-200 absolute w-full h-full bg-blue-500 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
       />
       <svg
         viewBox="0 0 78 394"
@@ -83,3 +83,23 @@ export default {
   props: ["title", "description", "visit", "source", "tags", "image"]
 };
 </script>
+
+<style scoped>
+.btn {
+  @apply px-6 py-2;
+  @apply font-bold;
+  @apply inline-flex items-center;
+  @apply rounded;
+  @apply outline-none;
+  @apply transition duration-200;
+  @apply transform;
+}
+
+.btn:focus {
+  @apply shadow-outline;
+}
+
+.btn:hover {
+  @apply -translate-y-2px;
+}
+</style>

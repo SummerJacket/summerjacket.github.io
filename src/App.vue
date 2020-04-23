@@ -1,15 +1,21 @@
 <template>
-  <div
-    class="overflow-x-hidden"
-    :class="{ 'easter-egg': easterEggEnabled, 'mode-dark': darkModeEnabled }"
-  >
+  <div class="overflow-x-hidden" :class="{ 'mode-dark': darkModeEnabled }">
     <div
-      class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 font-semibold"
+      class="relative bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 font-semibold"
+      :class="{ 'easter-egg': easterEggEnabled }"
     >
+      <div
+        class="absolute z-0 dots right-0 top-0 w-16 md:w-32 mt-12"
+        style="height: 24rem"
+      />
+      <div
+        class="absolute z-0 dots left-0 bottom-0 h-8 md:h-32 ml-12"
+        style="width: 18rem"
+      />
       <div class="fixed z-50 right-0 top-0 m-6">
         <button
           @click="darkModeEnabled = !darkModeEnabled"
-          class="p-2 bg-gray-800 dark:bg-gray-100 rounded-full shadow-md"
+          class="p-2 bg-gray-800 dark:bg-gray-100 rounded-full shadow-md focus:outline-none focus:shadow-outline"
         >
           <svg
             fill="none"
@@ -31,7 +37,7 @@
           </svg>
         </button>
       </div>
-      <div class="max-w-4xl mx-auto px-8">
+      <div class="relative z-10 max-w-4xl mx-auto px-8">
         <header class="pt-48 pb-12 md:pt-64 md:pb-32">
           <small
             class="text-sm uppercase font-bold tracking-wider text-gray-700 dark:text-gray-500"
@@ -43,7 +49,7 @@
             <span class="text-blue-700 dark:text-blue-500">Jason Liang</span>,
             and I love front-end development
           </h1>
-          <p class="text-xl md:text-2xl pt-4 w-5/6 leading-relaxed">
+          <p class="text-xl md:text-2xl pt-4 md:w-5/6 leading-relaxed">
             I’m passionate about crafting accessible and highly performant
             applications for the web. Check out my profile on
             <a href="https://github.com/jasonliang512" class="link">GitHub</a>!
@@ -90,7 +96,7 @@
           </a>
         </main>
       </div>
-      <footer class="pt-48 pb-12">
+      <footer class="relative z-10 pt-48 pb-12">
         <div class="text-center pb-8">
           <a href="https://codepen.io/jasonliang512" class="social-link">
             <svg viewBox="0 0 512 512" fill="currentColor">
@@ -153,6 +159,14 @@ export default {
 </script>
 
 <style scoped>
+.dots {
+  background-image: url(/images/300.png);
+}
+
+.mode-dark .dots {
+  background-image: url(/images/800.png);
+}
+
 .link {
   @apply border-b-2 border-blue-600 text-blue-700;
 }

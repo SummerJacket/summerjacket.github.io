@@ -4,8 +4,11 @@
     - HTML
     - CSS
     - JavaScript
+    - jQuery
+    - Bootstrap
     - React
     - Gatsby
+    - Vue
     - TailwindCSS
   className: "bg-blue-200 dark:bg-blue-700 text-blue-600 dark:text-blue-300"
   icon: >-
@@ -16,10 +19,10 @@
 - title: "Back-end"
   items:
     - PHP
+    - PostgreSQL
     - NodeJS
     - Express
     - MongoDB
-    - PostgreSQL
   className: "bg-purple-300 dark:bg-purple-800 text-purple-600 dark:text-purple-400"
   icon: >-
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
@@ -30,10 +33,12 @@
 
 - title: "Others"
   items:
-    - Git
     - Figma
+    - Git
+    - C/C++
+    - Haskell
+    - Unity Engine
     - Linux
-    - GIMP
   className: "bg-orange-300 dark:bg-orange-800 text-orange-600 dark:text-orange-400"
   icon: >-
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">

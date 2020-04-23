@@ -31,3 +31,9 @@ export default {
   props: ["title", "items", "className", "icon"]
 };
 </script>
+
+<style scoped>
+.fix-svg >>> svg {
+  width: 100%;
+}
+</style>
