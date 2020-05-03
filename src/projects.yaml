@@ -7,10 +7,10 @@
   image: "/images/chat-app.png"
 
 - title: "elm-heroicons"
-  description: "A package for the Elm programming language that provides the Heroicons set as SVG icons. This package was generated using a Python script."
+  description: "A package for the Elm programming language that provides the Heroicons set as SVG icons. This package was generated using a collection of scripts written in Python and Bash."
   visit: "https://package.elm-lang.org/packages/jasonliang512/elm-heroicons/latest/"
   source: "https://github.com/jasonliang512/elm-heroicons"
-  tags: [Elm, Python]
+  tags: [Elm, Python, Bash]
   image: "/images/heroicons.png"
 
 - title: "Wildermaze"
@@ -21,7 +21,7 @@
   image: "/images/wildermaze.png"
 
 - title: "Temtem Type Calculator"
-  description: "A tiny web app for viewing type matchups between different Temtem types."
+  description: "A tiny utility app for the video game Temtem. Users can view matchups between different Temtem types."
   visit: "https://temtypecalc.netlify.com"
   source: "https://github.com/jasonliang512/temtem-type-calculator"
   tags: [Gatsby, GraphQL, React, Tailwind CSS]

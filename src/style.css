@@ -32,7 +32,7 @@
 }
 
 .mode-dark ::selection {
-  @apply bg-blue-800 text-blue-300;
+  @apply bg-blue-700 text-blue-100;
 }
 
 .badge {
@@ -40,6 +40,23 @@
   @apply p-1 px-4;
   @apply font-bold;
   @apply rounded-full;
+}
+
+.link {
+  @apply text-blue-700;
+  @apply border-b-2 border-blue-700;
+}
+
+.link:hover {
+  @apply text-blue-800 border-blue-800;
+}
+
+.mode-dark .link {
+  @apply text-blue-500 border-blue-500;
+}
+
+.mode-dark .link:hover {
+  @apply text-blue-400 border-blue-400;
 }
 
 @tailwind utilities;

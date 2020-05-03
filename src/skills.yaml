@@ -6,10 +6,13 @@
     - JavaScript
     - jQuery
     - Bootstrap
+    - Sass
     - React
+    - Redux
     - Gatsby
     - Vue
     - TailwindCSS
+    - Webpack
   className: "bg-blue-200 dark:bg-blue-700 text-blue-600 dark:text-blue-300"
   icon: >-
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
@@ -19,10 +22,11 @@
 - title: "Back-end"
   items:
     - PHP
-    - PostgreSQL
-    - NodeJS
-    - Express
+    - SQL
+    - Apache
+    - Express (JS)
     - MongoDB
+    - REST
   className: "bg-purple-300 dark:bg-purple-800 text-purple-600 dark:text-purple-400"
   icon: >-
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
@@ -39,6 +43,7 @@
     - Haskell
     - Unity Engine
     - Linux
+    - Bash
   className: "bg-orange-300 dark:bg-orange-800 text-orange-600 dark:text-orange-400"
   icon: >-
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">

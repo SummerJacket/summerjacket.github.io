@@ -8,6 +8,7 @@
     "deploy": "npm run build && gh-pages -d dist -b master"
   },
   "dependencies": {
+    "animejs": "^3.2.0",
     "core-js": "^3.6.4",
     "konami": "^1.6.2",
     "vue": "^2.6.11"

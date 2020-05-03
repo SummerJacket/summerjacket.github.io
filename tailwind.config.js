@@ -4,10 +4,7 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        xl: "1rem",
-        "2xl": "1.5rem",
-        "3xl": "1.875rem",
-        "4xl": "2.25rem"
+        xl: "1rem"
       },
       colors: {
         gray: {
@@ -35,19 +32,11 @@ module.exports = {
       gridTemplateRows: {
         auto1: "auto 1fr"
       },
-      inset: {
-        "1/2": "50%"
-      },
       opacity: {
-        "10": 0.1,
-        "15": 0.15,
-        "20": 0.2,
-        "30": 0.3,
-        "40": 0.4
+        "10": 0.1
       },
       spacing: {
-        "2px": "2px",
-        "4px": "4px"
+        "2px": "2px"
       }
     }
   },
@@ -70,7 +59,7 @@ module.exports = {
       "dark-hover",
       "dark-group-hover"
     ],
-    borderColor: ["dark"],
+    borderColor: ["responsive", "hover", "focus", "dark", "dark-hover"],
     boxShadow: ["responsive", "hover", "focus", "dark", "dark-hover"],
     opacity: ["responsive", "hover", "focus", "group-hover"],
     height: ["responsive", "hover", "focus", "group-hover"],

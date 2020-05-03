@@ -11,7 +11,7 @@
         alt=""
       />
       <div
-        class="transition-opacity duration-200 absolute w-full h-full bg-blue-500 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
+        class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
       />
       <svg
         viewBox="0 0 78 394"
@@ -25,7 +25,7 @@
     </div>
     <div class="p-6 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
       <h3 class="font-bold text-2xl pb-2 leading-snug">{{ title }}</h3>
-      <p class="text-md">{{ description }}</p>
+      <p class="text-gray-800 dark:text-gray-500">{{ description }}</p>
       <ul class="py-4 text-sm">
         <li
           v-for="tag in tags"
