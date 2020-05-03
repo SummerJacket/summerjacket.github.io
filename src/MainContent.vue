@@ -14,7 +14,7 @@
       About Me
     </section-header>
     <p
-      class="text-gray-800 dark:text-gray-500 text-xl md:text-2xl md:w-3/4 leading-relaxed"
+      class="text-gray-800 dark:text-gray-400 text-xl md:text-2xl md:w-3/4 leading-relaxed"
     >
       Learning continuously is one of my core values. I find joy by creating
       (and breaking) tiny coding projects. When I’m not programming, I’m either

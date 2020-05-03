@@ -6,6 +6,14 @@
       :class="{ 'easter-egg': easterEggEnabled }"
     >
       <div
+        class="bottom-0 pb-8 absolute z-40 flex justify-end w-screen pointer-events-none"
+        style="min-width: 3200px"
+      >
+        <div class="text-6xl mr-4 font-bold" style="writing-mode: vertical-rl">
+          Woah, you have an insanely wide monitor
+        </div>
+      </div>
+      <div
         class="absolute z-0 dots right-0 top-0 w-16 md:w-32 mt-12"
         style="height: 24rem"
       />
