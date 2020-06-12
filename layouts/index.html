@@ -1,0 +1,7 @@
+{{ define "body" }}
+  <div x-data="{ count: 0 }">
+    <button class="bg-gray-300 w-8" @click="count += 1">+</button>
+    <p x-text="count"></p>
+    <button class="bg-gray-300 w-8" @click="count -= 1">-</button>
+  </div>
+{{ end }}

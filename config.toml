@@ -1,0 +1,8 @@
+baseURL = "https://jasonliang.js.org/"
+languageCode = "en-ca"
+title = "Jason Liang"
+googleAnalytics = "UA-156434015-1"
+
+[params]
+  author = "Jason Liang"
+  description = "Hi! I am Jason Liang, a Web Developer"
