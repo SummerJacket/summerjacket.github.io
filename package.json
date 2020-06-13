@@ -1,18 +1,22 @@
 {
   "private": true,
   "scripts": {
+    "clean": "rm -f static/*.dist.* && rm -rf public",
     "watch": "webpack --config webpack.dev.js",
     "build": "NODE_ENV=production webpack --config webpack.prod.js",
-    "deploy": "npm run build && hugo -D && gh-pages -d public -b master"
+    "deploy": "npm run clean && npm run build && hugo && gh-pages -d public -b master"
   },
   "dependencies": {
     "alpinejs": "^2.3.5",
+    "animejs": "^3.2.0",
     "autoprefixer": "^9.8.0",
-    "tailwindcss": "^1.4.6"
+    "tailwindcss": "^1.4.6",
+    "tailwindcss-dark-mode": "^1.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "assets-webpack-plugin": "^5.0.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
     "mini-css-extract-plugin": "^0.9.0",

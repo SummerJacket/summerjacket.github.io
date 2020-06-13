@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/fonts/SourceSansPro-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
+::selection {
+  @apply bg-blue-200 text-blue-800;
+}
+
+.mode-dark ::selection {
+  @apply bg-blue-700 text-blue-100;
+}
+
+.badge {
+  @apply inline-block;
+  @apply p-1 px-4;
+  @apply font-bold;
+  @apply rounded-full;
+}
+
+.btn {
+  @apply px-6 py-2;
+  @apply font-bold;
+  @apply inline-flex items-center;
+  @apply rounded;
+  @apply outline-none;
+  @apply transition duration-200;
+  @apply transform;
+}
+
+.btn:focus {
+  @apply shadow-outline;
+}
+
+.btn:hover {
+  @apply -translate-y-2px;
+}
+
+.link {
+  @apply text-blue-700;
+  @apply border-b-2 border-blue-700;
+}
+
+.link:hover {
+  @apply text-blue-800 border-blue-800;
+}
+
+.mode-dark .link {
+  @apply text-blue-500 border-blue-500;
+}
+
+.mode-dark .link:hover {
+  @apply text-blue-400 border-blue-400;
+}

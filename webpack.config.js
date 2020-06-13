@@ -1,15 +1,16 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var AssetsPlugin = require("assets-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
   output: {
-    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "static")
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: "[name].bundle.css"
+    new AssetsPlugin({
+      path: path.resolve(__dirname, "data"),
+      filename: "webpackAssets.json"
     })
   ],
   module: {

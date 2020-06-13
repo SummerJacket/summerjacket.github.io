@@ -1,7 +1,97 @@
 {{ define "body" }}
-  <div x-data="{ count: 0 }">
-    <button class="bg-gray-300 w-8" @click="count += 1">+</button>
-    <p x-text="count"></p>
-    <button class="bg-gray-300 w-8" @click="count -= 1">-</button>
+  {{ partial "intro-screen.html" . }}
+  <div class="relative bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 font-semibold">
+    <div
+      class="bottom-0 pb-8 absolute z-40 flex justify-end w-screen pointer-events-none"
+      style="min-width: 3200px"
+    >
+      <div class="text-6xl mr-4 font-bold" style="writing-mode: vertical-rl">
+        Woah, you have a huge monitor
+      </div>
+    </div>
+    <div
+      class="absolute z-0 dots right-0 top-0 w-16 md:w-32 mt-12"
+      style="height: 24rem"
+    ></div>
+    <div
+      class="absolute z-0 dots left-0 bottom-0 h-8 md:h-32 ml-16"
+      style="width: 18rem"
+    ></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-8">
+      <header class="pt-56 md:pt-64 md:pb-24">
+        <div class="overflow-y-hidden">
+          <small class="block animate-text-up text-sm uppercase font-bold tracking-wider text-gray-700 dark:text-gray-500">
+            Welcome to my portfolio &#x1F44B;
+          </small>
+        </div>
+        <div class="overflow-y-hidden">
+          <h1 class="animate-text-up text-4xl md:text-6xl font-bold leading-tight">
+            Hi! My name is Jason Liang, and I love front-end web development
+          </h1>
+        </div>
+        <div class="overflow-y-hidden">
+          <p class="animate-text-up text-gray-700 dark:text-gray-500 text-xl md:text-2xl pt-4 md:w-5/6 leading-relaxed">
+            I’m passionate about crafting accessible and performant
+            applications for the web. Check out my profile on
+            <a href="https://github.com/jasonliang512" class="link">GitHub</a>!
+          </p>
+        </div>
+      </header>
+      <main>
+        {{ partial "section-header" (dict "bgText" "Personal Projects" "text" "Projects") }}
+        <div class="md:pt-8 grid row-gap-8 md:row-gap-12 max-w-3xl -mx-4 sm:mx-auto">
+          {{ range .Site.Data.projects }}
+            {{ partial "project.html" . }}
+          {{ end }}
+        </div>
+        {{ partial "section-header" (dict "bgText" "About Myself" "text" "About Me") }}
+        <p class="text-gray-800 dark:text-gray-400 text-xl md:text-2xl md:w-3/4 leading-relaxed">
+          Learning continuously is one of my core values. I find joy when
+          experimenting with new programing paradigms and concepts. When I’m not
+          programming, I’m either listening to
+          <span class="whitespace-no-wrap">music &#x1F3A7;</span> or playing the
+          <span class="whitespace-no-wrap">guitar &#x1F3B8;</span>
+        </p>
+        <h3 class="text-4xl md:text-5xl font-bold pt-24 pb-12">Skills</h3>
+        <div class="grid row-gap-10">
+          {{ range .Site.Data.skills }}
+            {{ partial "skill-section.html" . }}
+          {{ end }}
+        </div>
+        <h3 class="text-4xl md:text-5xl font-bold pt-32 pb-2">
+          Let’s get in touch
+        </h3>
+        <a
+          href="mailto:jasonliang512@gmail.com"
+          class="link text-xl md:text-2xl pb-1"
+        >
+          jasonliang512@gmail.com
+        </a>
+      </main>
+      <footer class="relative z-10 pt-48 pb-12">
+        <div class="text-center pb-8">
+          {{ range .Site.Data.social }}
+            <a href="{{ .link }}" class="inline-block text-gray-600 hover:text-gray-900 dark:text-gray-600 dark-hover:text-gray-400 w-8 h-8 mx-5 transition-colors duration-200">
+              {{ partial (printf "icons/%s%s" .icon ".svg") . }}
+            </a>
+          {{ end }}
+        </div>
+        <span class="block font-bold text-center">
+          Made with code by me
+        </span>
+      </footer>
+    </div>
   </div>
+{{ end }}
+
+{{ define "style" }}
+  <style>
+    .dots {
+      background-image: url(/images/300.png);
+    }
+
+    .mode-dark .dots {
+      background-image: url(/images/800.png);
+    }
+  </style>
 {{ end }}

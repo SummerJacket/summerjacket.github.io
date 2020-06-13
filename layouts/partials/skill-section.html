@@ -1,0 +1,19 @@
+<div class="grid grid-rows-auto1 grid-cols-auto1">
+  <div class="sm:row-span-2">
+    <div class="inline-flex rounded-full p-4 md:p-5 {{ .className }}">
+      <span class="fix-svg inline-flex items-center w-6 h-6 md:w-8 md:h-8">
+        {{ safeHTML .icon }}
+      </span>
+    </div>
+  </div>
+  <div class="flex items-center pl-4">
+    <h3 class="text-3xl font-bold -mt-1 sm:-mt-2">{{ .title }}</h3>
+  </div>
+  <ul class="pt-4 sm:pt-1 sm:pl-4 text-sm md:text-md col-span-2 sm:col-span-1 sm:col-start-2 sm:mr-auto">
+    {{ range .items }}
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+        {{ . }}
+      </li>
+    {{ end }}
+  </ul>
+</div>

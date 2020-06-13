@@ -1,5 +1,5 @@
 node_modules
 public
 
-static/*.bundle.css
-static/*.bundle.js
+static/*.dist.css
+static/*.dist.js
