@@ -1,8 +1,5 @@
 import anime from "animejs/lib/anime.es.js";
 
-import "alpinejs";
-import "./style.css";
-
 // -- intro-screen
 
 const nameAnimationOptions = {

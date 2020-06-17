@@ -1,0 +1,52 @@
+#post-content {
+  @apply text-lg;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold leading-snug;
+  }
+
+  h1,
+  h2 {
+    @apply text-3xl mt-6 mb-5;
+  }
+
+  h3 {
+    @apply text-2xl mt-5 mb-4;
+  }
+
+  h4 {
+    @apply text-xl my-4;
+  }
+
+  p {
+    @apply my-4 text-gray-800;
+  }
+
+  .highlight {
+    @apply text-base;
+
+    pre {
+      @apply overflow-x-auto rounded-lg px-6 py-5;
+    }
+  }
+}
+
+.mode-dark #post-content {
+  p {
+    @apply text-gray-500;
+  }
+}
+
+@screen sm {
+  #post-content {
+    h1,
+    h2 {
+      @apply text-4xl;
+    }
+  }
+}

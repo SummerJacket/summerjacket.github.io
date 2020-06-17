@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="description" content="{{ .Site.Params.description }}" />
+    {{ hugo.Generator }}
 
-    {{ $webpackBuild := .Site.Data.webpackAssets.main }}
-    {{ with $webpackBuild.css }}
+    {{ $webpackBuild := .Site.Data.webpackAssets }}
+    {{ with $webpackBuild.main.css }}
       <link href="{{ relURL (.) }}" rel="stylesheet" />
     {{ end }}
     {{ block "style" . }}{{ end }}
@@ -29,11 +30,11 @@
     </title>
   </head>
   <body>
-    <div x-data="{ darkModeEnabled: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches }">
+    <div x-data="app()">
       <div class="overflow-x-hidden" :class="{ 'mode-dark': darkModeEnabled }">
-        <div class="fixed z-40 right-0 top-0 m-6">
+        <div class="fixed z-40 right-0 top-0 m-6" x-cloak>
           <button
-            @click="darkModeEnabled = !darkModeEnabled"
+            @click="toggleDarkMode()"
             class="p-2 bg-gray-800 dark:bg-gray-100 rounded-full shadow-md focus:outline-none focus:shadow-outline"
           >
             <svg
@@ -56,12 +57,25 @@
             </svg>
           </button>
         </div>
-        {{ block "body" . }}{{ end }}
+        <div class="relative">
+          <div
+            class="bottom-0 pb-8 absolute z-40 flex justify-end w-screen pointer-events-none"
+            style="min-width: 3200px"
+          >
+            <div class="text-6xl mr-4 font-bold" style="writing-mode: vertical-rl">
+              Woah, you have a huge monitor
+            </div>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 font-semibold min-h-screen">
+            {{ block "main" . }}{{ end }}
+          </div>
+        </div>
       </div>
     </div>
-    {{ block "script" . }}{{ end }}
-    {{ with $webpackBuild.js }}
+    {{ with $webpackBuild.main.js }}
       <script src="{{ relURL (.) }}"></script>
     {{ end }}
+    {{ block "script" . }}{{ end }}
   </body>
 </html>
+{{ "<!-- Be nice to people -->" | safeHTML }}

@@ -6,3 +6,7 @@ googleAnalytics = "UA-156434015-1"
 [params]
   author = "Jason Liang"
   description = "Hi! I am Jason Liang, a Web Developer"
+
+[markup]
+  [markup.highlight]
+    style = "dracula"

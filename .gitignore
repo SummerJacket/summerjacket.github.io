@@ -1,5 +1,7 @@
 node_modules
 public
 
+data/webpackAssets.json
+
 static/*.dist.css
 static/*.dist.js

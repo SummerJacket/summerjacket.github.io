@@ -1,9 +1,12 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var AssetsPlugin = require("assets-webpack-plugin");
+const AssetsPlugin = require("assets-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    main: "./src/main.js",
+    homepage: "./src/homepage.js"
+  },
   output: {
     path: path.resolve(__dirname, "static")
   },
