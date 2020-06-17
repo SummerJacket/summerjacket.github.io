@@ -44,6 +44,7 @@
     - Unity Engine
     - Linux
     - Bash
+    - Docker
   className: "bg-orange-300 dark:bg-orange-800 text-orange-600 dark:text-orange-400"
   icon: >-
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">
