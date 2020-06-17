@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-ca">
   <head>
-	<meta name="generator" content="Hugo 0.72.0" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="description" content="Hi! I am Jason Liang, a Web Developer" />
+    <meta name="generator" content="Hugo 0.72.0" />
 
     
     
-      <link href="/main-7dbab6b13722eee26348.dist.css" rel="stylesheet" />
+      <link href="/main-eadf942d5bd6ebb26a9a.dist.css" rel="stylesheet" />
     
     
   <style>
@@ -44,11 +44,11 @@
     </title>
   </head>
   <body>
-    <div x-data="{ darkModeEnabled: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches }">
+    <div x-data="app()">
       <div class="overflow-x-hidden" :class="{ 'mode-dark': darkModeEnabled }">
-        <div class="fixed z-40 right-0 top-0 m-6">
+        <div class="fixed z-40 right-0 top-0 m-6" x-cloak>
           <button
-            @click="darkModeEnabled = !darkModeEnabled"
+            @click="toggleDarkMode()"
             class="p-2 bg-gray-800 dark:bg-gray-100 rounded-full shadow-md focus:outline-none focus:shadow-outline"
           >
             <svg
@@ -71,7 +71,17 @@
             </svg>
           </button>
         </div>
-        
+        <div class="relative">
+          <div
+            class="bottom-0 pb-8 absolute z-40 flex justify-end w-screen pointer-events-none"
+            style="min-width: 3200px"
+          >
+            <div class="text-6xl mr-4 font-bold" style="writing-mode: vertical-rl">
+              Woah, you have a huge monitor
+            </div>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 font-semibold min-h-screen">
+            
   <div
   class="animate-screen fixed z-50 bg-gray-850 inset-0 w-screen h-screen flex justify-center items-center"
   style="transform: translateY(-100vh)"
@@ -127,15 +137,7 @@
   </div>
 </div>
 
-  <div class="relative bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-400 font-semibold">
-    <div
-      class="bottom-0 pb-8 absolute z-40 flex justify-end w-screen pointer-events-none"
-      style="min-width: 3200px"
-    >
-      <div class="text-6xl mr-4 font-bold" style="writing-mode: vertical-rl">
-        Woah, you have a huge monitor
-      </div>
-    </div>
+  <div class="relative">
     <div
       class="absolute z-0 dots right-0 top-0 w-16 md:w-32 mt-12"
       style="height: 24rem"
@@ -147,7 +149,7 @@
     <div class="relative z-10 max-w-4xl mx-auto px-8">
       <header class="pt-56 md:pt-64 md:pb-24">
         <div class="overflow-y-hidden">
-          <small class="block animate-text-up text-sm uppercase font-bold tracking-wider text-gray-700 dark:text-gray-500">
+          <small class="block animate-text-up text-sm uppercase font-bold tracking-wider text-soft">
             Welcome to my portfolio &#x1F44B;
           </small>
         </div>
@@ -157,7 +159,7 @@
           </h1>
         </div>
         <div class="overflow-y-hidden">
-          <p class="animate-text-up text-gray-700 dark:text-gray-500 text-xl md:text-2xl pt-4 md:w-5/6 leading-relaxed">
+          <p class="animate-text-up text-soft text-xl md:text-2xl pt-4 md:w-5/6 leading-relaxed">
             I’m passionate about crafting accessible and performant
             applications for the web. Check out my profile on
             <a href="https://github.com/jasonliang512" class="link">GitHub</a>!
@@ -173,37 +175,30 @@
   </div>
   <h2 class="text-5xl md:text-6xl font-bold -mt-20 md:-mt-32">Projects</h2>
   <svg width="128" height="8" viewBox="0 0 128 8" fill="none" class="pl-2">
-    <rect width="128" height="8" rx="4" fill="#4299E1" />
-    <rect x="1" width="56" height="8" rx="4" fill="#ED8936" />
-    <rect width="24" height="8" rx="4" fill="#38B2AC" />
-  </svg>
+  <rect width="128" height="8" rx="4" fill="#4299E1" />
+  <rect x="1" width="56" height="8" rx="4" fill="#ED8936" />
+  <rect width="24" height="8" rx="4" fill="#38B2AC" />
+</svg>
+
 </div>
 
         <div class="md:pt-8 grid row-gap-8 md:row-gap-12 max-w-3xl -mx-4 sm:mx-auto">
           
-            <div
-  class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex"
->
-  <div
-    class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none"
-  >
+            <div class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex">
+  <div class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none">
     
     <img
       class="inline-block absolute object-cover w-full h-full"
       src="https://jasonliang.js.org/images/chat-app.png"
       alt=""
     />
-    <div
-      class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
-    ></div>
+    <div class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"></div>
     <svg
       viewBox="0 0 78 394"
       fill="currentColor"
       class="hidden sm:block absolute h-full right-0 text-white dark:text-gray-850 -mr-1"
     >
-      <path
-        d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"
-      ></path>
+      <path d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"></path>
     </svg>
   </div>
   <div class="p-6 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
@@ -211,23 +206,23 @@
     <p class="text-gray-800 dark:text-gray-500">A school project. This is a chat application that uses the MERN stack. Messages are sent in real time using Socket.IO.</p>
     <ul class="py-4 text-sm">
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Express
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           MongoDB
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           React
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Tailwind CSS
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Socket.IO
         </li>
       
@@ -243,12 +238,8 @@
           viewBox="0 0 20 20"
           class="text-blue-200 ml-1 w-5 h-5"
         >
-          <path
-            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
-          ></path>
-          <path
-            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
-          ></path>
+          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
         </svg>
       </a>
       <a
@@ -274,29 +265,21 @@
 </div>
 
           
-            <div
-  class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex"
->
-  <div
-    class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none"
-  >
+            <div class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex">
+  <div class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none">
     
     <img
       class="inline-block absolute object-cover w-full h-full"
       src="https://jasonliang.js.org/images/heroicons.png"
       alt=""
     />
-    <div
-      class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
-    ></div>
+    <div class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"></div>
     <svg
       viewBox="0 0 78 394"
       fill="currentColor"
       class="hidden sm:block absolute h-full right-0 text-white dark:text-gray-850 -mr-1"
     >
-      <path
-        d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"
-      ></path>
+      <path d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"></path>
     </svg>
   </div>
   <div class="p-6 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
@@ -304,15 +287,15 @@
     <p class="text-gray-800 dark:text-gray-500">A package for the Elm programming language that provides the Heroicons set as SVG icons. This package was generated using a collection of scripts written in Python and Bash.</p>
     <ul class="py-4 text-sm">
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Elm
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Python
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Bash
         </li>
       
@@ -328,12 +311,8 @@
           viewBox="0 0 20 20"
           class="text-blue-200 ml-1 w-5 h-5"
         >
-          <path
-            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
-          ></path>
-          <path
-            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
-          ></path>
+          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
         </svg>
       </a>
       <a
@@ -359,29 +338,21 @@
 </div>
 
           
-            <div
-  class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex"
->
-  <div
-    class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none"
-  >
+            <div class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex">
+  <div class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none">
     
     <img
       class="inline-block absolute object-cover w-full h-full"
       src="https://jasonliang.js.org/images/wildermaze.png"
       alt=""
     />
-    <div
-      class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
-    ></div>
+    <div class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"></div>
     <svg
       viewBox="0 0 78 394"
       fill="currentColor"
       class="hidden sm:block absolute h-full right-0 text-white dark:text-gray-850 -mr-1"
     >
-      <path
-        d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"
-      ></path>
+      <path d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"></path>
     </svg>
   </div>
   <div class="p-6 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
@@ -389,11 +360,11 @@
     <p class="text-gray-800 dark:text-gray-500">A game that sees the player move a rabbit around a maze, eating carrots, and avoiding wolves. Created during BC Game Jam 2020.</p>
     <ul class="py-4 text-sm">
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Unity
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           C#
         </li>
       
@@ -409,12 +380,8 @@
           viewBox="0 0 20 20"
           class="text-blue-200 ml-1 w-5 h-5"
         >
-          <path
-            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
-          ></path>
-          <path
-            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
-          ></path>
+          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
         </svg>
       </a>
       <a
@@ -440,29 +407,21 @@
 </div>
 
           
-            <div
-  class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex"
->
-  <div
-    class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none"
-  >
+            <div class="group transition-shadow duration-200 bg-white dark:bg-gray-850 shadow-lg hover:shadow-xl rounded-xl sm:flex">
+  <div class="relative h-48 sm:h-auto sm:w-2/5 overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none">
     
     <img
       class="inline-block absolute object-cover w-full h-full"
       src="https://jasonliang.js.org/images/temtem.png"
       alt=""
     />
-    <div
-      class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"
-    ></div>
+    <div class="transition-opacity duration-200 absolute w-full h-full bg-blue-300 dark:bg-gray-800 opacity-25 group-hover:opacity-10"></div>
     <svg
       viewBox="0 0 78 394"
       fill="currentColor"
       class="hidden sm:block absolute h-full right-0 text-white dark:text-gray-850 -mr-1"
     >
-      <path
-        d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"
-      ></path>
+      <path d="M78 0H67.6123C67.6123 0 58.5 0 54.5 9.50006C50.5 19.0001 18.5 375 16 384.5C13.5 394 0 394 0 394H78V0Z"></path>
     </svg>
   </div>
   <div class="p-6 sm:pt-10 sm:pb-12 sm:w-3/5 flex flex-col">
@@ -470,19 +429,19 @@
     <p class="text-gray-800 dark:text-gray-500">A tiny utility app for the video game Temtem. Users can view matchups between different Temtem types.</p>
     <ul class="py-4 text-sm">
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Gatsby
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           GraphQL
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           React
         </li>
       
-        <li class="badge bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-500 mr-2 mb-3">
+        <li class="badge bg-gray-200 dark:bg-gray-900 text-soft mr-2 mb-3">
           Tailwind CSS
         </li>
       
@@ -498,12 +457,8 @@
           viewBox="0 0 20 20"
           class="text-blue-200 ml-1 w-5 h-5"
         >
-          <path
-            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
-          ></path>
-          <path
-            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
-          ></path>
+          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
         </svg>
       </a>
       <a
@@ -538,10 +493,11 @@
   </div>
   <h2 class="text-5xl md:text-6xl font-bold -mt-20 md:-mt-32">About Me</h2>
   <svg width="128" height="8" viewBox="0 0 128 8" fill="none" class="pl-2">
-    <rect width="128" height="8" rx="4" fill="#4299E1" />
-    <rect x="1" width="56" height="8" rx="4" fill="#ED8936" />
-    <rect width="24" height="8" rx="4" fill="#38B2AC" />
-  </svg>
+  <rect width="128" height="8" rx="4" fill="#4299E1" />
+  <rect x="1" width="56" height="8" rx="4" fill="#ED8936" />
+  <rect width="24" height="8" rx="4" fill="#38B2AC" />
+</svg>
+
 </div>
 
         <p class="text-gray-800 dark:text-gray-400 text-xl md:text-2xl md:w-3/4 leading-relaxed">
@@ -569,51 +525,51 @@
   </div>
   <ul class="pt-4 sm:pt-1 sm:pl-4 text-sm md:text-md col-span-2 sm:col-span-1 sm:col-start-2 sm:mr-auto">
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         HTML
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         CSS
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         JavaScript
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         jQuery
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Bootstrap
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Sass
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         React
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Redux
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Gatsby
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Vue
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         TailwindCSS
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Webpack
       </li>
     
@@ -638,27 +594,27 @@
   </div>
   <ul class="pt-4 sm:pt-1 sm:pl-4 text-sm md:text-md col-span-2 sm:col-span-1 sm:col-start-2 sm:mr-auto">
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         PHP
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         SQL
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Apache
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Express
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         MongoDB
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         REST
       </li>
     
@@ -683,31 +639,31 @@
   </div>
   <ul class="pt-4 sm:pt-1 sm:pl-4 text-sm md:text-md col-span-2 sm:col-span-1 sm:col-start-2 sm:mr-auto">
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Figma
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Git
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         C/C&#43;&#43;
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Haskell
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Unity Engine
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Linux
       </li>
     
-      <li class="badge bg-gray-300 dark:bg-gray-850 text-gray-700 dark:text-gray-500 mr-2 mb-3 md:mr-3 md:mb-4">
+      <li class="badge bg-gray-300 dark:bg-gray-850 text-soft mr-2 mb-3 md:mr-3 md:mb-4">
         Bash
       </li>
     
@@ -758,11 +714,18 @@
     </div>
   </div>
 
+          </div>
+        </div>
       </div>
     </div>
     
+      <script src="/main-eadf942d5bd6ebb26a9a.dist.js"></script>
     
-      <script src="/main-7dbab6b13722eee26348.dist.js"></script>
     
+  
+    <script src="/homepage-eadf942d5bd6ebb26a9a.dist.js"></script>
+  
+
   </body>
 </html>
+<!-- Be nice to people -->
