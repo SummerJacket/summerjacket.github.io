@@ -11,7 +11,7 @@ function app() {
   const savedTheme = JSON.parse(localStorage.getItem(DARK_MODE_ENABLED));
 
   return {
-    darkModeEnabled: prefersDark || savedTheme,
+    darkModeEnabled: savedTheme === null ? prefersDark : savedTheme,
     toggleDarkMode() {
       this.darkModeEnabled = !this.darkModeEnabled;
       localStorage.setItem(DARK_MODE_ENABLED, this.darkModeEnabled);

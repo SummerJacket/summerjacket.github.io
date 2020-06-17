@@ -7,18 +7,18 @@
     <meta name="description" content="{{ .Site.Params.description }}" />
     {{ hugo.Generator }}
 
-    {{ $webpackBuild := .Site.Data.webpackAssets }}
-    {{ with $webpackBuild.main.css }}
-      <link href="{{ relURL (.) }}" rel="stylesheet" />
-    {{ end }}
-    {{ block "style" . }}{{ end }}
-
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/twitter_cards.html" . }}
 
     {{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
       {{ template "_internal/google_analytics_async.html" . }}
     {{ end }}
+
+    {{ $webpackBuild := .Site.Data.webpackAssets }}
+    {{ with $webpackBuild.main.css }}
+    <link href="{{ relURL (.) }}" rel="stylesheet" />
+    {{ end }}
+    {{ block "style" . }}{{ end }}
 
     <title>
       {{ block "title" . }}

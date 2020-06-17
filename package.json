@@ -4,7 +4,7 @@
     "clean": "rm -f static/*.dist.* && rm -rf public",
     "watch": "webpack --config webpack.dev.js",
     "build": "NODE_ENV=production webpack --config webpack.prod.js",
-    "deploy": "npm run clean && npm run build && hugo && gh-pages -d public -b master"
+    "deploy": "npm run clean && npm run build && HUGO_ENV=production hugo && gh-pages -d public -b master"
   },
   "dependencies": {
     "alpinejs": "^2.3.5",
