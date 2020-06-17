@@ -26,9 +26,13 @@
   font-weight: 900;
 }
 
+/* -- alpinejs -- */
+
 [x-cloak] {
   @apply hidden;
 }
+
+/* -- global styles -- */
 
 ::selection {
   @apply bg-blue-200 text-blue-800;
@@ -38,6 +42,8 @@
 .mode-dark ::selection {
   @apply bg-blue-700 text-blue-100;
 }
+
+/* -- component styles -- */
 
 .badge {
   @apply inline-block;
@@ -80,7 +86,6 @@
   }
 }
 
-/*
 .text-soft {
   @apply text-gray-700;
 }
@@ -88,4 +93,3 @@
 .mode-dark .text-soft {
   @apply text-gray-500;
 }
-*/

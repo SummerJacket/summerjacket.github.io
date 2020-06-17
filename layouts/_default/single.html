@@ -7,11 +7,11 @@
       See all {{ .Section }}
     </a>
     <section class="pt-4">
-      <small class="block text-sm uppercase font-bold tracking-wider text-gray-700 dark:text-gray-500">
+      <small class="block text-sm uppercase font-bold tracking-wider text-soft">
         {{ .Date.Format "Jan 2, 2006" }}
       </small>
       <h1 class="text-3xl md:text-4xl font-bold leading-tight">{{ .Title }}</h1>
-      {{ partial "colored-horizontal-rule.svg" "ml-2 mt-3 mb-16" }}
+      {{ partial "colored-horizontal-rule.svg" "ml-2 mt-3 mb-12" }}
       <article id="post-content">
         {{ .Content }}
       </article>
@@ -19,7 +19,7 @@
     <aside class="flex pb-16 pt-12">
       {{ with .PrevInSection }}
         <div class="flex-1 pr-4">
-          <div class="text-gray-700 dark:text-gray-500">
+          <div class="text-soft">
             Previous article
           </div>
           <a
@@ -32,7 +32,7 @@
       {{ end }}
       {{ with .NextInSection }}
         <div class="flex-1 ml-auto text-right pl-4">
-          <div class="text-gray-700 dark:text-gray-500">
+          <div class="text-soft">
             Next article
           </div>
           <a
