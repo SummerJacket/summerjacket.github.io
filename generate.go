@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"time"
 )
 
 var globalPathSeparator string = string(os.PathSeparator)
@@ -37,18 +38,32 @@ func copyFile(source string, dest string) error {
 	return nil
 }
 
+func isFileNewer(path string, fileTime time.Time) bool {
+	file, err := os.Open(path)
+	if err != nil {
+		return false
+	}
+
+	info, err := file.Stat()
+	if err != nil {
+		return false
+	}
+
+	return info.ModTime().After(fileTime)
+}
+
 func dropHeadDirectory(path string) string {
 	splitPath := strings.Split(path, globalPathSeparator)
 	return strings.Join(splitPath[1:], globalPathSeparator)
 }
 
-func generatePage(baseofTemplate string, path string) error {
-	bdata, err := ioutil.ReadFile(path)
+func generatePage(baseofTemplate string, source string, dest string) error {
+	bdata, err := ioutil.ReadFile(source)
 	if err != nil {
 		return err
 	}
 
-	tmpl, err := template.New(path).Funcs(template.FuncMap{
+	tmpl, err := template.New(source).Funcs(template.FuncMap{
 		"safeHTML": func(html string) template.HTML {
 			return template.HTML(html)
 		},
@@ -56,8 +71,6 @@ func generatePage(baseofTemplate string, path string) error {
 	if err != nil {
 		return err
 	}
-
-	dest := "dist" + globalPathSeparator + dropHeadDirectory(path)
 
 	if err := os.MkdirAll(filepath.Dir(dest), os.ModePerm); err != nil {
 		return err
@@ -102,7 +115,13 @@ func generateAllPages() {
 			return nil
 		}
 
-		if err = generatePage(baseofTemplate, path); err != nil {
+		dest := "dist" + globalPathSeparator + dropHeadDirectory(path)
+
+		if isFileNewer(dest, info.ModTime()) {
+			return nil
+		}
+
+		if err = generatePage(baseofTemplate, path, dest); err != nil {
 			return err
 		}
 
@@ -125,6 +144,9 @@ func copyStatic() {
 		}
 
 		dest := "dist" + globalPathSeparator + dropHeadDirectory(path)
+		if isFileNewer(dest, info.ModTime()) {
+			return nil
+		}
 
 		if err := os.MkdirAll(filepath.Dir(dest), os.ModePerm); err != nil {
 			return err
