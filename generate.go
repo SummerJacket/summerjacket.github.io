@@ -4,12 +4,43 @@ import (
 	"bufio"
 	"fmt"
 	"html/template"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
 )
+
+var globalPathSeparator string = string(os.PathSeparator)
+
+func copyFile(source string, dest string) error {
+	in, err := os.Open(source)
+	if err != nil {
+		return err
+	}
+
+	defer in.Close()
+
+	out, err := os.Create(dest)
+	if err != nil {
+		return err
+	}
+
+	defer out.Close()
+
+	_, err = io.Copy(out, in)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func dropHeadDirectory(path string) string {
+	splitPath := strings.Split(path, globalPathSeparator)
+	return strings.Join(splitPath[1:], globalPathSeparator)
+}
 
 func generatePage(baseofTemplate string, path string) error {
 	bdata, err := ioutil.ReadFile(path)
@@ -26,15 +57,13 @@ func generatePage(baseofTemplate string, path string) error {
 		return err
 	}
 
-	sep := string(os.PathSeparator)
-	splitPath := strings.Split(path, sep)
-	dropRoot := strings.Join(splitPath[1:], sep)
+	dest := "dist" + globalPathSeparator + dropHeadDirectory(path)
 
-	if err := os.MkdirAll("dist/"+filepath.Dir(dropRoot), os.ModePerm); err != nil {
+	if err := os.MkdirAll(filepath.Dir(dest), os.ModePerm); err != nil {
 		return err
 	}
 
-	fout, err := os.Create("dist/" + dropRoot)
+	fout, err := os.Create(dest)
 	if err != nil {
 		return err
 	}
@@ -47,11 +76,11 @@ func generatePage(baseofTemplate string, path string) error {
 	}
 	wout.Flush()
 
-	fmt.Println("Generated:", dropRoot)
+	fmt.Println("Generated:", dest)
 	return nil
 }
 
-func main() {
+func generateAllPages() {
 	pageRegex, err := regexp.Compile("^[^_]+\\.html$")
 	if err != nil {
 		panic(err)
@@ -83,4 +112,39 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func copyStatic() {
+	err := filepath.Walk("static", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if info.IsDir() {
+			return nil
+		}
+
+		dest := "dist" + globalPathSeparator + dropHeadDirectory(path)
+
+		if err := os.MkdirAll(filepath.Dir(dest), os.ModePerm); err != nil {
+			return err
+		}
+
+		if err := copyFile(path, dest); err != nil {
+			return err
+		}
+
+		fmt.Println("Copied:", dest)
+
+		return nil
+	})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func main() {
+	generateAllPages()
+	copyStatic()
 }

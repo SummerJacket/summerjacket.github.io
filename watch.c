@@ -15,10 +15,10 @@ internal void ExecuteCommand(char *param)
     ShellExecute(NULL, "open", "cmd.exe", param, NULL, SW_HIDE);
 }
 
-internal void WatchDirectory(LPTSTR lpDir, char *param)
+internal void WatchDirectory(char *dir, char *param)
 {
     HANDLE changeHandle = FindFirstChangeNotification(
-        lpDir, true, FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE);
+        dir, true, FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE);
 
     if (changeHandle == INVALID_HANDLE_VALUE || changeHandle == NULL)
     {
@@ -61,7 +61,11 @@ internal void Usage(char *prog)
 
 int main(int argc, char *argv[])
 {
-    if (argc == 1)
+    if (argc == 0)
+    {
+        ExitProcess(1);
+    }
+    else if (argc == 1)
     {
         Usage(argv[0]);
     }
