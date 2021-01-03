@@ -30,11 +30,11 @@ func generatePage(baseofTemplate string, path string) error {
 	splitPath := strings.Split(path, sep)
 	dropRoot := strings.Join(splitPath[1:], sep)
 
-	if err := os.MkdirAll("build/"+filepath.Dir(dropRoot), os.ModePerm); err != nil {
+	if err := os.MkdirAll("dist/"+filepath.Dir(dropRoot), os.ModePerm); err != nil {
 		return err
 	}
 
-	fout, err := os.Create("build/" + dropRoot)
+	fout, err := os.Create("dist/" + dropRoot)
 	if err != nil {
 		return err
 	}
