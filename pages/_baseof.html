@@ -5,10 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="description" content="idk lol" />
+    <link href="style.css" rel="stylesheet" />
     {{ block "style" . }}{{ end }}
     <title>Jason Liang</title>
   </head>
   <body>
+    <header class="flex items-center">
+      <h1>Jason Liang</h1>
+      <nav class="ml-auto">
+        <a href="https://github.com/jasonliang-dev">GitHub</a>
+      </nav>
+    </header>
     <main>
       {{ block "main" . }}{{ end }}
     </main>

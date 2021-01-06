@@ -15,47 +15,52 @@ internal void ExecuteCommand(char *param)
     ShellExecute(NULL, "open", "cmd.exe", param, NULL, SW_HIDE);
 }
 
-internal void WatchDirectory(char *dir, char *param)
+internal void WatchDirectories(char **dirs, int ndirs, char *param)
 {
-    HANDLE changeHandle = FindFirstChangeNotification(
-        dir, true, FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE);
-
-    if (changeHandle == INVALID_HANDLE_VALUE || changeHandle == NULL)
+    HANDLE *changeHandles = _malloca(sizeof(HANDLE) * ndirs);
+    for (int i = 0; i < ndirs; i++)
     {
-        fputs("FindFirstChangeNotification function failed.\n", stderr);
-        ExitProcess(GetLastError());
+        changeHandles[i] = FindFirstChangeNotification(
+            dirs[i], true, FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE);
+
+        if (changeHandles[i] == INVALID_HANDLE_VALUE || changeHandles[i] == NULL)
+        {
+            fputs("FindFirstChangeNotification function failed.\n", stderr);
+            ExitProcess(GetLastError());
+        }
     }
 
     printf("Listening for file changes...\n");
-    DWORD waitStatus;
+    unsigned long waitStatus;
     while (true)
     {
-        waitStatus = WaitForSingleObject(changeHandle, INFINITE);
-        switch (waitStatus)
+        waitStatus = WaitForMultipleObjects(ndirs, changeHandles, false, INFINITE);
+        if (WAIT_OBJECT_0 <= waitStatus && waitStatus < WAIT_OBJECT_0 + ndirs)
         {
-        case WAIT_OBJECT_0:
             ExecuteCommand(param);
-            if (!FindNextChangeNotification(changeHandle))
+            if (!FindNextChangeNotification(changeHandles[waitStatus - WAIT_OBJECT_0]))
             {
                 fputs("FindNextChangeNotification function failed.\n", stderr);
                 ExitProcess(GetLastError());
             }
-            break;
-
-        case WAIT_TIMEOUT:
-            break;
-
-        default:
+        }
+        else if (waitStatus == WAIT_TIMEOUT)
+        {
+            continue;
+        }
+        else
+        {
             fputs("Unhandled waitStatus.\n", stderr);
             ExitProcess(GetLastError());
-            break;
         }
     }
+
+    _freea(changeHandles);
 }
 
 internal void Usage(char *prog)
 {
-    fprintf(stderr, "usage: %s -d DIRECTORY -c COMMAND\n", prog);
+    fprintf(stderr, "usage: %s -d DIRECTORY [-d DIRECTORY ...] -c COMMAND\n", prog);
     ExitProcess(1);
 }
 
@@ -71,7 +76,8 @@ int main(int argc, char *argv[])
     }
 
     char *cmd = NULL;
-    char *dirToWatch = NULL;
+    char **dirsToWatch = _malloca(sizeof(char *) * argc);
+    int dirsToWatchCount = 0;
 
     for (int i = 1; i < argc; i++)
     {
@@ -86,7 +92,7 @@ int main(int argc, char *argv[])
         }
         else if (!strcmp(argv[i], "-d"))
         {
-            dirToWatch = argv[++i];
+            dirsToWatch[dirsToWatchCount++] = argv[++i];
         }
         else
         {
@@ -94,7 +100,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (!cmd || !dirToWatch)
+    if (!cmd || dirsToWatchCount == 0)
     {
         Usage(argv[0]);
     }
@@ -105,8 +111,9 @@ int main(int argc, char *argv[])
     memcpy(param + 3, cmd, sizeof(char) * cmdlen);
 
     ExecuteCommand(param);
-    WatchDirectory(dirToWatch, param);
+    WatchDirectories(dirsToWatch, dirsToWatchCount, param);
 
+    _freea(dirsToWatch);
     _freea(param);
     return 0;
 }
